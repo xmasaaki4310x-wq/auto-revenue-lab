@@ -78,18 +78,14 @@ function hasRakutenKeys(siteConfig) {
 
 async function checkRakutenAccess(siteConfig) {
   const testKeyword = siteConfig.topics[0]?.fallbackKeywords?.[0] || siteConfig.topics[0]?.keyword || "水";
-  const modes = ["query", "header"];
   let lastReason = "auth-check-failed";
 
-  for (const mode of modes) {
-    try {
-      await fetchRakutenItems(testKeyword, siteConfig, true, { hits: 1, accessKeyMode: mode });
-      return { ok: true, mode, reason: `auth-ok-${mode}` };
-    } catch (error) {
-      lastReason = `auth-check ${mode}: ${error.message}`;
-      console.warn(`Rakuten auth check failed using ${mode}: ${error.message}`);
-      if (error.message.includes("HTTP 429")) break;
-    }
+  try {
+    await fetchRakutenItems(testKeyword, siteConfig, true, { hits: 1, accessKeyMode: "query" });
+    return { ok: true, mode: "query", reason: "auth-ok-query" };
+  } catch (error) {
+    lastReason = `auth-check query: ${error.message}`;
+    console.warn(`Rakuten auth check failed: ${error.message}`);
   }
 
   return { ok: false, mode: "none", reason: lastReason };
@@ -145,30 +141,19 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
     keyword,
     format: "json",
     formatVersion: "2",
-    hits: String(options.hits || siteConfig.maxItemsPerTopic),
-    availability: "1",
-    imageFlag: "1",
-    sort: "-reviewCount",
-    elements: "itemName,itemPrice,itemUrl,affiliateUrl,mediumImageUrls,reviewAverage,reviewCount,affiliateRate,itemCaption"
+    hits: String(options.hits || siteConfig.maxItemsPerTopic)
   });
 
   if (accessKeyMode === "query") {
     params.set("accessKey", process.env[rakuten.accessKeyEnv]);
   }
 
-  if (!relaxed) {
-    params.set("hasReviewFlag", "1");
-    params.set("minAffiliateRate", String(rakuten.minAffiliateRate));
-  }
-
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
   const headers = {
-    "User-Agent": "kurashi-dougu-note/0.5",
+    "User-Agent": "kurashi-dougu-note/0.6",
     Referer: `${siteConfig.baseUrl.replace(/\/$/, "")}/`
   };
-  if (accessKeyMode === "header") {
-    headers.accessKey = process.env[rakuten.accessKeyEnv];
-  }
+
   const response = await fetch(endpoint, {
     headers
   });
