@@ -137,7 +137,7 @@ async function writeHomePage(topicResults) {
     body: `
       <section class="hero">
         <div>
-          <p class="eyebrow">Auto affiliate discovery</p>
+          <p class="eyebrow">Living goods guide</p>
           <h1>${escapeHtml(config.siteName)}</h1>
           <p>${escapeHtml(config.description)}</p>
         </div>
@@ -152,8 +152,8 @@ async function writeHomePage(topicResults) {
         ${topicCards}
       </section>
       <section class="plain-section">
-        <h2>収益化の仕組み</h2>
-        <p>商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生します。掲載順位はレビュー、評価、価格、料率をもとに自動計算しています。</p>
+        <h2>掲載の考え方</h2>
+        <p>商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合があります。掲載候補はレビュー、評価、価格などをもとに整理しています。</p>
       </section>`
   });
 

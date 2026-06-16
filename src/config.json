@@ -1,7 +1,7 @@
 {
-  "siteName": "自動収益ラボ",
-  "tagline": "毎日更新される、生活改善アイテムの発見サイト",
-  "description": "レビュー数、評価、価格、アフィリエイト料率をもとに、買う理由が説明しやすい商品を自動で整理します。",
+  "siteName": "くらし道具ノート",
+  "tagline": "毎日の不便を減らす道具選び",
+  "description": "在宅ワーク、防災、収納など、日々の暮らしで役立つ道具をレビュー数、評価、価格のバランスから整理します。",
   "language": "ja",
   "baseUrl": "https://xmasaaki4310x-wq.github.io/auto-revenue-lab",
   "currency": "JPY",
@@ -52,7 +52,7 @@
     }
   ],
   "operator": {
-    "name": "運営者名を入力してください",
+    "name": "くらし道具ノート編集部",
     "contact": "contact@example.com"
   }
 }
