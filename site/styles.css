@@ -62,6 +62,16 @@ main {
   margin: 0 auto;
 }
 
+.ad-notice {
+  margin: 18px 0 0;
+  padding: 10px 12px;
+  background: #fff7ec;
+  border: 1px solid #e7c8a8;
+  border-radius: 6px;
+  color: #604022;
+  font-size: 14px;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;

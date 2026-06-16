@@ -276,6 +276,7 @@ function layout({ title, description, body }) {
     </nav>
   </header>
   <main>
+    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。リンク経由で購入や申込が発生すると、運営者が紹介料を受け取ることがあります。</div>
     ${body}
   </main>
   <footer class="site-footer">

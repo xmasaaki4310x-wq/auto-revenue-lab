@@ -3,7 +3,7 @@
   "tagline": "毎日更新される、生活改善アイテムの発見サイト",
   "description": "レビュー数、評価、価格、アフィリエイト料率をもとに、買う理由が説明しやすい商品を自動で整理します。",
   "language": "ja",
-  "baseUrl": "",
+  "baseUrl": "https://xmasaaki4310x-wq.github.io/auto-revenue-lab",
   "currency": "JPY",
   "maxItemsPerTopic": 12,
   "rakuten": {
