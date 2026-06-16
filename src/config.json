@@ -1,0 +1,58 @@
+{
+  "siteName": "自動収益ラボ",
+  "tagline": "毎日更新される、生活改善アイテムの発見サイト",
+  "description": "レビュー数、評価、価格、アフィリエイト料率をもとに、買う理由が説明しやすい商品を自動で整理します。",
+  "language": "ja",
+  "baseUrl": "",
+  "currency": "JPY",
+  "maxItemsPerTopic": 12,
+  "rakuten": {
+    "applicationIdEnv": "RAKUTEN_APPLICATION_ID",
+    "accessKeyEnv": "RAKUTEN_ACCESS_KEY",
+    "affiliateIdEnv": "RAKUTEN_AFFILIATE_ID",
+    "minAffiliateRate": 2,
+    "minReviewAverage": 4,
+    "minReviewCount": 5
+  },
+  "topics": [
+    {
+      "slug": "remote-work-desk",
+      "keyword": "在宅ワーク デスク 周辺機器",
+      "title": "在宅ワークを整えるデスク周辺アイテム",
+      "angle": "机まわりの疲れ、配線、作業効率を改善しやすいものを優先"
+    },
+    {
+      "slug": "disaster-prep",
+      "keyword": "防災 グッズ セット",
+      "title": "一人暮らしにも置きやすい防災グッズ",
+      "angle": "レビューが多く、保管しやすく、買い足し判断がしやすいものを優先"
+    },
+    {
+      "slug": "small-home-upgrades",
+      "keyword": "一人暮らし 便利グッズ",
+      "title": "小さな暮らしの便利グッズ",
+      "angle": "価格が重すぎず、日常の不満を減らしやすいものを優先"
+    }
+  ],
+  "manualPrograms": [
+    {
+      "name": "A8.net",
+      "url": "https://www.a8.net/",
+      "note": "無料登録可能。提携後に発行される広告リンクを記事内の手動枠へ追加できます。"
+    },
+    {
+      "name": "Amazonアソシエイト",
+      "url": "https://affiliate.amazon.co.jp/",
+      "note": "審査あり。承認後にテキストリンクや商品リンクを手動枠へ追加できます。"
+    },
+    {
+      "name": "Google AdSense",
+      "url": "https://www.google.com/adsense/start/",
+      "note": "独自性のあるコンテンツとサイト所有権が必要。アクセスが増えてから追加する広告候補です。"
+    }
+  ],
+  "operator": {
+    "name": "運営者名を入力してください",
+    "contact": "contact@example.com"
+  }
+}

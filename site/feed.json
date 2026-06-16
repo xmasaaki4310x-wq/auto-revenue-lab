@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-06-16T05:33:48.256Z",
+  "liveData": false,
+  "topics": [
+    {
+      "slug": "remote-work-desk",
+      "title": "在宅ワークを整えるデスク周辺アイテム",
+      "keyword": "在宅ワーク デスク 周辺機器",
+      "items": [
+        {
+          "name": "姿勢を整えるノートPCスタンド",
+          "price": 2980,
+          "url": "https://example.com/sample-laptop-stand",
+          "directUrl": "https://example.com/sample-laptop-stand",
+          "imageUrl": "https://placehold.co/480x360/e7f0f3/1c3036?text=Desk+Stand",
+          "reviewAverage": 4.5,
+          "reviewCount": 128,
+          "affiliateRate": 4,
+          "caption": "",
+          "reason": "平均評価 4.5 / レビュー 128 件 / 料率 4% / ￥2,980 台",
+          "score": 137
+        },
+        {
+          "name": "配線を隠せるケーブルボックス",
+          "price": 1990,
+          "url": "https://example.com/sample-cable-box",
+          "directUrl": "https://example.com/sample-cable-box",
+          "imageUrl": "https://placehold.co/480x360/f0ece5/32302c?text=Cable+Box",
+          "reviewAverage": 4.3,
+          "reviewCount": 86,
+          "affiliateRate": 3,
+          "caption": "",
+          "reason": "平均評価 4.3 / レビュー 86 件 / 料率 3% / ￥1,990 台",
+          "score": 122.1
+        }
+      ]
+    },
+    {
+      "slug": "disaster-prep",
+      "title": "一人暮らしにも置きやすい防災グッズ",
+      "keyword": "防災 グッズ セット",
+      "items": [
+        {
+          "name": "非常食とライト入り防災セット",
+          "price": 5980,
+          "url": "https://example.com/sample-emergency-kit",
+          "directUrl": "https://example.com/sample-emergency-kit",
+          "imageUrl": "https://placehold.co/480x360/e9eee0/26331f?text=Emergency+Kit",
+          "reviewAverage": 4.4,
+          "reviewCount": 210,
+          "affiliateRate": 5,
+          "caption": "",
+          "reason": "平均評価 4.4 / レビュー 210 件 / 料率 5% / ￥5,980 台",
+          "score": 148.4
+        },
+        {
+          "name": "折りたたみ給水バッグ 10L",
+          "price": 880,
+          "url": "https://example.com/sample-water-bag",
+          "directUrl": "https://example.com/sample-water-bag",
+          "imageUrl": "https://placehold.co/480x360/dfeaf2/20303b?text=Water+Bag",
+          "reviewAverage": 4.2,
+          "reviewCount": 44,
+          "affiliateRate": 3,
+          "caption": "",
+          "reason": "平均評価 4.2 / レビュー 44 件 / 料率 3% / ￥880 台",
+          "score": 115.6
+        }
+      ]
+    },
+    {
+      "slug": "small-home-upgrades",
+      "title": "小さな暮らしの便利グッズ",
+      "keyword": "一人暮らし 便利グッズ",
+      "items": [
+        {
+          "name": "省スペース吊り下げ収納ラック",
+          "price": 1680,
+          "url": "https://example.com/sample-storage-rack",
+          "directUrl": "https://example.com/sample-storage-rack",
+          "imageUrl": "https://placehold.co/480x360/eee7df/2f2a24?text=Storage+Rack",
+          "reviewAverage": 4.1,
+          "reviewCount": 73,
+          "affiliateRate": 4,
+          "caption": "",
+          "reason": "平均評価 4.1 / レビュー 73 件 / 料率 4% / ￥1,680 台",
+          "score": 127
+        },
+        {
+          "name": "マグネット式キッチンタイマー",
+          "price": 980,
+          "url": "https://example.com/sample-kitchen-timer",
+          "directUrl": "https://example.com/sample-kitchen-timer",
+          "imageUrl": "https://placehold.co/480x360/e4edf0/263235?text=Timer",
+          "reviewAverage": 4.6,
+          "reviewCount": 51,
+          "affiliateRate": 3,
+          "caption": "",
+          "reason": "平均評価 4.6 / レビュー 51 件 / 料率 3% / ￥980 台",
+          "score": 122.3
+        }
+      ]
+    }
+  ]
+}

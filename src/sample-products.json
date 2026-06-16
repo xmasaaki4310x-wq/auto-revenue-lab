@@ -1,0 +1,68 @@
+{
+  "remote-work-desk": [
+    {
+      "itemName": "姿勢を整えるノートPCスタンド",
+      "itemPrice": 2980,
+      "itemUrl": "https://example.com/sample-laptop-stand",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e7f0f3/1c3036?text=Desk+Stand" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 128,
+      "affiliateRate": 4
+    },
+    {
+      "itemName": "配線を隠せるケーブルボックス",
+      "itemPrice": 1990,
+      "itemUrl": "https://example.com/sample-cable-box",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/f0ece5/32302c?text=Cable+Box" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 86,
+      "affiliateRate": 3
+    }
+  ],
+  "disaster-prep": [
+    {
+      "itemName": "非常食とライト入り防災セット",
+      "itemPrice": 5980,
+      "itemUrl": "https://example.com/sample-emergency-kit",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e9eee0/26331f?text=Emergency+Kit" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 210,
+      "affiliateRate": 5
+    },
+    {
+      "itemName": "折りたたみ給水バッグ 10L",
+      "itemPrice": 880,
+      "itemUrl": "https://example.com/sample-water-bag",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/dfeaf2/20303b?text=Water+Bag" }],
+      "reviewAverage": 4.2,
+      "reviewCount": 44,
+      "affiliateRate": 3
+    }
+  ],
+  "small-home-upgrades": [
+    {
+      "itemName": "省スペース吊り下げ収納ラック",
+      "itemPrice": 1680,
+      "itemUrl": "https://example.com/sample-storage-rack",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/eee7df/2f2a24?text=Storage+Rack" }],
+      "reviewAverage": 4.1,
+      "reviewCount": 73,
+      "affiliateRate": 4
+    },
+    {
+      "itemName": "マグネット式キッチンタイマー",
+      "itemPrice": 980,
+      "itemUrl": "https://example.com/sample-kitchen-timer",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e4edf0/263235?text=Timer" }],
+      "reviewAverage": 4.6,
+      "reviewCount": 51,
+      "affiliateRate": 3
+    }
+  ]
+}

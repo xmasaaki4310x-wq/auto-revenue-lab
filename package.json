@@ -1,0 +1,11 @@
+{
+  "name": "auto-revenue-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "build:offline": "node src/build.mjs --offline",
+    "serve": "node src/serve.mjs"
+  }
+}
