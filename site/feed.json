@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T11:30:57.943Z",
+  "generatedAt": "2026-06-16T11:50:21.836Z",
   "liveData": false,
   "dataMode": "sample",
   "season": {
@@ -35,6 +35,7 @@
           "affiliateRate": 4,
           "caption": "割り材にも日常用にも使いやすい炭酸水のケース商品。",
           "reason": "平均評価 4.6 / レビュー 16,111 件 / 価格目安 ￥2,550",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%BC%B7%E7%82%AD%E9%85%B8%E6%B0%B4%20500ml%2048%E6%9C%AC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84/",
           "source": "sample",
           "score": 184.2
         },
@@ -49,6 +50,7 @@
           "affiliateRate": 3,
           "caption": "毎日使いやすい500mlのケース買い。ラベルレスで分別しやすいタイプ。",
           "reason": "平均評価 4.7 / レビュー 5,796 件 / 価格目安 ￥1,999",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%A9%E3%83%99%E3%83%AB%E3%83%AC%E3%82%B9%E5%A4%A9%E7%84%B6%E6%B0%B4%20500ml%2042%E6%9C%AC%E3%82%BB%E3%83%83%E3%83%88/",
           "source": "sample",
           "score": 174
         },
@@ -63,6 +65,7 @@
           "affiliateRate": 3,
           "caption": "食事や外出時に使いやすいお茶のまとめ買い候補。",
           "reason": "平均評価 4.7 / レビュー 3,158 件 / 価格目安 ￥1,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E7%B7%91%E8%8C%B6%E3%83%9A%E3%83%83%E3%83%88%E3%83%9C%E3%83%88%E3%83%AB%20500ml%2024%E6%9C%AC/",
           "source": "sample",
           "score": 168.2
         }
@@ -85,6 +88,7 @@
           "affiliateRate": 3,
           "caption": "日常の主食として比較しやすい10kgタイプ。5kg袋で保管しやすい構成。",
           "reason": "平均評価 4.7 / レビュー 8,093 件 / 価格目安 ￥5,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%9B%BD%E7%94%A3%E3%83%96%E3%83%AC%E3%83%B3%E3%83%89%E7%B1%B3%2010kg%205kg%C3%972%E8%A2%8B/",
           "source": "sample",
           "score": 172.2
         },
@@ -99,6 +103,7 @@
           "affiliateRate": 4,
           "caption": "忙しい日や備蓄用に置きやすいパックごはん。",
           "reason": "平均評価 4.5 / レビュー 1,840 件 / 価格目安 ￥3,280",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%B8%B8%E6%B8%A9%E4%BF%9D%E5%AD%98%E3%81%94%E3%81%AF%E3%82%93%2024%E9%A3%9F%E3%82%BB%E3%83%83%E3%83%88/",
           "source": "sample",
           "score": 161.8
         },
@@ -113,6 +118,7 @@
           "affiliateRate": 5,
           "caption": "常温で保管しやすい食品セット。献立の予備にも使いやすい候補。",
           "reason": "平均評価 4.4 / レビュー 1,120 件 / 価格目安 ￥3,990",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%AC%E3%83%88%E3%83%AB%E3%83%88%E9%A3%9F%E5%93%81%20%E8%A9%B0%E3%82%81%E5%90%88%E3%82%8F%E3%81%9B%2020%E9%A3%9F/",
           "source": "sample",
           "score": 157.5
         }
@@ -135,6 +141,7 @@
           "affiliateRate": 4,
           "caption": "夏ギフトや家族用に比較されやすいうなぎのギフト候補。",
           "reason": "平均評価 4.6 / レビュー 18,886 件 / 価格目安 ￥5,990",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%9B%BD%E7%94%A3%E3%81%86%E3%81%AA%E3%81%8E%E8%92%B2%E7%84%BC%E3%81%8D%20%E3%82%AE%E3%83%95%E3%83%88%E3%82%BB%E3%83%83%E3%83%88/",
           "source": "sample",
           "score": 180.7
         },
@@ -149,6 +156,7 @@
           "affiliateRate": 4,
           "caption": "職場や家族向けに配りやすいドリップバッグのギフト候補。",
           "reason": "平均評価 4.4 / レビュー 2,450 件 / 価格目安 ￥2,990",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E3%82%AE%E3%83%95%E3%83%88%20%E3%83%89%E3%83%AA%E3%83%83%E3%83%97%E3%83%90%E3%83%83%E3%82%B0%2050%E8%A2%8B/",
           "source": "sample",
           "score": 163
         },
@@ -163,6 +171,7 @@
           "affiliateRate": 5,
           "caption": "季節の贈り物や自宅用のご褒美として見比べやすい冷菓セット。",
           "reason": "平均評価 4.5 / レビュー 960 件 / 価格目安 ￥3,880",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E9%81%B8%E3%81%B9%E3%82%8B%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%BC%E3%83%88%206%E5%80%8B%20%E8%A9%B0%E3%82%81%E5%90%88%E3%82%8F%E3%81%9B/",
           "source": "sample",
           "score": 157.6
         }

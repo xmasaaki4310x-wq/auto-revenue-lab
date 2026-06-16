@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <rect width="960" height="600" fill="#fae8df"/>
+  <circle cx="774" cy="126" r="84" fill="#efc7b6"/>
+  <circle cx="190" cy="484" r="94" fill="#f3d9cf"/>
+  <path d="M0 454C136 414 258 420 392 470C522 518 650 584 786 562C864 550 910 518 960 492V600H0Z" fill="#f0cbbd"/>
+  <g transform="translate(154 124)">
+    <rect x="0" y="108" width="190" height="238" rx="18" fill="#fffdf9" stroke="#dfd3cd"/>
+    <rect x="82" y="108" width="24" height="238" fill="#d76d46"/>
+    <rect x="0" y="212" width="190" height="24" fill="#d76d46"/>
+    <circle cx="78" cy="212" r="34" fill="#f4b58f"/>
+    <circle cx="112" cy="212" r="34" fill="#f1c8b5"/>
+    <rect x="240" y="42" width="124" height="304" rx="62" fill="#ffffff" stroke="#dfd3cd"/>
+    <rect x="276" y="82" width="52" height="156" rx="26" fill="#a55537"/>
+    <ellipse cx="302" cy="270" rx="34" ry="24" fill="#f5dcd1"/>
+    <rect x="418" y="134" width="232" height="212" rx="18" fill="#fffdf9" stroke="#dfd3cd"/>
+    <rect x="446" y="162" width="176" height="18" rx="9" fill="#d76d46"/>
+    <rect x="446" y="198" width="124" height="14" rx="7" fill="#efc0aa"/>
+    <rect x="446" y="226" width="150" height="14" rx="7" fill="#efc0aa"/>
+    <rect x="446" y="254" width="96" height="14" rx="7" fill="#efc0aa"/>
+  </g>
+</svg>

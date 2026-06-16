@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile, copyFile, rm } from "node:fs/promises";
+import { mkdir, readFile, writeFile, copyFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
@@ -14,6 +14,7 @@ const diagnostics = [];
 await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
 await copyFile(path.join(root, "src", "styles.css"), path.join(outDir, "styles.css"));
+await cp(path.join(root, "src", "assets"), path.join(outDir, "assets"), { recursive: true });
 
 const keysPresent = hasRakutenKeys(config) && !offline;
 const topicResults = {};
@@ -164,8 +165,14 @@ function normalizeItem(raw, topic, source) {
     affiliateRate,
     caption: stripHtml(String(raw.itemCaption || "")),
     reason: makeReason({ reviewAverage, reviewCount, price }),
+    fallbackUrl: buildRakutenSearchUrl(raw.itemName || topic.keyword),
     source
   };
+}
+
+function buildRakutenSearchUrl(value) {
+  const query = String(value || "").trim();
+  return query ? `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(query)}/` : "https://search.rakuten.co.jp/";
 }
 
 function resolveImageUrl(raw, topic, source) {
@@ -230,6 +237,7 @@ async function writeHomePage(topicResults, dataMode) {
     return `
       <article class="topic-card ${escapeAttribute(topic.accent || "")}">
         <a href="${topic.slug}.html" class="topic-link">
+          <img class="topic-visual" src="assets/${escapeAttribute(topic.slug)}.svg" alt="${escapeAttribute(topic.title)}" loading="lazy">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
@@ -257,6 +265,7 @@ async function writeHomePage(topicResults, dataMode) {
     body: `
       <section class="hero">
         <div class="hero-copy">
+          <img class="hero-visual" src="assets/season-hero.svg" alt="季節の買い物候補イメージ" loading="lazy">
           <p class="eyebrow">${escapeHtml(season.label)}</p>
           <h1>${escapeHtml(config.siteName)}</h1>
           <p>${escapeHtml(config.description)}</p>
@@ -321,7 +330,7 @@ async function writeTopicPage(topic, items, source) {
         ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 130))}</p>` : ""}
         ${item.url
           ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">販売ページで確認</a>`
-          : `<span class="buy-link disabled">販売ページ準備中</span>`}
+          : `<a class="buy-link search" href="${escapeAttribute(item.fallbackUrl)}" rel="noopener" target="_blank">楽天で候補を見る</a>`}
       </div>
     </article>
   `).join("");
@@ -332,6 +341,7 @@ async function writeTopicPage(topic, items, source) {
     body: `
       <nav class="breadcrumb"><a href="index.html">トップ</a> / ${escapeHtml(topic.title)}</nav>
       <section class="page-heading topic-heading ${escapeAttribute(topic.accent || "")}">
+        <img class="topic-heading-visual" src="assets/${escapeAttribute(topic.slug)}.svg" alt="${escapeAttribute(topic.title)}" loading="lazy">
         <p class="eyebrow">${escapeHtml(topic.keyword)}</p>
         <h1>${escapeHtml(topic.title)}</h1>
         <p>${escapeHtml(topic.angle)}</p>
