@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-06-16T11:28:11.421Z",
+  "dataMode": "sample",
+  "diagnostics": [
+    {
+      "slug": "drink-stock",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "rice-pantry",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "seasonal-gifts",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    }
+  ]
+}

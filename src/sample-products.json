@@ -3,7 +3,7 @@
     {
       "itemName": "ラベルレス天然水 500ml 42本セット",
       "itemPrice": 1999,
-      "itemUrl": "https://example.com/sample-water-case",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e8f3f4/17343a?text=Water+Stock" }],
       "reviewAverage": 4.7,
@@ -14,7 +14,7 @@
     {
       "itemName": "強炭酸水 500ml 48本 まとめ買い",
       "itemPrice": 2550,
-      "itemUrl": "https://example.com/sample-sparkling-water",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/dff0ea/19423c?text=Sparkling+Water" }],
       "reviewAverage": 4.6,
@@ -25,7 +25,7 @@
     {
       "itemName": "緑茶ペットボトル 500ml 24本",
       "itemPrice": 1980,
-      "itemUrl": "https://example.com/sample-green-tea",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e6f0dc/334018?text=Green+Tea" }],
       "reviewAverage": 4.7,
@@ -38,7 +38,7 @@
     {
       "itemName": "国産ブレンド米 10kg 5kg×2袋",
       "itemPrice": 5980,
-      "itemUrl": "https://example.com/sample-rice",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f3eee0/3d3320?text=Rice+10kg" }],
       "reviewAverage": 4.7,
@@ -49,7 +49,7 @@
     {
       "itemName": "常温保存ごはん 24食セット",
       "itemPrice": 3280,
-      "itemUrl": "https://example.com/sample-packed-rice",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f4ead8/4b3826?text=Packed+Rice" }],
       "reviewAverage": 4.5,
@@ -60,7 +60,7 @@
     {
       "itemName": "レトルト食品 詰め合わせ 20食",
       "itemPrice": 3990,
-      "itemUrl": "https://example.com/sample-retort-food",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/efe4d5/432c22?text=Pantry+Set" }],
       "reviewAverage": 4.4,
@@ -73,7 +73,7 @@
     {
       "itemName": "国産うなぎ蒲焼き ギフトセット",
       "itemPrice": 5990,
-      "itemUrl": "https://example.com/sample-unagi-gift",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f1e1d3/4d2319?text=Summer+Gift" }],
       "reviewAverage": 4.6,
@@ -84,7 +84,7 @@
     {
       "itemName": "選べるジェラート 6個 詰め合わせ",
       "itemPrice": 3880,
-      "itemUrl": "https://example.com/sample-gelato",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f7e9ef/4b2636?text=Gelato+Gift" }],
       "reviewAverage": 4.5,
@@ -95,7 +95,7 @@
     {
       "itemName": "コーヒーギフト ドリップバッグ 50袋",
       "itemPrice": 2990,
-      "itemUrl": "https://example.com/sample-coffee-gift",
+      "itemUrl": "",
       "affiliateUrl": "",
       "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eadfce/39291f?text=Coffee+Gift" }],
       "reviewAverage": 4.4,

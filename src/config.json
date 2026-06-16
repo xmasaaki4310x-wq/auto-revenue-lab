@@ -18,6 +18,7 @@
     {
       "slug": "drink-stock",
       "keyword": "水 炭酸水 お茶 まとめ買い ラベルレス",
+      "fallbackKeywords": ["炭酸水 48本", "天然水 500ml", "お茶 24本"],
       "title": "水・炭酸水・お茶のまとめ買い",
       "angle": "レビュー数、容量、価格帯を見ながら、日常用と備蓄用の候補を整理します。",
       "accent": "daily"
@@ -25,6 +26,7 @@
     {
       "slug": "rice-pantry",
       "keyword": "米 10kg 保存食 レトルト 常温保存",
+      "fallbackKeywords": ["米 10kg", "パックごはん 24食", "保存食 セット"],
       "title": "米・保存食・常温ストック",
       "angle": "買い置きしやすい主食や保存食を、容量とレビューの多さで比較します。",
       "accent": "stock"
@@ -32,6 +34,7 @@
     {
       "slug": "seasonal-gifts",
       "keyword": "お中元 夏ギフト うなぎ アイス コーヒー",
+      "fallbackKeywords": ["お中元 うなぎ", "夏ギフト アイス", "コーヒーギフト"],
       "title": "季節ギフトと手土産候補",
       "angle": "父の日、お中元、敬老の日など、時期に合わせた贈り物候補を整理します。",
       "accent": "season"

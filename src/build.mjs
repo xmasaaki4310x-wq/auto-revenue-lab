@@ -9,37 +9,60 @@ const config = JSON.parse(await readFile(path.join(root, "src", "config.json"), 
 const samples = JSON.parse(await readFile(path.join(root, "src", "sample-products.json"), "utf8"));
 const now = new Date();
 const season = getSeason(now);
+const diagnostics = [];
 
 await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
 await copyFile(path.join(root, "src", "styles.css"), path.join(outDir, "styles.css"));
 
-const liveEnabled = hasRakutenKeys(config) && !offline;
+const keysPresent = hasRakutenKeys(config) && !offline;
 const topicResults = {};
+let liveTopicCount = 0;
 
 for (const topic of config.topics) {
-  const liveItems = liveEnabled ? await fetchRakutenItems(topic, config).catch((error) => {
-    console.warn(`Rakuten fetch failed for ${topic.keyword}: ${error.message}`);
-    return [];
-  }) : [];
+  const fetchResult = keysPresent
+    ? await fetchTopicItems(topic, config)
+    : { source: "sample", items: [], keyword: null, reason: offline ? "offline-mode" : "missing-keys" };
 
-  const items = (liveItems.length ? liveItems : samples[topic.slug] || [])
-    .map(normalizeItem)
-    .filter((item) => item.name && item.url)
+  const source = fetchResult.items.length ? "live" : "sample";
+  if (source === "live") liveTopicCount += 1;
+
+  const rawItems = source === "live" ? fetchResult.items : samples[topic.slug] || [];
+  const normalizedItems = rawItems
+    .map((raw) => normalizeItem(raw, topic, source))
+    .filter((item) => item.name)
+    .map((item) => source === "sample" ? { ...item, url: "", directUrl: "" } : item)
     .map((item) => ({ ...item, score: scoreItem(item) }))
     .sort((a, b) => b.score - a.score)
     .slice(0, config.maxItemsPerTopic);
 
-  topicResults[topic.slug] = items;
-  await writeTopicPage(topic, items);
+  topicResults[topic.slug] = {
+    items: normalizedItems,
+    source,
+    keyword: fetchResult.keyword,
+    reason: fetchResult.reason
+  };
+
+  diagnostics.push({
+    slug: topic.slug,
+    source,
+    keyword: fetchResult.keyword,
+    reason: fetchResult.reason,
+    count: normalizedItems.length
+  });
+
+  await writeTopicPage(topic, normalizedItems, source);
 }
 
-await writeHomePage(topicResults);
+const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.topics.length ? "live" : "mixed";
+
+await writeHomePage(topicResults, dataMode);
 await writeStaticPages();
-await writeJsonFeed(topicResults);
+await writeJsonFeed(topicResults, dataMode);
+await writeBuildReport(dataMode);
 await writeSitemap();
 
-console.log(`Built ${outDir}${liveEnabled ? " using Rakuten API" : " using sample/offline data"}.`);
+console.log(`Built ${outDir}${dataMode === "live" ? " using Rakuten API" : " using sample/fallback data"}.`);
 
 function hasRakutenKeys(siteConfig) {
   const rakuten = siteConfig.rakuten;
@@ -49,27 +72,62 @@ function hasRakutenKeys(siteConfig) {
   );
 }
 
-async function fetchRakutenItems(topic, siteConfig) {
+async function fetchTopicItems(topic, siteConfig) {
+  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])];
+  let lastReason = "no-results";
+
+  for (const keyword of keywords) {
+    for (const relaxed of [false, true]) {
+      try {
+        const items = await fetchRakutenItems(keyword, siteConfig, relaxed);
+        if (items.length) {
+          return {
+            source: "live",
+            items,
+            keyword,
+            reason: relaxed ? "relaxed-query" : "primary-query"
+          };
+        }
+        lastReason = relaxed ? "relaxed-empty" : "primary-empty";
+      } catch (error) {
+        lastReason = error.message;
+        console.warn(`Rakuten fetch failed for ${keyword}: ${error.message}`);
+      }
+    }
+  }
+
+  return {
+    source: "sample",
+    items: [],
+    keyword: null,
+    reason: lastReason
+  };
+}
+
+async function fetchRakutenItems(keyword, siteConfig, relaxed = false) {
   const rakuten = siteConfig.rakuten;
   const params = new URLSearchParams({
     applicationId: process.env[rakuten.applicationIdEnv],
     accessKey: process.env[rakuten.accessKeyEnv],
     affiliateId: process.env[rakuten.affiliateIdEnv] || "",
-    keyword: topic.keyword,
+    keyword,
     format: "json",
     formatVersion: "2",
     hits: String(siteConfig.maxItemsPerTopic),
     availability: "1",
     imageFlag: "1",
-    hasReviewFlag: "1",
-    minAffiliateRate: String(rakuten.minAffiliateRate),
     sort: "-reviewCount",
     elements: "itemName,itemPrice,itemUrl,affiliateUrl,mediumImageUrls,reviewAverage,reviewCount,affiliateRate,itemCaption"
   });
 
+  if (!relaxed) {
+    params.set("hasReviewFlag", "1");
+    params.set("minAffiliateRate", String(rakuten.minAffiliateRate));
+  }
+
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
   const response = await fetch(endpoint, {
-    headers: { "User-Agent": "kurashi-dougu-note/0.2" }
+    headers: { "User-Agent": "kurashi-dougu-note/0.3" }
   });
 
   if (!response.ok) {
@@ -80,8 +138,7 @@ async function fetchRakutenItems(topic, siteConfig) {
   return Array.isArray(data.items) ? data.items : [];
 }
 
-function normalizeItem(raw) {
-  const imageUrl = raw.mediumImageUrls?.[0]?.imageUrl?.replace("?_ex=128x128", "") || "";
+function normalizeItem(raw, topic, source) {
   const reviewAverage = Number(raw.reviewAverage || 0);
   const reviewCount = Number(raw.reviewCount || 0);
   const affiliateRate = Number(raw.affiliateRate || 0);
@@ -92,13 +149,48 @@ function normalizeItem(raw) {
     price,
     url: String(raw.affiliateUrl || raw.itemUrl || "").trim(),
     directUrl: String(raw.itemUrl || "").trim(),
-    imageUrl,
+    imageUrl: resolveImageUrl(raw, topic, source),
     reviewAverage,
     reviewCount,
     affiliateRate,
     caption: stripHtml(String(raw.itemCaption || "")),
-    reason: makeReason({ reviewAverage, reviewCount, price })
+    reason: makeReason({ reviewAverage, reviewCount, price }),
+    source
   };
+}
+
+function resolveImageUrl(raw, topic, source) {
+  const candidate = raw.mediumImageUrls?.[0]?.imageUrl?.replace("?_ex=128x128", "") || "";
+  if (source === "live" && candidate && !candidate.includes("placehold.co")) {
+    return candidate;
+  }
+  return createTopicArt(topic, String(raw.itemName || "").trim());
+}
+
+function createTopicArt(topic, title) {
+  const palettes = {
+    daily: ["#dff1eb", "#0f5b54", "#1e726a"],
+    stock: ["#f5eedb", "#6d4e12", "#b2861d"],
+    season: ["#fae7dd", "#7c2f1f", "#ca5e39"]
+  };
+  const [bg, ink, accent] = palettes[topic.accent] || palettes.daily;
+  const safeTitle = escapeHtml(truncate(title || topic.title, 28));
+  const badge = escapeHtml(topic.title);
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540">
+      <rect width="720" height="540" fill="${bg}"/>
+      <circle cx="602" cy="96" r="84" fill="${accent}" opacity="0.16"/>
+      <circle cx="110" cy="438" r="116" fill="${accent}" opacity="0.10"/>
+      <path d="M0 428 C120 360, 270 356, 420 418 S650 500, 720 448 V540 H0 Z" fill="${accent}" opacity="0.18"/>
+      <rect x="42" y="42" width="236" height="42" rx="21" fill="#ffffff" opacity="0.92"/>
+      <text x="64" y="69" font-family="Segoe UI, sans-serif" font-size="22" font-weight="700" fill="${accent}">${badge}</text>
+      <text x="50" y="246" font-family="Segoe UI, sans-serif" font-size="42" font-weight="800" fill="${ink}">${safeTitle}</text>
+      <text x="50" y="302" font-family="Segoe UI, sans-serif" font-size="20" fill="${ink}" opacity="0.72">Sample preview</text>
+      <rect x="50" y="350" width="150" height="18" rx="9" fill="${accent}" opacity="0.72"/>
+      <rect x="50" y="382" width="220" height="18" rx="9" fill="${accent}" opacity="0.35"/>
+      <rect x="50" y="414" width="180" height="18" rx="9" fill="${accent}" opacity="0.2"/>
+    </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 
 function scoreItem(item) {
@@ -122,19 +214,33 @@ function getSeason(date) {
   return config.seasonalCalendar.find((entry) => entry.months.includes(month)) || config.seasonalCalendar[0];
 }
 
-async function writeHomePage(topicResults) {
+async function writeHomePage(topicResults, dataMode) {
   const topicCards = config.topics.map((topic) => {
-    const top = topicResults[topic.slug]?.[0];
+    const topicResult = topicResults[topic.slug];
+    const top = topicResult?.items?.[0];
     return `
       <article class="topic-card ${escapeAttribute(topic.accent || "")}">
         <a href="${topic.slug}.html" class="topic-link">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
+          <span class="topic-source ${topicResult?.source === "live" ? "live" : "sample"}">${topicResult?.source === "live" ? "実データ" : "サンプル表示"}</span>
           ${top ? `<strong>今の候補: ${escapeHtml(top.name)}</strong>` : ""}
         </a>
       </article>`;
   }).join("");
+
+  const statusText = dataMode === "live"
+    ? "Rakuten API"
+    : dataMode === "mixed"
+      ? "一部Rakuten API"
+      : "サンプル";
+
+  const statusNote = dataMode === "live"
+    ? "全テーマで実データを表示中"
+    : dataMode === "mixed"
+      ? "一部テーマはサンプルを表示中"
+      : "楽天取得失敗時はサンプルでプレビューします";
 
   const html = layout({
     title: config.siteName,
@@ -153,7 +259,8 @@ async function writeHomePage(topicResults) {
           <span>最終更新</span>
           <strong>${formatDate(now)}</strong>
           <span>データ</span>
-          <strong>${liveEnabled ? "Rakuten API" : "サンプル"}</strong>
+          <strong>${statusText}</strong>
+          <small>${statusNote}</small>
         </aside>
       </section>
       <section class="feature-band" aria-label="このサイトの見方">
@@ -191,7 +298,7 @@ async function writeHomePage(topicResults) {
   await writeFile(path.join(outDir, "index.html"), html);
 }
 
-async function writeTopicPage(topic, items) {
+async function writeTopicPage(topic, items, source) {
   const cards = items.map((item) => `
     <article class="product-card">
       ${item.imageUrl ? `<img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">` : ""}
@@ -203,7 +310,9 @@ async function writeTopicPage(topic, items) {
         <h2>${escapeHtml(item.name)}</h2>
         <p>${escapeHtml(item.reason)}</p>
         ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 130))}</p>` : ""}
-        <a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">販売ページで確認</a>
+        ${item.url
+          ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">販売ページで確認</a>`
+          : `<span class="buy-link disabled">販売ページ準備中</span>`}
       </div>
     </article>
   `).join("");
@@ -217,6 +326,7 @@ async function writeTopicPage(topic, items) {
         <p class="eyebrow">${escapeHtml(topic.keyword)}</p>
         <h1>${escapeHtml(topic.title)}</h1>
         <p>${escapeHtml(topic.angle)}</p>
+        ${source === "sample" ? `<div class="topic-alert">このテーマは現在サンプル表示です。実データ取得に成功すると販売ページへの実リンクと商品画像へ切り替わります。</div>` : ""}
       </section>
       <section class="content-with-rail">
         <div class="product-grid">
@@ -272,20 +382,31 @@ async function writeStaticPages() {
   ].join("\n"));
 }
 
-async function writeJsonFeed(topicResults) {
+async function writeJsonFeed(topicResults, dataMode) {
   const feed = {
     generatedAt: now.toISOString(),
-    liveData: liveEnabled,
+    liveData: dataMode === "live",
+    dataMode,
     season,
     topics: config.topics.map((topic) => ({
       slug: topic.slug,
       title: topic.title,
       keyword: topic.keyword,
-      items: topicResults[topic.slug] || []
+      source: topicResults[topic.slug]?.source || "sample",
+      items: topicResults[topic.slug]?.items || []
     }))
   };
 
   await writeFile(path.join(outDir, "feed.json"), JSON.stringify(feed, null, 2));
+}
+
+async function writeBuildReport(dataMode) {
+  const report = {
+    generatedAt: now.toISOString(),
+    dataMode,
+    diagnostics
+  };
+  await writeFile(path.join(outDir, "build-report.json"), JSON.stringify(report, null, 2));
 }
 
 async function writeSitemap() {

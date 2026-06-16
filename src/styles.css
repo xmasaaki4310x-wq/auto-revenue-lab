@@ -192,6 +192,12 @@ main {
   margin-bottom: 10px;
 }
 
+.status-panel small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .feature-band {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -289,6 +295,25 @@ main {
   font-size: 14px;
 }
 
+.topic-source {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.topic-source.live {
+  background: #e7f5ef;
+  color: var(--teal-dark);
+}
+
+.topic-source.sample {
+  background: #fff1e8;
+  color: #8a4a25;
+}
+
 .breadcrumb {
   padding-top: 24px;
   color: var(--muted);
@@ -383,6 +408,12 @@ main {
   background: var(--teal-dark);
 }
 
+.buy-link.disabled {
+  background: #d7dddf;
+  color: #5f676b;
+  cursor: default;
+}
+
 .plain-section {
   max-width: 780px;
   padding: 22px 0 64px;
@@ -413,6 +444,16 @@ main {
 .ad-slot.compact {
   margin-top: 18px;
   min-height: 130px;
+}
+
+.topic-alert {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: #fff8ec;
+  border: 1px solid #e6c79e;
+  border-radius: 7px;
+  color: #66431c;
+  font-size: 14px;
 }
 
 @media (max-width: 900px) {
