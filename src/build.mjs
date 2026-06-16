@@ -162,7 +162,10 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   }
 
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
-  const headers = { "User-Agent": "kurashi-dougu-note/0.4" };
+  const headers = {
+    "User-Agent": "kurashi-dougu-note/0.5",
+    Referer: `${siteConfig.baseUrl.replace(/\/$/, "")}/`
+  };
   if (accessKeyMode === "header") {
     headers.accessKey = process.env[rakuten.accessKeyEnv];
   }
