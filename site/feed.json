@@ -1,103 +1,157 @@
 {
-  "generatedAt": "2026-06-16T08:08:03.204Z",
+  "generatedAt": "2026-06-16T08:54:51.017Z",
   "liveData": false,
+  "season": {
+    "months": [
+      6,
+      7,
+      8
+    ],
+    "label": "夏ギフト・水分補給",
+    "keywords": [
+      "お中元",
+      "炭酸水",
+      "お茶",
+      "アイス",
+      "うなぎ"
+    ]
+  },
   "topics": [
     {
-      "slug": "remote-work-desk",
-      "title": "在宅ワークを整えるデスク周辺アイテム",
-      "keyword": "在宅ワーク デスク 周辺機器",
+      "slug": "drink-stock",
+      "title": "水・炭酸水・お茶のまとめ買い",
+      "keyword": "水 炭酸水 お茶 まとめ買い ラベルレス",
       "items": [
         {
-          "name": "姿勢を整えるノートPCスタンド",
-          "price": 2980,
-          "url": "https://example.com/sample-laptop-stand",
-          "directUrl": "https://example.com/sample-laptop-stand",
-          "imageUrl": "https://placehold.co/480x360/e7f0f3/1c3036?text=Desk+Stand",
-          "reviewAverage": 4.5,
-          "reviewCount": 128,
-          "affiliateRate": 4,
-          "caption": "",
-          "reason": "平均評価 4.5 / レビュー 128 件 / 料率 4% / ￥2,980 台",
-          "score": 137
-        },
-        {
-          "name": "配線を隠せるケーブルボックス",
-          "price": 1990,
-          "url": "https://example.com/sample-cable-box",
-          "directUrl": "https://example.com/sample-cable-box",
-          "imageUrl": "https://placehold.co/480x360/f0ece5/32302c?text=Cable+Box",
-          "reviewAverage": 4.3,
-          "reviewCount": 86,
-          "affiliateRate": 3,
-          "caption": "",
-          "reason": "平均評価 4.3 / レビュー 86 件 / 料率 3% / ￥1,990 台",
-          "score": 122.1
-        }
-      ]
-    },
-    {
-      "slug": "disaster-prep",
-      "title": "一人暮らしにも置きやすい防災グッズ",
-      "keyword": "防災 グッズ セット",
-      "items": [
-        {
-          "name": "非常食とライト入り防災セット",
-          "price": 5980,
-          "url": "https://example.com/sample-emergency-kit",
-          "directUrl": "https://example.com/sample-emergency-kit",
-          "imageUrl": "https://placehold.co/480x360/e9eee0/26331f?text=Emergency+Kit",
-          "reviewAverage": 4.4,
-          "reviewCount": 210,
-          "affiliateRate": 5,
-          "caption": "",
-          "reason": "平均評価 4.4 / レビュー 210 件 / 料率 5% / ￥5,980 台",
-          "score": 148.4
-        },
-        {
-          "name": "折りたたみ給水バッグ 10L",
-          "price": 880,
-          "url": "https://example.com/sample-water-bag",
-          "directUrl": "https://example.com/sample-water-bag",
-          "imageUrl": "https://placehold.co/480x360/dfeaf2/20303b?text=Water+Bag",
-          "reviewAverage": 4.2,
-          "reviewCount": 44,
-          "affiliateRate": 3,
-          "caption": "",
-          "reason": "平均評価 4.2 / レビュー 44 件 / 料率 3% / ￥880 台",
-          "score": 115.6
-        }
-      ]
-    },
-    {
-      "slug": "small-home-upgrades",
-      "title": "小さな暮らしの便利グッズ",
-      "keyword": "一人暮らし 便利グッズ",
-      "items": [
-        {
-          "name": "省スペース吊り下げ収納ラック",
-          "price": 1680,
-          "url": "https://example.com/sample-storage-rack",
-          "directUrl": "https://example.com/sample-storage-rack",
-          "imageUrl": "https://placehold.co/480x360/eee7df/2f2a24?text=Storage+Rack",
-          "reviewAverage": 4.1,
-          "reviewCount": 73,
-          "affiliateRate": 4,
-          "caption": "",
-          "reason": "平均評価 4.1 / レビュー 73 件 / 料率 4% / ￥1,680 台",
-          "score": 127
-        },
-        {
-          "name": "マグネット式キッチンタイマー",
-          "price": 980,
-          "url": "https://example.com/sample-kitchen-timer",
-          "directUrl": "https://example.com/sample-kitchen-timer",
-          "imageUrl": "https://placehold.co/480x360/e4edf0/263235?text=Timer",
+          "name": "強炭酸水 500ml 48本 まとめ買い",
+          "price": 2550,
+          "url": "https://example.com/sample-sparkling-water",
+          "directUrl": "https://example.com/sample-sparkling-water",
+          "imageUrl": "https://placehold.co/720x540/dff0ea/19423c?text=Sparkling+Water",
           "reviewAverage": 4.6,
-          "reviewCount": 51,
+          "reviewCount": 16111,
+          "affiliateRate": 4,
+          "caption": "割り材にも日常用にも使いやすい炭酸水のケース商品。",
+          "reason": "平均評価 4.6 / レビュー 16,111 件 / 価格目安 ￥2,550",
+          "score": 184.2
+        },
+        {
+          "name": "ラベルレス天然水 500ml 42本セット",
+          "price": 1999,
+          "url": "https://example.com/sample-water-case",
+          "directUrl": "https://example.com/sample-water-case",
+          "imageUrl": "https://placehold.co/720x540/e8f3f4/17343a?text=Water+Stock",
+          "reviewAverage": 4.7,
+          "reviewCount": 5796,
           "affiliateRate": 3,
-          "caption": "",
-          "reason": "平均評価 4.6 / レビュー 51 件 / 料率 3% / ￥980 台",
-          "score": 122.3
+          "caption": "毎日使いやすい500mlのケース買い。ラベルレスで分別しやすいタイプ。",
+          "reason": "平均評価 4.7 / レビュー 5,796 件 / 価格目安 ￥1,999",
+          "score": 174
+        },
+        {
+          "name": "緑茶ペットボトル 500ml 24本",
+          "price": 1980,
+          "url": "https://example.com/sample-green-tea",
+          "directUrl": "https://example.com/sample-green-tea",
+          "imageUrl": "https://placehold.co/720x540/e6f0dc/334018?text=Green+Tea",
+          "reviewAverage": 4.7,
+          "reviewCount": 3158,
+          "affiliateRate": 3,
+          "caption": "食事や外出時に使いやすいお茶のまとめ買い候補。",
+          "reason": "平均評価 4.7 / レビュー 3,158 件 / 価格目安 ￥1,980",
+          "score": 168.2
+        }
+      ]
+    },
+    {
+      "slug": "rice-pantry",
+      "title": "米・保存食・常温ストック",
+      "keyword": "米 10kg 保存食 レトルト 常温保存",
+      "items": [
+        {
+          "name": "国産ブレンド米 10kg 5kg×2袋",
+          "price": 5980,
+          "url": "https://example.com/sample-rice",
+          "directUrl": "https://example.com/sample-rice",
+          "imageUrl": "https://placehold.co/720x540/f3eee0/3d3320?text=Rice+10kg",
+          "reviewAverage": 4.7,
+          "reviewCount": 8093,
+          "affiliateRate": 3,
+          "caption": "日常の主食として比較しやすい10kgタイプ。5kg袋で保管しやすい構成。",
+          "reason": "平均評価 4.7 / レビュー 8,093 件 / 価格目安 ￥5,980",
+          "score": 172.2
+        },
+        {
+          "name": "常温保存ごはん 24食セット",
+          "price": 3280,
+          "url": "https://example.com/sample-packed-rice",
+          "directUrl": "https://example.com/sample-packed-rice",
+          "imageUrl": "https://placehold.co/720x540/f4ead8/4b3826?text=Packed+Rice",
+          "reviewAverage": 4.5,
+          "reviewCount": 1840,
+          "affiliateRate": 4,
+          "caption": "忙しい日や備蓄用に置きやすいパックごはん。",
+          "reason": "平均評価 4.5 / レビュー 1,840 件 / 価格目安 ￥3,280",
+          "score": 161.8
+        },
+        {
+          "name": "レトルト食品 詰め合わせ 20食",
+          "price": 3990,
+          "url": "https://example.com/sample-retort-food",
+          "directUrl": "https://example.com/sample-retort-food",
+          "imageUrl": "https://placehold.co/720x540/efe4d5/432c22?text=Pantry+Set",
+          "reviewAverage": 4.4,
+          "reviewCount": 1120,
+          "affiliateRate": 5,
+          "caption": "常温で保管しやすい食品セット。献立の予備にも使いやすい候補。",
+          "reason": "平均評価 4.4 / レビュー 1,120 件 / 価格目安 ￥3,990",
+          "score": 157.5
+        }
+      ]
+    },
+    {
+      "slug": "seasonal-gifts",
+      "title": "季節ギフトと手土産候補",
+      "keyword": "お中元 夏ギフト うなぎ アイス コーヒー",
+      "items": [
+        {
+          "name": "国産うなぎ蒲焼き ギフトセット",
+          "price": 5990,
+          "url": "https://example.com/sample-unagi-gift",
+          "directUrl": "https://example.com/sample-unagi-gift",
+          "imageUrl": "https://placehold.co/720x540/f1e1d3/4d2319?text=Summer+Gift",
+          "reviewAverage": 4.6,
+          "reviewCount": 18886,
+          "affiliateRate": 4,
+          "caption": "夏ギフトや家族用に比較されやすいうなぎのギフト候補。",
+          "reason": "平均評価 4.6 / レビュー 18,886 件 / 価格目安 ￥5,990",
+          "score": 180.7
+        },
+        {
+          "name": "コーヒーギフト ドリップバッグ 50袋",
+          "price": 2990,
+          "url": "https://example.com/sample-coffee-gift",
+          "directUrl": "https://example.com/sample-coffee-gift",
+          "imageUrl": "https://placehold.co/720x540/eadfce/39291f?text=Coffee+Gift",
+          "reviewAverage": 4.4,
+          "reviewCount": 2450,
+          "affiliateRate": 4,
+          "caption": "職場や家族向けに配りやすいドリップバッグのギフト候補。",
+          "reason": "平均評価 4.4 / レビュー 2,450 件 / 価格目安 ￥2,990",
+          "score": 163
+        },
+        {
+          "name": "選べるジェラート 6個 詰め合わせ",
+          "price": 3880,
+          "url": "https://example.com/sample-gelato",
+          "directUrl": "https://example.com/sample-gelato",
+          "imageUrl": "https://placehold.co/720x540/f7e9ef/4b2636?text=Gelato+Gift",
+          "reviewAverage": 4.5,
+          "reviewCount": 960,
+          "affiliateRate": 5,
+          "caption": "季節の贈り物や自宅用のご褒美として見比べやすい冷菓セット。",
+          "reason": "平均評価 4.5 / レビュー 960 件 / 価格目安 ￥3,880",
+          "score": 157.6
         }
       ]
     }

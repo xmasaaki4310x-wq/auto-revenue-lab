@@ -1,5 +1,4 @@
-import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { mkdir, readFile, writeFile, copyFile, rm } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
@@ -9,7 +8,9 @@ const offline = process.argv.includes("--offline");
 const config = JSON.parse(await readFile(path.join(root, "src", "config.json"), "utf8"));
 const samples = JSON.parse(await readFile(path.join(root, "src", "sample-products.json"), "utf8"));
 const now = new Date();
+const season = getSeason(now);
 
+await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
 await copyFile(path.join(root, "src", "styles.css"), path.join(outDir, "styles.css"));
 
@@ -21,6 +22,7 @@ for (const topic of config.topics) {
     console.warn(`Rakuten fetch failed for ${topic.keyword}: ${error.message}`);
     return [];
   }) : [];
+
   const items = (liveItems.length ? liveItems : samples[topic.slug] || [])
     .map(normalizeItem)
     .filter((item) => item.name && item.url)
@@ -61,13 +63,13 @@ async function fetchRakutenItems(topic, siteConfig) {
     imageFlag: "1",
     hasReviewFlag: "1",
     minAffiliateRate: String(rakuten.minAffiliateRate),
-    sort: "-affiliateRate",
+    sort: "-reviewCount",
     elements: "itemName,itemPrice,itemUrl,affiliateUrl,mediumImageUrls,reviewAverage,reviewCount,affiliateRate,itemCaption"
   });
 
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
   const response = await fetch(endpoint, {
-    headers: { "User-Agent": "auto-revenue-lab/0.1" }
+    headers: { "User-Agent": "kurashi-dougu-note/0.2" }
   });
 
   if (!response.ok) {
@@ -84,7 +86,6 @@ function normalizeItem(raw) {
   const reviewCount = Number(raw.reviewCount || 0);
   const affiliateRate = Number(raw.affiliateRate || 0);
   const price = Number(raw.itemPrice || 0);
-  const reason = makeReason({ reviewAverage, reviewCount, affiliateRate, price });
 
   return {
     name: String(raw.itemName || "").trim(),
@@ -96,37 +97,41 @@ function normalizeItem(raw) {
     reviewCount,
     affiliateRate,
     caption: stripHtml(String(raw.itemCaption || "")),
-    reason
+    reason: makeReason({ reviewAverage, reviewCount, price })
   };
 }
 
 function scoreItem(item) {
-  const reviewWeight = Math.log10(item.reviewCount + 1) * 18;
-  const ratingWeight = item.reviewAverage * 14;
-  const rateWeight = item.affiliateRate * 9;
-  const pricePenalty = item.price > 20000 ? 8 : item.price > 10000 ? 4 : 0;
-  return Math.round((reviewWeight + ratingWeight + rateWeight - pricePenalty) * 10) / 10;
+  const reviewWeight = Math.log10(item.reviewCount + 1) * 22;
+  const ratingWeight = item.reviewAverage * 16;
+  const priceBalance = item.price > 0 && item.price <= 5000 ? 10 : item.price <= 12000 ? 5 : 0;
+  const rateWeight = item.affiliateRate * 2;
+  return Math.round((reviewWeight + ratingWeight + priceBalance + rateWeight) * 10) / 10;
 }
 
 function makeReason(item) {
   const parts = [];
   if (item.reviewAverage >= config.rakuten.minReviewAverage) parts.push(`平均評価 ${item.reviewAverage.toFixed(1)}`);
   if (item.reviewCount >= config.rakuten.minReviewCount) parts.push(`レビュー ${item.reviewCount.toLocaleString("ja-JP")} 件`);
-  if (item.affiliateRate > 0) parts.push(`料率 ${item.affiliateRate}%`);
-  if (item.price > 0) parts.push(`${formatPrice(item.price)} 台`);
+  if (item.price > 0) parts.push(`価格目安 ${formatPrice(item.price)}`);
   return parts.length ? parts.join(" / ") : "比較候補として掲載";
+}
+
+function getSeason(date) {
+  const month = date.getMonth() + 1;
+  return config.seasonalCalendar.find((entry) => entry.months.includes(month)) || config.seasonalCalendar[0];
 }
 
 async function writeHomePage(topicResults) {
   const topicCards = config.topics.map((topic) => {
     const top = topicResults[topic.slug]?.[0];
     return `
-      <article class="topic-card">
+      <article class="topic-card ${escapeAttribute(topic.accent || "")}">
         <a href="${topic.slug}.html" class="topic-link">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
-          ${top ? `<strong>注目候補: ${escapeHtml(top.name)}</strong>` : ""}
+          ${top ? `<strong>今の候補: ${escapeHtml(top.name)}</strong>` : ""}
         </a>
       </article>`;
   }).join("");
@@ -136,10 +141,13 @@ async function writeHomePage(topicResults) {
     description: config.description,
     body: `
       <section class="hero">
-        <div>
-          <p class="eyebrow">Living goods guide</p>
+        <div class="hero-copy">
+          <p class="eyebrow">${escapeHtml(season.label)}</p>
           <h1>${escapeHtml(config.siteName)}</h1>
           <p>${escapeHtml(config.description)}</p>
+          <div class="season-tags" aria-label="季節の注目キーワード">
+            ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+          </div>
         </div>
         <aside class="status-panel">
           <span>最終更新</span>
@@ -148,12 +156,35 @@ async function writeHomePage(topicResults) {
           <strong>${liveEnabled ? "Rakuten API" : "サンプル"}</strong>
         </aside>
       </section>
-      <section class="topics-grid" aria-label="記事カテゴリ">
+      <section class="feature-band" aria-label="このサイトの見方">
+        <div>
+          <span>01</span>
+          <strong>売れ筋の流れを見る</strong>
+          <p>季節イベントやまとめ買い需要に合う候補を中心に整理します。</p>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>価格とレビューを比べる</strong>
+          <p>安さだけでなく、レビュー件数と平均評価も並べて確認します。</p>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>販売ページで最終確認</strong>
+          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認します。</p>
+        </div>
+      </section>
+      <section class="topics-grid" aria-label="買い物テーマ">
         ${topicCards}
       </section>
-      <section class="plain-section">
-        <h2>掲載の考え方</h2>
-        <p>商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合があります。掲載候補はレビュー、評価、価格などをもとに整理しています。</p>
+      <section class="content-with-rail">
+        <div class="plain-section">
+          <h2>掲載の考え方</h2>
+          <p>このサイトは、日用品や食品などの買い物候補を整理するためのメモです。商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合がありますが、掲載文では価格、レビュー、季節性、比較しやすさを優先します。</p>
+        </div>
+        <aside class="ad-slot" aria-label="広告掲載枠">
+          <span>広告掲載枠</span>
+          <strong>季節特集や関連商品の掲載を想定</strong>
+        </aside>
       </section>`
   });
 
@@ -167,12 +198,12 @@ async function writeTopicPage(topic, items) {
       <div class="product-body">
         <div class="product-meta">
           <span>${formatPrice(item.price)}</span>
-          <span>score ${item.score}</span>
+          <span>${item.reviewCount.toLocaleString("ja-JP")} reviews</span>
         </div>
         <h2>${escapeHtml(item.name)}</h2>
         <p>${escapeHtml(item.reason)}</p>
-        ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 140))}</p>` : ""}
-        <a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">詳細を見る</a>
+        ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 130))}</p>` : ""}
+        <a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">販売ページで確認</a>
       </div>
     </article>
   `).join("");
@@ -182,13 +213,23 @@ async function writeTopicPage(topic, items) {
     description: topic.angle,
     body: `
       <nav class="breadcrumb"><a href="index.html">トップ</a> / ${escapeHtml(topic.title)}</nav>
-      <section class="page-heading">
+      <section class="page-heading topic-heading ${escapeAttribute(topic.accent || "")}">
         <p class="eyebrow">${escapeHtml(topic.keyword)}</p>
         <h1>${escapeHtml(topic.title)}</h1>
         <p>${escapeHtml(topic.angle)}</p>
       </section>
-      <section class="product-grid">
-        ${cards || "<p>掲載候補がまだありません。</p>"}
+      <section class="content-with-rail">
+        <div class="product-grid">
+          ${cards || "<p>掲載候補がまだありません。</p>"}
+        </div>
+        <aside class="side-note">
+          <span>比較メモ</span>
+          <p>価格、送料、クーポン、ポイント条件は変わることがあります。購入前に販売ページの最新情報を確認してください。</p>
+          <div class="ad-slot compact">
+            <span>広告掲載枠</span>
+            <strong>関連商品の紹介枠</strong>
+          </div>
+        </aside>
       </section>`
   });
 
@@ -206,7 +247,7 @@ async function writeStaticPages() {
       </section>
       <section class="plain-section">
         <h2>掲載基準</h2>
-        <p>掲載候補はレビュー数、平均評価、価格、紹介料率などの公開データをもとに自動整理します。最終的な購入判断は、販売ページの最新情報をご確認ください。</p>
+        <p>掲載候補はレビュー件数、平均評価、価格、季節性、比較しやすさなどの公開データをもとに整理します。最終的な購入判断は、販売ページの最新情報をご確認ください。</p>
       </section>`
   }));
 
@@ -235,6 +276,7 @@ async function writeJsonFeed(topicResults) {
   const feed = {
     generatedAt: now.toISOString(),
     liveData: liveEnabled,
+    season,
     topics: config.topics.map((topic) => ({
       slug: topic.slug,
       title: topic.title,
@@ -271,17 +313,18 @@ function layout({ title, description, body }) {
   <header class="site-header">
     <a class="brand" href="index.html">${escapeHtml(config.siteName)}</a>
     <nav>
+      <a href="index.html">買い物テーマ</a>
       <a href="disclosure.html">広告掲載</a>
       <a href="privacy.html">プライバシー</a>
     </nav>
   </header>
   <main>
-    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。リンク経由で購入や申込が発生すると、運営者が紹介料を受け取ることがあります。</div>
+    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。価格、在庫、送料、ポイント条件は販売ページでご確認ください。</div>
     ${body}
   </main>
   <footer class="site-footer">
     <p>${escapeHtml(config.tagline)}</p>
-    <p>As an affiliate site, this site may earn from qualifying purchases.</p>
+    <p>商品情報は更新時点の公開データをもとに整理しています。</p>
   </footer>
 </body>
 </html>`;

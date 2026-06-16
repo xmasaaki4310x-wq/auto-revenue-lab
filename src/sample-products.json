@@ -1,68 +1,107 @@
 {
-  "remote-work-desk": [
+  "drink-stock": [
     {
-      "itemName": "姿勢を整えるノートPCスタンド",
-      "itemPrice": 2980,
-      "itemUrl": "https://example.com/sample-laptop-stand",
+      "itemName": "ラベルレス天然水 500ml 42本セット",
+      "itemPrice": 1999,
+      "itemUrl": "https://example.com/sample-water-case",
       "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e7f0f3/1c3036?text=Desk+Stand" }],
-      "reviewAverage": 4.5,
-      "reviewCount": 128,
-      "affiliateRate": 4
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e8f3f4/17343a?text=Water+Stock" }],
+      "reviewAverage": 4.7,
+      "reviewCount": 5796,
+      "affiliateRate": 3,
+      "itemCaption": "毎日使いやすい500mlのケース買い。ラベルレスで分別しやすいタイプ。"
     },
     {
-      "itemName": "配線を隠せるケーブルボックス",
-      "itemPrice": 1990,
-      "itemUrl": "https://example.com/sample-cable-box",
+      "itemName": "強炭酸水 500ml 48本 まとめ買い",
+      "itemPrice": 2550,
+      "itemUrl": "https://example.com/sample-sparkling-water",
       "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/f0ece5/32302c?text=Cable+Box" }],
-      "reviewAverage": 4.3,
-      "reviewCount": 86,
-      "affiliateRate": 3
-    }
-  ],
-  "disaster-prep": [
-    {
-      "itemName": "非常食とライト入り防災セット",
-      "itemPrice": 5980,
-      "itemUrl": "https://example.com/sample-emergency-kit",
-      "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e9eee0/26331f?text=Emergency+Kit" }],
-      "reviewAverage": 4.4,
-      "reviewCount": 210,
-      "affiliateRate": 5
-    },
-    {
-      "itemName": "折りたたみ給水バッグ 10L",
-      "itemPrice": 880,
-      "itemUrl": "https://example.com/sample-water-bag",
-      "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/dfeaf2/20303b?text=Water+Bag" }],
-      "reviewAverage": 4.2,
-      "reviewCount": 44,
-      "affiliateRate": 3
-    }
-  ],
-  "small-home-upgrades": [
-    {
-      "itemName": "省スペース吊り下げ収納ラック",
-      "itemPrice": 1680,
-      "itemUrl": "https://example.com/sample-storage-rack",
-      "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/eee7df/2f2a24?text=Storage+Rack" }],
-      "reviewAverage": 4.1,
-      "reviewCount": 73,
-      "affiliateRate": 4
-    },
-    {
-      "itemName": "マグネット式キッチンタイマー",
-      "itemPrice": 980,
-      "itemUrl": "https://example.com/sample-kitchen-timer",
-      "affiliateUrl": "",
-      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/480x360/e4edf0/263235?text=Timer" }],
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/dff0ea/19423c?text=Sparkling+Water" }],
       "reviewAverage": 4.6,
-      "reviewCount": 51,
-      "affiliateRate": 3
+      "reviewCount": 16111,
+      "affiliateRate": 4,
+      "itemCaption": "割り材にも日常用にも使いやすい炭酸水のケース商品。"
+    },
+    {
+      "itemName": "緑茶ペットボトル 500ml 24本",
+      "itemPrice": 1980,
+      "itemUrl": "https://example.com/sample-green-tea",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e6f0dc/334018?text=Green+Tea" }],
+      "reviewAverage": 4.7,
+      "reviewCount": 3158,
+      "affiliateRate": 3,
+      "itemCaption": "食事や外出時に使いやすいお茶のまとめ買い候補。"
+    }
+  ],
+  "rice-pantry": [
+    {
+      "itemName": "国産ブレンド米 10kg 5kg×2袋",
+      "itemPrice": 5980,
+      "itemUrl": "https://example.com/sample-rice",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f3eee0/3d3320?text=Rice+10kg" }],
+      "reviewAverage": 4.7,
+      "reviewCount": 8093,
+      "affiliateRate": 3,
+      "itemCaption": "日常の主食として比較しやすい10kgタイプ。5kg袋で保管しやすい構成。"
+    },
+    {
+      "itemName": "常温保存ごはん 24食セット",
+      "itemPrice": 3280,
+      "itemUrl": "https://example.com/sample-packed-rice",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f4ead8/4b3826?text=Packed+Rice" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 1840,
+      "affiliateRate": 4,
+      "itemCaption": "忙しい日や備蓄用に置きやすいパックごはん。"
+    },
+    {
+      "itemName": "レトルト食品 詰め合わせ 20食",
+      "itemPrice": 3990,
+      "itemUrl": "https://example.com/sample-retort-food",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/efe4d5/432c22?text=Pantry+Set" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 1120,
+      "affiliateRate": 5,
+      "itemCaption": "常温で保管しやすい食品セット。献立の予備にも使いやすい候補。"
+    }
+  ],
+  "seasonal-gifts": [
+    {
+      "itemName": "国産うなぎ蒲焼き ギフトセット",
+      "itemPrice": 5990,
+      "itemUrl": "https://example.com/sample-unagi-gift",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f1e1d3/4d2319?text=Summer+Gift" }],
+      "reviewAverage": 4.6,
+      "reviewCount": 18886,
+      "affiliateRate": 4,
+      "itemCaption": "夏ギフトや家族用に比較されやすいうなぎのギフト候補。"
+    },
+    {
+      "itemName": "選べるジェラート 6個 詰め合わせ",
+      "itemPrice": 3880,
+      "itemUrl": "https://example.com/sample-gelato",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f7e9ef/4b2636?text=Gelato+Gift" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 960,
+      "affiliateRate": 5,
+      "itemCaption": "季節の贈り物や自宅用のご褒美として見比べやすい冷菓セット。"
+    },
+    {
+      "itemName": "コーヒーギフト ドリップバッグ 50袋",
+      "itemPrice": 2990,
+      "itemUrl": "https://example.com/sample-coffee-gift",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eadfce/39291f?text=Coffee+Gift" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 2450,
+      "affiliateRate": 4,
+      "itemCaption": "職場や家族向けに配りやすいドリップバッグのギフト候補。"
     }
   ]
 }

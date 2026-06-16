@@ -1,7 +1,7 @@
 {
   "siteName": "くらし道具ノート",
-  "tagline": "毎日の不便を減らす道具選び",
-  "description": "在宅ワーク、防災、収納など、日々の暮らしで役立つ道具をレビュー数、評価、価格のバランスから整理します。",
+  "tagline": "季節の買い物候補を、価格とレビューで整理する",
+  "description": "水・お茶、米・保存食、季節ギフトなど、暮らしの買い物候補を価格、レビュー件数、平均評価のバランスから整理します。",
   "language": "ja",
   "baseUrl": "https://xmasaaki4310x-wq.github.io/auto-revenue-lab",
   "currency": "JPY",
@@ -12,43 +12,66 @@
     "affiliateIdEnv": "RAKUTEN_AFFILIATE_ID",
     "minAffiliateRate": 2,
     "minReviewAverage": 4,
-    "minReviewCount": 5
+    "minReviewCount": 10
   },
   "topics": [
     {
-      "slug": "remote-work-desk",
-      "keyword": "在宅ワーク デスク 周辺機器",
-      "title": "在宅ワークを整えるデスク周辺アイテム",
-      "angle": "机まわりの疲れ、配線、作業効率を改善しやすいものを優先"
+      "slug": "drink-stock",
+      "keyword": "水 炭酸水 お茶 まとめ買い ラベルレス",
+      "title": "水・炭酸水・お茶のまとめ買い",
+      "angle": "レビュー数、容量、価格帯を見ながら、日常用と備蓄用の候補を整理します。",
+      "accent": "daily"
     },
     {
-      "slug": "disaster-prep",
-      "keyword": "防災 グッズ セット",
-      "title": "一人暮らしにも置きやすい防災グッズ",
-      "angle": "レビューが多く、保管しやすく、買い足し判断がしやすいものを優先"
+      "slug": "rice-pantry",
+      "keyword": "米 10kg 保存食 レトルト 常温保存",
+      "title": "米・保存食・常温ストック",
+      "angle": "買い置きしやすい主食や保存食を、容量とレビューの多さで比較します。",
+      "accent": "stock"
     },
     {
-      "slug": "small-home-upgrades",
-      "keyword": "一人暮らし 便利グッズ",
-      "title": "小さな暮らしの便利グッズ",
-      "angle": "価格が重すぎず、日常の不満を減らしやすいものを優先"
+      "slug": "seasonal-gifts",
+      "keyword": "お中元 夏ギフト うなぎ アイス コーヒー",
+      "title": "季節ギフトと手土産候補",
+      "angle": "父の日、お中元、敬老の日など、時期に合わせた贈り物候補を整理します。",
+      "accent": "season"
     }
   ],
-  "manualPrograms": [
+  "seasonalCalendar": [
     {
-      "name": "A8.net",
-      "url": "https://www.a8.net/",
-      "note": "無料登録可能。提携後に発行される広告リンクを記事内の手動枠へ追加できます。"
+      "months": [1],
+      "label": "新年・冬の買い置き",
+      "keywords": ["水", "米", "レトルト", "加湿", "防寒"]
     },
     {
-      "name": "Amazonアソシエイト",
-      "url": "https://affiliate.amazon.co.jp/",
-      "note": "審査あり。承認後にテキストリンクや商品リンクを手動枠へ追加できます。"
+      "months": [2, 3],
+      "label": "新生活準備",
+      "keywords": ["収納", "家電", "日用品", "米", "水"]
     },
     {
-      "name": "Google AdSense",
-      "url": "https://www.google.com/adsense/start/",
-      "note": "独自性のあるコンテンツとサイト所有権が必要。アクセスが増えてから追加する広告候補です。"
+      "months": [4, 5],
+      "label": "初夏の暮らし準備",
+      "keywords": ["日傘", "水分補給", "掃除", "洗濯", "母の日"]
+    },
+    {
+      "months": [6, 7, 8],
+      "label": "夏ギフト・水分補給",
+      "keywords": ["お中元", "炭酸水", "お茶", "アイス", "うなぎ"]
+    },
+    {
+      "months": [9],
+      "label": "防災・敬老の日",
+      "keywords": ["備蓄水", "保存食", "敬老の日", "非常食", "日用品"]
+    },
+    {
+      "months": [10, 11],
+      "label": "秋冬のまとめ買い",
+      "keywords": ["米", "鍋", "コーヒー", "毛布", "加湿"]
+    },
+    {
+      "months": [12],
+      "label": "年末年始の準備",
+      "keywords": ["お歳暮", "掃除", "食品", "おせち", "帰省土産"]
     }
   ],
   "operator": {
