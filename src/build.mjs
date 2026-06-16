@@ -77,7 +77,7 @@ function hasRakutenKeys(siteConfig) {
 }
 
 async function checkRakutenAccess(siteConfig) {
-  const testKeyword = siteConfig.topics[0]?.fallbackKeywords?.[0] || siteConfig.topics[0]?.keyword || "水";
+  const testKeyword = "水";
   let lastReason = "auth-check-failed";
 
   try {
