@@ -73,7 +73,7 @@ function hasRakutenKeys(siteConfig) {
 }
 
 async function fetchTopicItems(topic, siteConfig) {
-  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])];
+  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 2);
   let lastReason = "no-results";
 
   for (const keyword of keywords) {
@@ -89,9 +89,18 @@ async function fetchTopicItems(topic, siteConfig) {
           };
         }
         lastReason = relaxed ? "relaxed-empty" : "primary-empty";
+        await wait(250);
       } catch (error) {
         lastReason = error.message;
         console.warn(`Rakuten fetch failed for ${keyword}: ${error.message}`);
+        if (error.message.includes("HTTP 403") || error.message.includes("HTTP 429")) {
+          return {
+            source: "sample",
+            items: [],
+            keyword: null,
+            reason: error.message
+          };
+        }
       }
     }
   }
@@ -466,6 +475,10 @@ function stripHtml(value) {
 
 function truncate(value, length) {
   return value.length > length ? `${value.slice(0, length)}...` : value;
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function escapeHtml(value) {
