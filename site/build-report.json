@@ -1,29 +1,6 @@
 {
-  "generatedAt": "2026-06-16T14:05:44.997Z",
+  "generatedAt": "2026-06-16T14:27:54.841Z",
   "dataMode": "sample",
-  "secrets": {
-    "applicationId": {
-      "name": "RAKUTEN_APPLICATION_ID",
-      "present": false,
-      "rawLength": 0,
-      "trimmedLength": 0,
-      "hasLeadingOrTrailingWhitespace": false
-    },
-    "accessKey": {
-      "name": "RAKUTEN_ACCESS_KEY",
-      "present": false,
-      "rawLength": 0,
-      "trimmedLength": 0,
-      "hasLeadingOrTrailingWhitespace": false
-    },
-    "affiliateId": {
-      "name": "RAKUTEN_AFFILIATE_ID",
-      "present": false,
-      "rawLength": 0,
-      "trimmedLength": 0,
-      "hasLeadingOrTrailingWhitespace": false
-    }
-  },
   "diagnostics": [
     {
       "slug": "drink-stock",

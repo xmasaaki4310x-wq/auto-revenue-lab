@@ -10,7 +10,6 @@ const samples = JSON.parse(await readFile(path.join(root, "src", "sample-product
 const now = new Date();
 const season = getSeason(now);
 const diagnostics = [];
-const secretDiagnostics = getSecretDiagnostics(config);
 
 await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
@@ -501,7 +500,6 @@ async function writeBuildReport(dataMode) {
   const report = {
     generatedAt: now.toISOString(),
     dataMode,
-    secrets: secretDiagnostics,
     diagnostics
   };
   await writeFile(path.join(outDir, "build-report.json"), JSON.stringify(report, null, 2));
@@ -593,25 +591,4 @@ function escapeAttribute(value) {
 
 function getEnvValue(name) {
   return String(process.env[name] || "").trim();
-}
-
-function getSecretDiagnostics(siteConfig) {
-  const rakuten = siteConfig.rakuten;
-  return {
-    applicationId: summarizeSecret(rakuten.applicationIdEnv),
-    accessKey: summarizeSecret(rakuten.accessKeyEnv),
-    affiliateId: summarizeSecret(rakuten.affiliateIdEnv)
-  };
-}
-
-function summarizeSecret(name) {
-  const raw = String(process.env[name] || "");
-  const trimmed = raw.trim();
-  return {
-    name,
-    present: trimmed.length > 0,
-    rawLength: raw.length,
-    trimmedLength: trimmed.length,
-    hasLeadingOrTrailingWhitespace: raw.length !== trimmed.length
-  };
 }

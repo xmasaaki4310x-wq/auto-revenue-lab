@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node src/build.mjs",
     "build:offline": "node src/build.mjs --offline",
+    "test:rakuten": "node scripts/test-rakuten-api.mjs",
     "serve": "node src/serve.mjs"
   }
 }
