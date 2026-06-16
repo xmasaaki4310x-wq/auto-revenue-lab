@@ -71,8 +71,8 @@ console.log(`Built ${outDir}${dataMode === "live" ? " using Rakuten API" : " usi
 function hasRakutenKeys(siteConfig) {
   const rakuten = siteConfig.rakuten;
   return Boolean(
-    process.env[rakuten.applicationIdEnv] &&
-    process.env[rakuten.accessKeyEnv]
+    getEnvValue(rakuten.applicationIdEnv) &&
+    getEnvValue(rakuten.accessKeyEnv)
   );
 }
 
@@ -136,8 +136,8 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   const rakuten = siteConfig.rakuten;
   const accessKeyMode = options.accessKeyMode || "query";
   const params = new URLSearchParams({
-    applicationId: process.env[rakuten.applicationIdEnv],
-    affiliateId: process.env[rakuten.affiliateIdEnv] || "",
+    applicationId: getEnvValue(rakuten.applicationIdEnv),
+    affiliateId: getEnvValue(rakuten.affiliateIdEnv),
     keyword,
     format: "json",
     formatVersion: "2",
@@ -145,7 +145,7 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   });
 
   if (accessKeyMode === "query") {
-    params.set("accessKey", process.env[rakuten.accessKeyEnv]);
+    params.set("accessKey", getEnvValue(rakuten.accessKeyEnv));
   }
 
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
@@ -587,4 +587,8 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value).replaceAll("`", "&#096;");
+}
+
+function getEnvValue(name) {
+  return String(process.env[name] || "").trim();
 }
