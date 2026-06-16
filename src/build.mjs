@@ -19,11 +19,14 @@ await cp(path.join(root, "src", "assets"), path.join(outDir, "assets"), { recurs
 const keysPresent = hasRakutenKeys(config) && !offline;
 const topicResults = {};
 let liveTopicCount = 0;
+const rakutenAuth = keysPresent
+  ? await checkRakutenAccess(config)
+  : { ok: false, mode: "none", reason: offline ? "offline-mode" : "missing-keys" };
 
 for (const topic of config.topics) {
-  const fetchResult = keysPresent
-    ? await fetchTopicItems(topic, config)
-    : { source: "sample", items: [], keyword: null, reason: offline ? "offline-mode" : "missing-keys" };
+  const fetchResult = rakutenAuth.ok
+    ? await fetchTopicItems(topic, config, rakutenAuth.mode)
+    : { source: "sample", items: [], keyword: null, reason: rakutenAuth.reason };
 
   const source = fetchResult.items.length ? "live" : "sample";
   if (source === "live") liveTopicCount += 1;
@@ -73,14 +76,33 @@ function hasRakutenKeys(siteConfig) {
   );
 }
 
-async function fetchTopicItems(topic, siteConfig) {
+async function checkRakutenAccess(siteConfig) {
+  const testKeyword = siteConfig.topics[0]?.fallbackKeywords?.[0] || siteConfig.topics[0]?.keyword || "水";
+  const modes = ["query", "header"];
+  let lastReason = "auth-check-failed";
+
+  for (const mode of modes) {
+    try {
+      await fetchRakutenItems(testKeyword, siteConfig, true, { hits: 1, accessKeyMode: mode });
+      return { ok: true, mode, reason: `auth-ok-${mode}` };
+    } catch (error) {
+      lastReason = `auth-check ${mode}: ${error.message}`;
+      console.warn(`Rakuten auth check failed using ${mode}: ${error.message}`);
+      if (error.message.includes("HTTP 429")) break;
+    }
+  }
+
+  return { ok: false, mode: "none", reason: lastReason };
+}
+
+async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
   const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 2);
   let lastReason = "no-results";
 
   for (const keyword of keywords) {
     for (const relaxed of [false, true]) {
       try {
-        const items = await fetchRakutenItems(keyword, siteConfig, relaxed);
+        const items = await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode });
         if (items.length) {
           return {
             source: "live",
@@ -114,21 +136,25 @@ async function fetchTopicItems(topic, siteConfig) {
   };
 }
 
-async function fetchRakutenItems(keyword, siteConfig, relaxed = false) {
+async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options = {}) {
   const rakuten = siteConfig.rakuten;
+  const accessKeyMode = options.accessKeyMode || "query";
   const params = new URLSearchParams({
     applicationId: process.env[rakuten.applicationIdEnv],
-    accessKey: process.env[rakuten.accessKeyEnv],
     affiliateId: process.env[rakuten.affiliateIdEnv] || "",
     keyword,
     format: "json",
     formatVersion: "2",
-    hits: String(siteConfig.maxItemsPerTopic),
+    hits: String(options.hits || siteConfig.maxItemsPerTopic),
     availability: "1",
     imageFlag: "1",
     sort: "-reviewCount",
     elements: "itemName,itemPrice,itemUrl,affiliateUrl,mediumImageUrls,reviewAverage,reviewCount,affiliateRate,itemCaption"
   });
+
+  if (accessKeyMode === "query") {
+    params.set("accessKey", process.env[rakuten.accessKeyEnv]);
+  }
 
   if (!relaxed) {
     params.set("hasReviewFlag", "1");
@@ -136,16 +162,32 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false) {
   }
 
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
+  const headers = { "User-Agent": "kurashi-dougu-note/0.4" };
+  if (accessKeyMode === "header") {
+    headers.accessKey = process.env[rakuten.accessKeyEnv];
+  }
   const response = await fetch(endpoint, {
-    headers: { "User-Agent": "kurashi-dougu-note/0.3" }
+    headers
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
+    throw new Error(await formatRakutenError(response));
   }
 
   const data = await response.json();
   return Array.isArray(data.items) ? data.items : [];
+}
+
+async function formatRakutenError(response) {
+  const status = `HTTP ${response.status}`;
+  try {
+    const text = await response.text();
+    const data = JSON.parse(text);
+    const message = data.error_description || data.error || data.message;
+    return message ? `${status}: ${message}` : status;
+  } catch {
+    return status;
+  }
 }
 
 function normalizeItem(raw, topic, source) {
