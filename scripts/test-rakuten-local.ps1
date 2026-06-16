@@ -11,9 +11,9 @@ Write-Host "Paste values from Rakuten Developers. They are set only for this Pow
 $env:RAKUTEN_APPLICATION_ID = (Read-Host "Application ID").Trim()
 $env:RAKUTEN_ACCESS_KEY = (Read-Host "Access Key").Trim()
 $env:RAKUTEN_AFFILIATE_ID = (Read-Host "Affiliate ID").Trim()
-$keyword = Read-Host "Keyword [水]"
+$keyword = Read-Host "Keyword [coffee]"
 if ([string]::IsNullOrWhiteSpace($keyword)) {
-  $keyword = "水"
+  $keyword = "coffee"
 }
 $env:RAKUTEN_TEST_KEYWORD = $keyword.Trim()
 
