@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T11:50:21.836Z",
+  "generatedAt": "2026-06-16T12:39:50.138Z",
   "dataMode": "sample",
   "diagnostics": [
     {
@@ -18,6 +18,41 @@
     },
     {
       "slug": "seasonal-gifts",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "daily-essentials",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "cleaning-laundry",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "kitchen-storage",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "small-appliances",
+      "source": "sample",
+      "keyword": null,
+      "reason": "offline-mode",
+      "count": 3
+    },
+    {
+      "slug": "bath-sleep",
       "source": "sample",
       "keyword": null,
       "reason": "offline-mode",

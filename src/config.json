@@ -1,7 +1,7 @@
 {
   "siteName": "くらし道具ノート",
   "tagline": "季節の買い物候補を、価格とレビューで整理する",
-  "description": "水・お茶、米・保存食、季節ギフトなど、暮らしの買い物候補を価格、レビュー件数、平均評価のバランスから整理します。",
+  "description": "日用品、食品、収納、掃除、季節ギフトなど、暮らしの買い物候補を価格、レビュー件数、平均評価のバランスから整理します。",
   "language": "ja",
   "baseUrl": "https://xmasaaki4310x-wq.github.io/auto-revenue-lab",
   "currency": "JPY",
@@ -38,6 +38,46 @@
       "title": "季節ギフトと手土産候補",
       "angle": "父の日、お中元、敬老の日など、時期に合わせた贈り物候補を整理します。",
       "accent": "season"
+    },
+    {
+      "slug": "daily-essentials",
+      "keyword": "日用品 まとめ買い 洗剤 トイレットペーパー ティッシュ",
+      "fallbackKeywords": ["洗剤 まとめ買い", "トイレットペーパー まとめ買い", "ティッシュ ケース"],
+      "title": "日用品・洗剤・紙類の補充",
+      "angle": "毎月減る消耗品を、容量、単価、レビュー、置き場所のバランスで整理します。",
+      "accent": "daily"
+    },
+    {
+      "slug": "cleaning-laundry",
+      "keyword": "掃除 洗濯 カビ対策 除湿 梅雨",
+      "fallbackKeywords": ["洗濯洗剤 大容量", "カビ取り 掃除", "除湿剤 まとめ買い"],
+      "title": "掃除・洗濯・湿気対策",
+      "angle": "梅雨や夏前に見直したい掃除道具、洗剤、除湿アイテムを整理します。",
+      "accent": "fresh"
+    },
+    {
+      "slug": "kitchen-storage",
+      "keyword": "保存容器 キッチン収納 冷蔵庫 収納",
+      "fallbackKeywords": ["保存容器 セット", "キッチン収納 ラック", "冷蔵庫 収納"],
+      "title": "キッチン収納・保存容器",
+      "angle": "作り置き、冷蔵庫整理、食品ストックに使いやすい収納用品を比較します。",
+      "accent": "stock"
+    },
+    {
+      "slug": "small-appliances",
+      "keyword": "時短家電 小型家電 電気ケトル サーキュレーター",
+      "fallbackKeywords": ["電気ケトル 人気", "サーキュレーター 小型", "ハンディファン"],
+      "title": "小型家電・時短道具",
+      "angle": "毎日使いやすい小型家電を、価格帯、レビュー、置きやすさで整理します。",
+      "accent": "utility"
+    },
+    {
+      "slug": "bath-sleep",
+      "keyword": "バス用品 タオル 寝具 枕 夏用",
+      "fallbackKeywords": ["タオル まとめ買い", "夏用 寝具", "枕 人気"],
+      "title": "バス・睡眠・くつろぎ用品",
+      "angle": "タオル、寝具、くつろぎ用品など、毎日の快適さに関わる候補を整理します。",
+      "accent": "rest"
     }
   ],
   "seasonalCalendar": [

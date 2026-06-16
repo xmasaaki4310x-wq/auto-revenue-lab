@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="小型家電">
+  <rect width="960" height="540" fill="#e9edf6"/>
+  <path d="M0 372 C170 300 320 340 470 390 S760 462 960 374 V540 H0 Z" fill="#52749c" opacity=".16"/>
+  <circle cx="760" cy="130" r="96" fill="#243b5b" opacity=".14"/>
+  <rect x="130" y="178" width="164" height="190" rx="28" fill="#ffffff" stroke="#ccd5e5"/>
+  <rect x="176" y="126" width="72" height="70" rx="24" fill="#52749c"/>
+  <circle cx="470" cy="270" r="108" fill="#ffffff" stroke="#ccd5e5" stroke-width="8"/>
+  <circle cx="470" cy="270" r="36" fill="#52749c" opacity=".32"/>
+  <path d="M470 162 L500 270 L410 214 ZM578 270 L470 300 L526 210 ZM470 378 L440 270 L530 326 ZM362 270 L470 240 L414 330 Z" fill="#52749c" opacity=".24"/>
+  <text x="88" y="86" font-family="Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#243b5b">小型家電・時短道具</text>
+  <text x="88" y="444" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#243b5b">毎日使う道具を価格とレビューで</text>
+</svg>

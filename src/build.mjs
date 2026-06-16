@@ -187,7 +187,10 @@ function createTopicArt(topic, title) {
   const palettes = {
     daily: ["#dff1eb", "#0f5b54", "#1e726a"],
     stock: ["#f5eedb", "#6d4e12", "#b2861d"],
-    season: ["#fae7dd", "#7c2f1f", "#ca5e39"]
+    season: ["#fae7dd", "#7c2f1f", "#ca5e39"],
+    fresh: ["#e7f2f4", "#164b58", "#4c8b91"],
+    utility: ["#e9edf6", "#243b5b", "#52749c"],
+    rest: ["#f0eaf6", "#4a3762", "#8a6ead"]
   };
   const [bg, ink, accent] = palettes[topic.accent] || palettes.daily;
   const safeTitle = escapeHtml(truncate(title || topic.title, 28));
@@ -231,6 +234,31 @@ function getSeason(date) {
 }
 
 async function writeHomePage(topicResults, dataMode) {
+  const categoryNav = config.topics.map((topic, index) => `
+    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html">
+      <span>${String(index + 1).padStart(2, "0")}</span>
+      <strong>${escapeHtml(shortTitle(topic.title))}</strong>
+    </a>
+  `).join("");
+
+  const highlightItems = config.topics.map((topic, index) => {
+    const topicResult = topicResults[topic.slug];
+    const top = topicResult?.items?.[0];
+    if (!top) return "";
+    return `
+      <article class="rank-card ${escapeAttribute(topic.accent || "")}">
+        <a href="${topic.slug}.html">
+          <span class="rank-number">${index + 1}</span>
+          <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
+          <div>
+            <small>${escapeHtml(shortTitle(topic.title))}</small>
+            <h3>${escapeHtml(top.name)}</h3>
+            <p>${escapeHtml(top.reason)}</p>
+          </div>
+        </a>
+      </article>`;
+  }).join("");
+
   const topicCards = config.topics.map((topic) => {
     const topicResult = topicResults[topic.slug];
     const top = topicResult?.items?.[0];
@@ -281,6 +309,9 @@ async function writeHomePage(topicResults, dataMode) {
           <small>${statusNote}</small>
         </aside>
       </section>
+      <section class="category-nav" aria-label="カテゴリから探す">
+        ${categoryNav}
+      </section>
       <section class="feature-band" aria-label="このサイトの見方">
         <div>
           <span>01</span>
@@ -296,6 +327,22 @@ async function writeHomePage(topicResults, dataMode) {
           <span>03</span>
           <strong>販売ページで最終確認</strong>
           <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認します。</p>
+        </div>
+      </section>
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">TODAY'S PICKUP</p>
+          <h2>今日チェックする買い物候補</h2>
+        </div>
+        <a href="feed.json">データを見る</a>
+      </section>
+      <section class="rank-grid" aria-label="今日の候補">
+        ${highlightItems}
+      </section>
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">SHOPPING THEMES</p>
+          <h2>暮らしのカテゴリ</h2>
         </div>
       </section>
       <section class="topics-grid" aria-label="買い物テーマ">
@@ -485,6 +532,14 @@ function stripHtml(value) {
 
 function truncate(value, length) {
   return value.length > length ? `${value.slice(0, length)}...` : value;
+}
+
+function shortTitle(value) {
+  return String(value)
+    .replace("のまとめ買い", "")
+    .replace("の補充", "")
+    .replace("候補", "")
+    .trim();
 }
 
 function wait(ms) {

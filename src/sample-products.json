@@ -103,5 +103,180 @@
       "affiliateRate": 4,
       "itemCaption": "職場や家族向けに配りやすいドリップバッグのギフト候補。"
     }
+  ],
+  "daily-essentials": [
+    {
+      "itemName": "トイレットペーパー まとめ買い 96ロール",
+      "itemPrice": 4280,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e8f3f4/17343a?text=Paper+Stock" }],
+      "reviewAverage": 4.6,
+      "reviewCount": 5320,
+      "affiliateRate": 3,
+      "itemCaption": "買い忘れを減らしたい家庭向けの紙類ストック候補。置き場所と量のバランスを確認しやすいタイプ。"
+    },
+    {
+      "itemName": "液体洗剤 詰め替え 大容量 6袋セット",
+      "itemPrice": 3480,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e5efe9/1d564e?text=Detergent" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 2860,
+      "affiliateRate": 4,
+      "itemCaption": "毎日使う洗剤をまとめて補充したいときの候補。価格と保管しやすさを比較します。"
+    },
+    {
+      "itemName": "ティッシュペーパー ケース販売 60箱",
+      "itemPrice": 3980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f2f6ef/315d43?text=Tissue+Case" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 1940,
+      "affiliateRate": 3,
+      "itemCaption": "消費が早い家庭や事務所向けのティッシュまとめ買い候補。"
+    }
+  ],
+  "cleaning-laundry": [
+    {
+      "itemName": "カビ取り洗剤 スプレー まとめ買い",
+      "itemPrice": 2480,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e6f2f2/174f60?text=Cleaning" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 3210,
+      "affiliateRate": 4,
+      "itemCaption": "浴室や水回りの掃除用に比較しやすいカビ対策アイテム。使用前に素材との相性確認が必要です。"
+    },
+    {
+      "itemName": "除湿剤 クローゼット用 まとめ買い",
+      "itemPrice": 2990,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eaf4ee/255e65?text=Humidity" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 1740,
+      "affiliateRate": 3,
+      "itemCaption": "梅雨や夏前に買い足したい除湿剤。部屋数や収納数に合わせて比較します。"
+    },
+    {
+      "itemName": "洗濯槽クリーナー まとめ買い 6回分",
+      "itemPrice": 1980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e7f0f4/204b6b?text=Laundry" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 980,
+      "affiliateRate": 4,
+      "itemCaption": "定期的な洗濯槽ケア用の候補。ドラム式対応などの条件は販売ページで確認します。"
+    }
+  ],
+  "kitchen-storage": [
+    {
+      "itemName": "耐熱ガラス 保存容器 セット",
+      "itemPrice": 3280,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f3eee0/3d3320?text=Storage" }],
+      "reviewAverage": 4.6,
+      "reviewCount": 4560,
+      "affiliateRate": 3,
+      "itemCaption": "作り置きや冷蔵庫整理に使いやすい保存容器セット。サイズ違いの構成を比較します。"
+    },
+    {
+      "itemName": "キッチンラック 省スペース 伸縮タイプ",
+      "itemPrice": 2980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eee7d5/57401f?text=Kitchen+Rack" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 2380,
+      "affiliateRate": 4,
+      "itemCaption": "調味料や小物をまとめたいキッチン向けの収納候補。設置幅の確認が重要です。"
+    },
+    {
+      "itemName": "冷蔵庫収納ケース 透明 6個セット",
+      "itemPrice": 2490,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f4ead8/4b3826?text=Fridge+Box" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 1210,
+      "affiliateRate": 3,
+      "itemCaption": "食品ストックを見やすく整理したいときの候補。サイズと取っ手の有無を比較します。"
+    }
+  ],
+  "small-appliances": [
+    {
+      "itemName": "電気ケトル 1.0L 温度調整タイプ",
+      "itemPrice": 4980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e9edf6/253b5f?text=Kettle" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 3920,
+      "affiliateRate": 3,
+      "itemCaption": "お茶やコーヒー用に使いやすい温度調整ケトル候補。容量と手入れのしやすさを比較します。"
+    },
+    {
+      "itemName": "小型サーキュレーター 首振りタイプ",
+      "itemPrice": 3990,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e5edf4/1e4d70?text=Air+Circulator" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 2760,
+      "affiliateRate": 4,
+      "itemCaption": "冷房効率や部屋干し補助に使いやすい小型家電候補。音や風量を確認します。"
+    },
+    {
+      "itemName": "ハンディファン 卓上兼用 充電式",
+      "itemPrice": 1980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eaf0f7/385f86?text=Fan" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 1450,
+      "affiliateRate": 5,
+      "itemCaption": "通勤、デスク、外出時に使いやすい夏向け候補。充電時間と連続使用時間を比較します。"
+    }
+  ],
+  "bath-sleep": [
+    {
+      "itemName": "フェイスタオル 10枚セット 吸水タイプ",
+      "itemPrice": 2680,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f0e9f6/4a3762?text=Towels" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 5140,
+      "affiliateRate": 3,
+      "itemCaption": "洗い替えを増やしたい家庭向けのタオル候補。厚み、乾きやすさ、枚数を比較します。"
+    },
+    {
+      "itemName": "接触冷感 敷きパッド シングル",
+      "itemPrice": 2980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/eceaf8/43396b?text=Cool+Bedding" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 3340,
+      "affiliateRate": 4,
+      "itemCaption": "夏の寝具見直し用の候補。洗えるか、ゴムバンド付きかを確認します。"
+    },
+    {
+      "itemName": "高さ調整まくら 洗えるカバー付き",
+      "itemPrice": 3980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f4edf8/503b69?text=Pillow" }],
+      "reviewAverage": 4.2,
+      "reviewCount": 1170,
+      "affiliateRate": 3,
+      "itemCaption": "寝具を見直したい人向けの候補。高さ調整と返品条件は販売ページで確認します。"
+    }
   ]
 }

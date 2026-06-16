@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T11:50:21.836Z",
+  "generatedAt": "2026-06-16T12:39:50.138Z",
   "liveData": false,
   "dataMode": "sample",
   "season": {
@@ -174,6 +174,271 @@
           "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E9%81%B8%E3%81%B9%E3%82%8B%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%BC%E3%83%88%206%E5%80%8B%20%E8%A9%B0%E3%82%81%E5%90%88%E3%82%8F%E3%81%9B/",
           "source": "sample",
           "score": 157.6
+        }
+      ]
+    },
+    {
+      "slug": "daily-essentials",
+      "title": "日用品・洗剤・紙類の補充",
+      "keyword": "日用品 まとめ買い 洗剤 トイレットペーパー ティッシュ",
+      "source": "sample",
+      "items": [
+        {
+          "name": "トイレットペーパー まとめ買い 96ロール",
+          "price": 4280,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23dff1eb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%231e726a%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%231e726a%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%231e726a%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%231e726a%22%3E%E6%97%A5%E7%94%A8%E5%93%81%E3%83%BB%E6%B4%97%E5%89%A4%E3%83%BB%E7%B4%99%E9%A1%9E%E3%81%AE%E8%A3%9C%E5%85%85%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%230f5b54%22%3E%E3%83%88%E3%82%A4%E3%83%AC%E3%83%83%E3%83%88%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%2096%E3%83%AD%E3%83%BC%E3%83%AB%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%230f5b54%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.6,
+          "reviewCount": 5320,
+          "affiliateRate": 3,
+          "caption": "買い忘れを減らしたい家庭向けの紙類ストック候補。置き場所と量のバランスを確認しやすいタイプ。",
+          "reason": "平均評価 4.6 / レビュー 5,320 件 / 価格目安 ￥4,280",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%88%E3%82%A4%E3%83%AC%E3%83%83%E3%83%88%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%2096%E3%83%AD%E3%83%BC%E3%83%AB/",
+          "source": "sample",
+          "score": 171.6
+        },
+        {
+          "name": "液体洗剤 詰め替え 大容量 6袋セット",
+          "price": 3480,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23dff1eb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%231e726a%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%231e726a%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%231e726a%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%231e726a%22%3E%E6%97%A5%E7%94%A8%E5%93%81%E3%83%BB%E6%B4%97%E5%89%A4%E3%83%BB%E7%B4%99%E9%A1%9E%E3%81%AE%E8%A3%9C%E5%85%85%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%230f5b54%22%3E%E6%B6%B2%E4%BD%93%E6%B4%97%E5%89%A4%20%E8%A9%B0%E3%82%81%E6%9B%BF%E3%81%88%20%E5%A4%A7%E5%AE%B9%E9%87%8F%206%E8%A2%8B%E3%82%BB%E3%83%83%E3%83%88%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%230f5b54%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.5,
+          "reviewCount": 2860,
+          "affiliateRate": 4,
+          "caption": "毎日使う洗剤をまとめて補充したいときの候補。価格と保管しやすさを比較します。",
+          "reason": "平均評価 4.5 / レビュー 2,860 件 / 価格目安 ￥3,480",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E6%B6%B2%E4%BD%93%E6%B4%97%E5%89%A4%20%E8%A9%B0%E3%82%81%E6%9B%BF%E3%81%88%20%E5%A4%A7%E5%AE%B9%E9%87%8F%206%E8%A2%8B%E3%82%BB%E3%83%83%E3%83%88/",
+          "source": "sample",
+          "score": 166
+        },
+        {
+          "name": "ティッシュペーパー ケース販売 60箱",
+          "price": 3980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23dff1eb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%231e726a%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%231e726a%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%231e726a%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%231e726a%22%3E%E6%97%A5%E7%94%A8%E5%93%81%E3%83%BB%E6%B4%97%E5%89%A4%E3%83%BB%E7%B4%99%E9%A1%9E%E3%81%AE%E8%A3%9C%E5%85%85%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%230f5b54%22%3E%E3%83%86%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%20%E3%82%B1%E3%83%BC%E3%82%B9%E8%B2%A9%E5%A3%B2%2060%E7%AE%B1%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%230f5b54%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%231e726a%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.4,
+          "reviewCount": 1940,
+          "affiliateRate": 3,
+          "caption": "消費が早い家庭や事務所向けのティッシュまとめ買い候補。",
+          "reason": "平均評価 4.4 / レビュー 1,940 件 / 価格目安 ￥3,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%86%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%20%E3%82%B1%E3%83%BC%E3%82%B9%E8%B2%A9%E5%A3%B2%2060%E7%AE%B1/",
+          "source": "sample",
+          "score": 158.7
+        }
+      ]
+    },
+    {
+      "slug": "cleaning-laundry",
+      "title": "掃除・洗濯・湿気対策",
+      "keyword": "掃除 洗濯 カビ対策 除湿 梅雨",
+      "source": "sample",
+      "items": [
+        {
+          "name": "カビ取り洗剤 スプレー まとめ買い",
+          "price": 2480,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e7f2f4%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%234c8b91%22%3E%E6%8E%83%E9%99%A4%E3%83%BB%E6%B4%97%E6%BF%AF%E3%83%BB%E6%B9%BF%E6%B0%97%E5%AF%BE%E7%AD%96%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23164b58%22%3E%E3%82%AB%E3%83%93%E5%8F%96%E3%82%8A%E6%B4%97%E5%89%A4%20%E3%82%B9%E3%83%97%E3%83%AC%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23164b58%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.4,
+          "reviewCount": 3210,
+          "affiliateRate": 4,
+          "caption": "浴室や水回りの掃除用に比較しやすいカビ対策アイテム。使用前に素材との相性確認が必要です。",
+          "reason": "平均評価 4.4 / レビュー 3,210 件 / 価格目安 ￥2,480",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%82%AB%E3%83%93%E5%8F%96%E3%82%8A%E6%B4%97%E5%89%A4%20%E3%82%B9%E3%83%97%E3%83%AC%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84/",
+          "source": "sample",
+          "score": 165.5
+        },
+        {
+          "name": "除湿剤 クローゼット用 まとめ買い",
+          "price": 2990,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e7f2f4%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%234c8b91%22%3E%E6%8E%83%E9%99%A4%E3%83%BB%E6%B4%97%E6%BF%AF%E3%83%BB%E6%B9%BF%E6%B0%97%E5%AF%BE%E7%AD%96%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23164b58%22%3E%E9%99%A4%E6%B9%BF%E5%89%A4%20%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%BC%E3%83%83%E3%83%88%E7%94%A8%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23164b58%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.5,
+          "reviewCount": 1740,
+          "affiliateRate": 3,
+          "caption": "梅雨や夏前に買い足したい除湿剤。部屋数や収納数に合わせて比較します。",
+          "reason": "平均評価 4.5 / レビュー 1,740 件 / 価格目安 ￥2,990",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E9%99%A4%E6%B9%BF%E5%89%A4%20%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%BC%E3%83%83%E3%83%88%E7%94%A8%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84/",
+          "source": "sample",
+          "score": 159.3
+        },
+        {
+          "name": "洗濯槽クリーナー まとめ買い 6回分",
+          "price": 1980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e7f2f4%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%234c8b91%22%3E%E6%8E%83%E9%99%A4%E3%83%BB%E6%B4%97%E6%BF%AF%E3%83%BB%E6%B9%BF%E6%B0%97%E5%AF%BE%E7%AD%96%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23164b58%22%3E%E6%B4%97%E6%BF%AF%E6%A7%BD%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%8A%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%206%E5%9B%9E%E5%88%86%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23164b58%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%234c8b91%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.3,
+          "reviewCount": 980,
+          "affiliateRate": 4,
+          "caption": "定期的な洗濯槽ケア用の候補。ドラム式対応などの条件は販売ページで確認します。",
+          "reason": "平均評価 4.3 / レビュー 980 件 / 価格目安 ￥1,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E6%B4%97%E6%BF%AF%E6%A7%BD%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%8A%E3%83%BC%20%E3%81%BE%E3%81%A8%E3%82%81%E8%B2%B7%E3%81%84%206%E5%9B%9E%E5%88%86/",
+          "source": "sample",
+          "score": 152.6
+        }
+      ]
+    },
+    {
+      "slug": "kitchen-storage",
+      "title": "キッチン収納・保存容器",
+      "keyword": "保存容器 キッチン収納 冷蔵庫 収納",
+      "source": "sample",
+      "items": [
+        {
+          "name": "耐熱ガラス 保存容器 セット",
+          "price": 3280,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f5eedb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%23b2861d%22%3E%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E5%8F%8E%E7%B4%8D%E3%83%BB%E4%BF%9D%E5%AD%98%E5%AE%B9%E5%99%A8%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%236d4e12%22%3E%E8%80%90%E7%86%B1%E3%82%AC%E3%83%A9%E3%82%B9%20%E4%BF%9D%E5%AD%98%E5%AE%B9%E5%99%A8%20%E3%82%BB%E3%83%83%E3%83%88%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%236d4e12%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.6,
+          "reviewCount": 4560,
+          "affiliateRate": 3,
+          "caption": "作り置きや冷蔵庫整理に使いやすい保存容器セット。サイズ違いの構成を比較します。",
+          "reason": "平均評価 4.6 / レビュー 4,560 件 / 価格目安 ￥3,280",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E8%80%90%E7%86%B1%E3%82%AC%E3%83%A9%E3%82%B9%20%E4%BF%9D%E5%AD%98%E5%AE%B9%E5%99%A8%20%E3%82%BB%E3%83%83%E3%83%88/",
+          "source": "sample",
+          "score": 170.1
+        },
+        {
+          "name": "キッチンラック 省スペース 伸縮タイプ",
+          "price": 2980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f5eedb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%23b2861d%22%3E%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E5%8F%8E%E7%B4%8D%E3%83%BB%E4%BF%9D%E5%AD%98%E5%AE%B9%E5%99%A8%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%236d4e12%22%3E%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E3%83%A9%E3%83%83%E3%82%AF%20%E7%9C%81%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%20%E4%BC%B8%E7%B8%AE%E3%82%BF%E3%82%A4%E3%83%97%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%236d4e12%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.4,
+          "reviewCount": 2380,
+          "affiliateRate": 4,
+          "caption": "調味料や小物をまとめたいキッチン向けの収納候補。設置幅の確認が重要です。",
+          "reason": "平均評価 4.4 / レビュー 2,380 件 / 価格目安 ￥2,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E3%83%A9%E3%83%83%E3%82%AF%20%E7%9C%81%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%20%E4%BC%B8%E7%B8%AE%E3%82%BF%E3%82%A4%E3%83%97/",
+          "source": "sample",
+          "score": 162.7
+        },
+        {
+          "name": "冷蔵庫収納ケース 透明 6個セット",
+          "price": 2490,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f5eedb%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%23b2861d%22%3E%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E5%8F%8E%E7%B4%8D%E3%83%BB%E4%BF%9D%E5%AD%98%E5%AE%B9%E5%99%A8%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%236d4e12%22%3E%E5%86%B7%E8%94%B5%E5%BA%AB%E5%8F%8E%E7%B4%8D%E3%82%B1%E3%83%BC%E3%82%B9%20%E9%80%8F%E6%98%8E%206%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%236d4e12%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2861d%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.3,
+          "reviewCount": 1210,
+          "affiliateRate": 3,
+          "caption": "食品ストックを見やすく整理したいときの候補。サイズと取っ手の有無を比較します。",
+          "reason": "平均評価 4.3 / レビュー 1,210 件 / 価格目安 ￥2,490",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%86%B7%E8%94%B5%E5%BA%AB%E5%8F%8E%E7%B4%8D%E3%82%B1%E3%83%BC%E3%82%B9%20%E9%80%8F%E6%98%8E%206%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88/",
+          "source": "sample",
+          "score": 152.6
+        }
+      ]
+    },
+    {
+      "slug": "small-appliances",
+      "title": "小型家電・時短道具",
+      "keyword": "時短家電 小型家電 電気ケトル サーキュレーター",
+      "source": "sample",
+      "items": [
+        {
+          "name": "電気ケトル 1.0L 温度調整タイプ",
+          "price": 4980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e9edf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%2352749c%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%2352749c%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%2352749c%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%2352749c%22%3E%E5%B0%8F%E5%9E%8B%E5%AE%B6%E9%9B%BB%E3%83%BB%E6%99%82%E7%9F%AD%E9%81%93%E5%85%B7%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23243b5b%22%3E%E9%9B%BB%E6%B0%97%E3%82%B1%E3%83%88%E3%83%AB%201.0L%20%E6%B8%A9%E5%BA%A6%E8%AA%BF%E6%95%B4%E3%82%BF%E3%82%A4%E3%83%97%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23243b5b%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.5,
+          "reviewCount": 3920,
+          "affiliateRate": 3,
+          "caption": "お茶やコーヒー用に使いやすい温度調整ケトル候補。容量と手入れのしやすさを比較します。",
+          "reason": "平均評価 4.5 / レビュー 3,920 件 / 価格目安 ￥4,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E9%9B%BB%E6%B0%97%E3%82%B1%E3%83%88%E3%83%AB%201.0L%20%E6%B8%A9%E5%BA%A6%E8%AA%BF%E6%95%B4%E3%82%BF%E3%82%A4%E3%83%97/",
+          "source": "sample",
+          "score": 167.1
+        },
+        {
+          "name": "小型サーキュレーター 首振りタイプ",
+          "price": 3990,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e9edf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%2352749c%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%2352749c%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%2352749c%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%2352749c%22%3E%E5%B0%8F%E5%9E%8B%E5%AE%B6%E9%9B%BB%E3%83%BB%E6%99%82%E7%9F%AD%E9%81%93%E5%85%B7%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23243b5b%22%3E%E5%B0%8F%E5%9E%8B%E3%82%B5%E3%83%BC%E3%82%AD%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%20%E9%A6%96%E6%8C%AF%E3%82%8A%E3%82%BF%E3%82%A4%E3%83%97%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23243b5b%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.4,
+          "reviewCount": 2760,
+          "affiliateRate": 4,
+          "caption": "冷房効率や部屋干し補助に使いやすい小型家電候補。音や風量を確認します。",
+          "reason": "平均評価 4.4 / レビュー 2,760 件 / 価格目安 ￥3,990",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E5%B0%8F%E5%9E%8B%E3%82%B5%E3%83%BC%E3%82%AD%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%20%E9%A6%96%E6%8C%AF%E3%82%8A%E3%82%BF%E3%82%A4%E3%83%97/",
+          "source": "sample",
+          "score": 164.1
+        },
+        {
+          "name": "ハンディファン 卓上兼用 充電式",
+          "price": 1980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23e9edf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%2352749c%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%2352749c%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%2352749c%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%2352749c%22%3E%E5%B0%8F%E5%9E%8B%E5%AE%B6%E9%9B%BB%E3%83%BB%E6%99%82%E7%9F%AD%E9%81%93%E5%85%B7%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%23243b5b%22%3E%E3%83%8F%E3%83%B3%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%B3%20%E5%8D%93%E4%B8%8A%E5%85%BC%E7%94%A8%20%E5%85%85%E9%9B%BB%E5%BC%8F%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23243b5b%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%2352749c%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.3,
+          "reviewCount": 1450,
+          "affiliateRate": 5,
+          "caption": "通勤、デスク、外出時に使いやすい夏向け候補。充電時間と連続使用時間を比較します。",
+          "reason": "平均評価 4.3 / レビュー 1,450 件 / 価格目安 ￥1,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%8F%E3%83%B3%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%B3%20%E5%8D%93%E4%B8%8A%E5%85%BC%E7%94%A8%20%E5%85%85%E9%9B%BB%E5%BC%8F/",
+          "source": "sample",
+          "score": 158.4
+        }
+      ]
+    },
+    {
+      "slug": "bath-sleep",
+      "title": "バス・睡眠・くつろぎ用品",
+      "keyword": "バス用品 タオル 寝具 枕 夏用",
+      "source": "sample",
+      "items": [
+        {
+          "name": "フェイスタオル 10枚セット 吸水タイプ",
+          "price": 2680,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f0eaf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%238a6ead%22%3E%E3%83%90%E3%82%B9%E3%83%BB%E7%9D%A1%E7%9C%A0%E3%83%BB%E3%81%8F%E3%81%A4%E3%82%8D%E3%81%8E%E7%94%A8%E5%93%81%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%234a3762%22%3E%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%2010%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20%E5%90%B8%E6%B0%B4%E3%82%BF%E3%82%A4%E3%83%97%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%234a3762%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.5,
+          "reviewCount": 5140,
+          "affiliateRate": 3,
+          "caption": "洗い替えを増やしたい家庭向けのタオル候補。厚み、乾きやすさ、枚数を比較します。",
+          "reason": "平均評価 4.5 / レビュー 5,140 件 / 価格目安 ￥2,680",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%2010%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20%E5%90%B8%E6%B0%B4%E3%82%BF%E3%82%A4%E3%83%97/",
+          "source": "sample",
+          "score": 169.6
+        },
+        {
+          "name": "接触冷感 敷きパッド シングル",
+          "price": 2980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f0eaf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%238a6ead%22%3E%E3%83%90%E3%82%B9%E3%83%BB%E7%9D%A1%E7%9C%A0%E3%83%BB%E3%81%8F%E3%81%A4%E3%82%8D%E3%81%8E%E7%94%A8%E5%93%81%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%234a3762%22%3E%E6%8E%A5%E8%A7%A6%E5%86%B7%E6%84%9F%20%E6%95%B7%E3%81%8D%E3%83%91%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%234a3762%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.4,
+          "reviewCount": 3340,
+          "affiliateRate": 4,
+          "caption": "夏の寝具見直し用の候補。洗えるか、ゴムバンド付きかを確認します。",
+          "reason": "平均評価 4.4 / レビュー 3,340 件 / 価格目安 ￥2,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E6%8E%A5%E8%A7%A6%E5%86%B7%E6%84%9F%20%E6%95%B7%E3%81%8D%E3%83%91%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB/",
+          "source": "sample",
+          "score": 165.9
+        },
+        {
+          "name": "高さ調整まくら 洗えるカバー付き",
+          "price": 3980,
+          "url": "",
+          "directUrl": "",
+          "imageUrl": "data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22720%22%20height%3D%22540%22%20viewBox%3D%220%200%20720%20540%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22540%22%20fill%3D%22%23f0eaf6%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22602%22%20cy%3D%2296%22%20r%3D%2284%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.16%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22438%22%20r%3D%22116%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.10%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M0%20428%20C120%20360%2C%20270%20356%2C%20420%20418%20S650%20500%2C%20720%20448%20V540%20H0%20Z%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%22236%22%20height%3D%2242%22%20rx%3D%2221%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2264%22%20y%3D%2269%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20fill%3D%22%238a6ead%22%3E%E3%83%90%E3%82%B9%E3%83%BB%E7%9D%A1%E7%9C%A0%E3%83%BB%E3%81%8F%E3%81%A4%E3%82%8D%E3%81%8E%E7%94%A8%E5%93%81%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22246%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2242%22%20font-weight%3D%22800%22%20fill%3D%22%234a3762%22%3E%E9%AB%98%E3%81%95%E8%AA%BF%E6%95%B4%E3%81%BE%E3%81%8F%E3%82%89%20%E6%B4%97%E3%81%88%E3%82%8B%E3%82%AB%E3%83%90%E3%83%BC%E4%BB%98%E3%81%8D%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2250%22%20y%3D%22302%22%20font-family%3D%22Segoe%20UI%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%234a3762%22%20opacity%3D%220.72%22%3ESample%20preview%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22350%22%20width%3D%22150%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.72%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22382%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.35%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2250%22%20y%3D%22414%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%238a6ead%22%20opacity%3D%220.2%22%2F%3E%0A%20%20%20%20%3C%2Fsvg%3E",
+          "reviewAverage": 4.2,
+          "reviewCount": 1170,
+          "affiliateRate": 3,
+          "caption": "寝具を見直したい人向けの候補。高さ調整と返品条件は販売ページで確認します。",
+          "reason": "平均評価 4.2 / レビュー 1,170 件 / 価格目安 ￥3,980",
+          "fallbackUrl": "https://search.rakuten.co.jp/search/mall/%E9%AB%98%E3%81%95%E8%AA%BF%E6%95%B4%E3%81%BE%E3%81%8F%E3%82%89%20%E6%B4%97%E3%81%88%E3%82%8B%E3%82%AB%E3%83%90%E3%83%BC%E4%BB%98%E3%81%8D/",
+          "source": "sample",
+          "score": 150.7
         }
       ]
     }

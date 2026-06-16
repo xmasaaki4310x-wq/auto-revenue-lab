@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="掃除と洗濯">
+  <rect width="960" height="540" fill="#e7f2f4"/>
+  <path d="M0 382 C150 310 330 330 470 390 S780 480 960 400 V540 H0 Z" fill="#4c8b91" opacity=".16"/>
+  <circle cx="728" cy="138" r="80" fill="#164b58" opacity=".14"/>
+  <rect x="132" y="138" width="150" height="270" rx="28" fill="#ffffff" stroke="#c8d8dc"/>
+  <rect x="168" y="96" width="78" height="64" rx="14" fill="#4c8b91"/>
+  <rect x="358" y="150" width="210" height="236" rx="24" fill="#ffffff" stroke="#c8d8dc"/>
+  <circle cx="463" cy="268" r="64" fill="#4c8b91" opacity=".22"/>
+  <rect x="620" y="174" width="130" height="210" rx="18" fill="#fff8ec" stroke="#d8ccb8"/>
+  <rect x="650" y="220" width="72" height="104" rx="36" fill="#c75f3a" opacity=".22"/>
+  <text x="88" y="86" font-family="Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#164b58">掃除・洗濯・湿気対策</text>
+  <text x="88" y="444" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#164b58">梅雨前後に見直したい道具</text>
+</svg>

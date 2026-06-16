@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="バスと睡眠用品">
+  <rect width="960" height="540" fill="#f0eaf6"/>
+  <rect x="0" y="356" width="960" height="184" fill="#fffafc"/>
+  <circle cx="760" cy="132" r="92" fill="#8a6ead" opacity=".16"/>
+  <rect x="120" y="190" width="270" height="156" rx="28" fill="#ffffff" stroke="#d7cde4"/>
+  <rect x="156" y="150" width="202" height="64" rx="32" fill="#8a6ead" opacity=".22"/>
+  <rect x="456" y="174" width="240" height="200" rx="24" fill="#ffffff" stroke="#d7cde4"/>
+  <rect x="492" y="214" width="168" height="34" rx="17" fill="#8a6ead" opacity=".28"/>
+  <rect x="492" y="274" width="132" height="28" rx="14" fill="#8a6ead" opacity=".18"/>
+  <text x="88" y="86" font-family="Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#4a3762">バス・睡眠・くつろぎ用品</text>
+  <text x="88" y="444" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#4a3762">毎日の快適さを整える候補</text>
+</svg>
