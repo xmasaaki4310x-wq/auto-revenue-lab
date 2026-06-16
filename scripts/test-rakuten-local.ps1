@@ -16,5 +16,11 @@ if ([string]::IsNullOrWhiteSpace($keyword)) {
   $keyword = "coffee"
 }
 $env:RAKUTEN_TEST_KEYWORD = $keyword.Trim()
+$includeAffiliate = Read-Host "Include Affiliate ID? [Y/n]"
+if ($includeAffiliate -match "^[nN]") {
+  $env:RAKUTEN_TEST_INCLUDE_AFFILIATE = "0"
+} else {
+  $env:RAKUTEN_TEST_INCLUDE_AFFILIATE = "1"
+}
 
 & $node "scripts/test-rakuten-api.mjs"

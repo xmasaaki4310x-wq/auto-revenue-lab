@@ -9,26 +9,27 @@ const applicationId = env(rakuten.applicationIdEnv);
 const accessKey = env(rakuten.accessKeyEnv);
 const affiliateId = env(rakuten.affiliateIdEnv);
 const keyword = env("RAKUTEN_TEST_KEYWORD") || "coffee";
+const exactUrl = env("RAKUTEN_TEST_URL");
 
-if (!applicationId || !accessKey) {
+if (!exactUrl && (!applicationId || !accessKey)) {
   console.error("Missing RAKUTEN_APPLICATION_ID or RAKUTEN_ACCESS_KEY.");
   console.error("Run scripts/test-rakuten-local.ps1 and paste the values from Rakuten Developers.");
   process.exit(1);
 }
 
 console.log("Rakuten API local test");
-console.log(`keyword: ${keyword}`);
-console.log(`applicationId length: ${applicationId.length}`);
-console.log(`accessKey length: ${accessKey.length}`);
-console.log(`affiliateId present: ${affiliateId ? "yes" : "no"}`);
+if (exactUrl) {
+  console.log("mode: exact URL copied from Rakuten API test form");
+  await runUrl(exactUrl, "Exact URL test");
+} else {
+  console.log(`keyword: ${keyword}`);
+  console.log(`applicationId length: ${applicationId.length}`);
+  console.log(`accessKey length: ${accessKey.length}`);
+  console.log(`affiliateId present: ${affiliateId ? "yes" : "no"}`);
 
-const withoutAffiliate = await runRequest({ includeAffiliateId: false });
-const withAffiliate = affiliateId
-  ? await runRequest({ includeAffiliateId: true })
-  : { ok: false, skipped: true };
-
-if (!withoutAffiliate.ok && !withAffiliate.ok) {
-  process.exit(1);
+  const includeAffiliateId = env("RAKUTEN_TEST_INCLUDE_AFFILIATE") !== "0";
+  const result = await runRequest({ includeAffiliateId: includeAffiliateId && Boolean(affiliateId) });
+  if (!result.ok) process.exit(1);
 }
 
 function env(name) {
@@ -50,8 +51,14 @@ async function runRequest({ includeAffiliateId }) {
   }
 
   const url = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
+  return runUrl(url, includeAffiliateId ? "Generated URL with affiliateId" : "Generated URL without affiliateId");
+}
+
+async function runUrl(url, label) {
   console.log("");
-  console.log(includeAffiliateId ? "Test B: with affiliateId" : "Test A: without affiliateId");
+  console.log(label);
+  console.log(`url host: ${new URL(url).host}`);
+  console.log(`url length: ${url.length}`);
 
   const response = await fetch(url);
   const text = await response.text();
