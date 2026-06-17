@@ -36,12 +36,15 @@ for (const topic of config.topics) {
   if (source === "live") liveTopicCount += 1;
 
   const rawItems = source === "live" ? fetchResult.items : samples[topic.slug] || [];
-  const normalizedItems = rawItems
+  const scoredItems = rawItems
     .map((raw) => normalizeItem(raw, topic, source))
     .filter((item) => item.name)
     .map((item) => source === "sample" ? { ...item, url: "", directUrl: "" } : item)
     .map((item) => ({ ...item, score: scoreItem(item) }))
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score);
+
+  const qualityItems = scoredItems.filter(isPreferredItem);
+  const normalizedItems = (qualityItems.length >= 3 ? qualityItems : scoredItems)
     .slice(0, config.maxItemsPerTopic);
 
   topicResults[topic.slug] = {
@@ -320,6 +323,13 @@ function scoreItem(item) {
   const priceBalance = item.price > 0 && item.price <= 5000 ? 10 : item.price <= 12000 ? 5 : 0;
   const rateWeight = item.affiliateRate * 2;
   return Math.round((reviewWeight + ratingWeight + priceBalance + rateWeight) * 10) / 10;
+}
+
+function isPreferredItem(item) {
+  if (item.source === "sample") return true;
+  return item.price > 0 &&
+    item.reviewAverage >= config.rakuten.minReviewAverage &&
+    item.reviewCount >= config.rakuten.minReviewCount;
 }
 
 function makeReason(item) {
