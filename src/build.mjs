@@ -261,11 +261,28 @@ function buildRakutenSearchUrl(value) {
 }
 
 function resolveImageUrl(raw, topic, source) {
-  const candidate = raw.mediumImageUrls?.[0]?.imageUrl?.replace("?_ex=128x128", "") || "";
+  const candidate = getFirstImageUrl(raw).replace("?_ex=128x128", "");
   if (source === "live" && candidate && !candidate.includes("placehold.co")) {
     return candidate;
   }
   return createTopicArt(topic, String(raw.itemName || "").trim());
+}
+
+function getFirstImageUrl(raw) {
+  const imageGroups = [
+    raw.mediumImageUrls,
+    raw.smallImageUrls,
+    raw.imageUrls
+  ];
+
+  for (const group of imageGroups) {
+    if (!Array.isArray(group) || !group.length) continue;
+    const first = group[0];
+    if (typeof first === "string") return first;
+    if (first?.imageUrl) return String(first.imageUrl);
+  }
+
+  return String(raw.mediumImageUrl || raw.smallImageUrl || raw.imageUrl || "");
 }
 
 function createTopicArt(topic, title) {
