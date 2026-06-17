@@ -777,7 +777,6 @@ main {
 .side-affiliate {
   display: grid;
   gap: 8px;
-  text-decoration: none;
 }
 
 .ad-product {
@@ -818,6 +817,24 @@ main {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
+}
+
+.ad-product a,
+.side-affiliate a {
+  display: inline-flex;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: var(--teal);
+  color: #ffffff;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.ad-product a:hover,
+.side-affiliate a:hover {
+  background: var(--teal-dark);
 }
 
 .breadcrumb {

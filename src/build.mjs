@@ -433,12 +433,13 @@ async function writeHomePage(topicResults, dataMode) {
     if (!top) return "";
     const href = top.url || top.fallbackUrl;
     return `
-      <a class="ad-product" href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">
+      <article class="ad-product">
         <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <strong>${escapeHtml(top.name)}</strong>
         <em>${escapeHtml(getValueLine(top))}</em>
-      </a>`;
+        <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">楽天の商品ページで確認</a>
+      </article>`;
   }).join("");
 
   const statusText = dataMode === "live"
@@ -621,12 +622,13 @@ async function writeTopicPage(topic, items, source) {
             <li>容量やサイズが置き場所に合うか</li>
           </ul>
           ${topItem ? `
-          <a class="side-affiliate" href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank">
+          <div class="side-affiliate">
             <img src="${escapeAttribute(topItem.imageUrl)}" alt="${escapeAttribute(topItem.name)}" loading="lazy">
             <span>広告 / 商品リンク</span>
             <strong>${escapeHtml(topItem.name)}</strong>
             <em>${escapeHtml(getValueLine(topItem))}</em>
-          </a>` : `
+            <a href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank">楽天の商品ページで確認</a>
+          </div>` : `
           <div class="ad-slot compact">
             <span>広告掲載枠</span>
             <strong>関連商品の紹介枠</strong>
