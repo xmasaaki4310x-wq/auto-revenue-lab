@@ -367,21 +367,21 @@ function getValueLine(item) {
 function makeMiniReason(topic, item) {
   if (!item) return topic.angle;
   const title = shortTitle(topic.title);
-  if (item.reviewCount >= 1000) return `${title}でレビュー数が多く、購入前に条件を見比べやすい候補です。`;
-  if (item.reviewAverage >= 4.4) return `${title}で平均評価が高めの候補です。価格や送料は楽天側で確認できます。`;
-  return `${title}の比較候補です。容量、価格、レビューを確認してから選べます。`;
+  if (item.reviewCount >= 1000) return `${title}の中でもレビュー数が多く、条件を比べやすい候補です。`;
+  if (item.reviewAverage >= 4.4) return `${title}の中でも平均評価が高めの候補です。価格や送料は楽天側で確認してください。`;
+  return `${title}の比較候補です。容量、価格、レビューを見てから選べます。`;
 }
 
 function getTopicAliases(topic) {
   const aliases = {
-    "drink-stock": "ポカリ ポカリスエット スポーツドリンク アクエリアス イオンウォーター サイダー 炭酸 炭酸飲料 コーラ スプライト 三ツ矢 水分補給 ドリンク 飲料",
-    "rice-pantry": "ごはん ご飯 白米 無洗米 パックご飯 レトルト 非常食 備蓄 防災",
-    "seasonal-gifts": "ギフト プレゼント お中元 お歳暮 父の日 母の日 敬老の日 手土産 贈り物",
-    "daily-essentials": "洗剤 トイレットペーパー ティッシュ キッチンペーパー 消耗品 詰め替え",
-    "cleaning-laundry": "掃除 洗濯 カビ 除湿 湿気 梅雨 洗剤 漂白",
-    "kitchen-storage": "保存容器 タッパー ラック 冷蔵庫 収納 キッチン 整理",
-    "small-appliances": "家電 ケトル 扇風機 サーキュレーター 時短 ハンディファン",
-    "bath-sleep": "タオル バスタオル 寝具 枕 布団 リラックス"
+    "drink-stock": "ポカリ ポカリスエット スポーツドリンク スポドリ アクエリアス イオンウォーター OS1 経口補水液 水分補給 熱中症対策 サイダー ソーダ ラムネ 炭酸 炭酸水 炭酸飲料 コーラ スプライト 三ツ矢 ジンジャーエール ミネラルウォーター 天然水 ペットボトル 麦茶 緑茶 烏龍茶 ウーロン茶 おちゃ お茶 ドリンク 飲料 ケース買い 箱買い",
+    "rice-pantry": "こめ お米 米 ごはん ご飯 ライス 白米 玄米 無洗米 雑穀米 パックご飯 パックごはん レンチン レトルト 常温保存 非常食 保存食 備蓄 防災 ローリングストック 主食",
+    "seasonal-gifts": "ギフト プレゼント 贈答 贈り物 お礼 お返し 手土産 差し入れ お中元 御中元 お歳暮 御歳暮 父の日 母の日 敬老の日 誕生日 内祝い うなぎ アイス コーヒー スイーツ",
+    "daily-essentials": "日用品 消耗品 生活用品 洗剤 柔軟剤 詰め替え つめかえ 大容量 トイレットペーパー トイレットロール ティッシュ ティッシュペーパー キッチンペーパー 紙類 ケース買い 箱買い まとめ買い",
+    "cleaning-laundry": "掃除 そうじ 清掃 洗濯 ランドリー カビ カビ取り 除湿 湿気 梅雨 洗剤 漂白 消臭 部屋干し 浴室 風呂 洗濯槽 クリーナー",
+    "kitchen-storage": "保存容器 タッパー フードコンテナ 作り置き 冷蔵庫 収納 キッチン収納 ラック 棚 整理 整頓 片付け 小物入れ 食品ストック 密閉容器",
+    "small-appliances": "家電 小型家電 時短家電 キッチン家電 ケトル 電気ケトル 扇風機 サーキュレーター 送風 部屋干し ハンディファン 卓上ファン 省スペース 時短",
+    "bath-sleep": "タオル バスタオル フェイスタオル 寝具 枕 まくら 布団 ふとん 敷きパッド 冷感 夏用 バス用品 お風呂 風呂 リラックス くつろぎ 快眠"
   };
   return aliases[topic.slug] || "";
 }
@@ -485,8 +485,8 @@ async function writeHomePage(topicResults, dataMode) {
         <div class="hero-copy">
           <img class="hero-visual" src="assets/season-hero.svg" alt="季節の買い物候補イメージ" loading="lazy">
           <p class="eyebrow">${escapeHtml(season.label)}</p>
-          <h1>楽天で買う前に候補を絞る</h1>
-          <p>${escapeHtml(config.siteName)}は、${escapeHtml(config.description)} 迷ったら、まず価格・レビュー・容量のバランスが見やすい候補から確認できます。</p>
+          <h1>${escapeHtml(config.siteName)}</h1>
+          <p>楽天で買う前に、日用品・食品・収納・掃除・季節ギフトなどの候補を価格目安、レビュー件数、平均評価から整理する買い物メモです。迷ったら、まず比較しやすい候補から見ていけます。</p>
           <div class="hero-actions">
             <a class="primary-action" href="#today-pickup">今日の候補を見る</a>
             <a class="secondary-action" href="#shopping-themes">カテゴリから探す</a>
@@ -509,17 +509,17 @@ async function writeHomePage(topicResults, dataMode) {
         <div>
           <span>01</span>
           <strong>今日のおすすめ</strong>
-          <p>季節イベントや買い置きなど、今の時期に見直しやすい候補を紹介します。</p>
+          <p>季節イベントや買い置きなど、今見直しやすい候補を集めています。</p>
         </div>
         <div>
           <span>02</span>
           <strong>価格とレビュー比較</strong>
-          <p>価格だけでなく、レビュー件数と平均評価も見比べられます。</p>
+          <p>価格だけでなく、レビュー件数と平均評価も一緒に見られます。</p>
         </div>
         <div>
           <span>03</span>
           <strong>販売ページで最終確認</strong>
-          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認できます。</p>
+          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認してください。</p>
         </div>
       </section>
       <section id="today-pickup" class="section-heading">
@@ -549,7 +549,7 @@ async function writeHomePage(topicResults, dataMode) {
         <div>
           <p class="eyebrow">SHOPPING THEMES</p>
           <h2>暮らしのカテゴリ</h2>
-          <p>水、米、日用品、収納、掃除、家電、ギフトまで、買い物の目的別に整理しています。</p>
+          <p>水、米、日用品、収納、掃除、家電、ギフトまで、買いたい目的に合わせて探せます。</p>
         </div>
       </section>
       <section class="topics-grid" aria-label="買い物テーマ">
@@ -559,7 +559,7 @@ async function writeHomePage(topicResults, dataMode) {
         <div>
           <p class="eyebrow">AFFILIATE LINKS</p>
           <h2>商品リンク枠</h2>
-          <p>ここに表示している商品リンクから楽天の販売ページへ進み、条件を満たす購入が発生すると紹介料の対象になる場合があります。</p>
+          <p>表示中の商品リンクから楽天の販売ページへ進み、条件を満たす購入が発生すると紹介料の対象になる場合があります。</p>
         </div>
         <div class="ad-product-grid">
           ${affiliateShowcase}
@@ -568,7 +568,7 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="content-with-rail">
         <div class="plain-section">
           <h2>掲載の考え方</h2>
-          <p>このサイトは、日用品や食品などの買い物候補を整理するためのメモです。商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合がありますが、掲載文では価格、レビュー、季節性、比較しやすさを優先します。</p>
+          <p>このサイトは、日用品や食品などの買い物候補を整理するためのメモです。商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合があります。掲載文では、価格、レビュー、季節性、比較しやすさを優先します。</p>
         </div>
         <aside class="ad-slot" aria-label="広告掲載枠">
           <span>広告掲載枠</span>
@@ -619,9 +619,9 @@ async function writeTopicPage(topic, items, source) {
         <p>${escapeHtml(topic.angle)}</p>
         <div class="topic-actions">
           <a class="primary-action" href="#products">候補を比較する</a>
-          <span>${source === "live" ? "楽天の商品データを表示中" : "サンプル表示中"}</span>
+          <span>${source === "live" ? "楽天の商品データを表示中" : "サンプルで表示中"}</span>
         </div>
-        ${source === "sample" ? `<div class="topic-alert">このテーマは現在サンプル表示です。実データ取得に成功すると販売ページへの実リンクと商品画像へ切り替わります。</div>` : ""}
+        ${source === "sample" ? `<div class="topic-alert">このテーマは現在サンプルで表示しています。実データ取得に成功すると、販売ページへのリンクと商品画像に切り替わります。</div>` : ""}
       </section>
       <section class="content-with-rail">
         <div id="products" class="product-grid">
@@ -776,19 +776,26 @@ function layout({ title, description, body }) {
         return;
       }
       const aliases = [
-        ["ポカリ", "ポカリスエット", "スポーツドリンク", "アクエリアス", "イオンウォーター", "水分補給", "飲料"],
-        ["サイダー", "炭酸", "炭酸水", "炭酸飲料", "スプライト", "三ツ矢", "カナダドライ"],
-        ["ジュース", "飲料", "ドリンク", "水", "お茶", "炭酸"],
-        ["米", "ごはん", "ご飯", "白米", "無洗米", "パックご飯"],
-        ["防災", "非常食", "備蓄", "保存食", "水", "米"],
-        ["洗剤", "日用品", "詰め替え", "トイレットペーパー", "ティッシュ"],
-        ["掃除", "洗濯", "カビ", "除湿", "湿気"],
-        ["ギフト", "プレゼント", "お中元", "手土産", "贈り物"],
-        ["家電", "ケトル", "扇風機", "サーキュレーター", "時短"]
+        ["ポカリ", "ポカリスエット", "スポーツドリンク", "スポドリ", "アクエリアス", "イオンウォーター", "os1", "経口補水液", "水分補給", "熱中症対策", "飲料", "ドリンク"],
+        ["サイダー", "ソーダ", "ラムネ", "炭酸", "炭酸水", "炭酸飲料", "コーラ", "スプライト", "三ツ矢", "カナダドライ", "ジンジャーエール"],
+        ["水", "ミネラルウォーター", "天然水", "ペットボトル", "ケース買い", "箱買い", "まとめ買い"],
+        ["お茶", "おちゃ", "麦茶", "緑茶", "ウーロン茶", "烏龍茶"],
+        ["米", "こめ", "お米", "ごはん", "ご飯", "ライス", "白米", "玄米", "無洗米", "パックご飯", "パックごはん"],
+        ["防災", "非常食", "備蓄", "保存食", "ローリングストック", "常温保存", "レトルト"],
+        ["日用品", "消耗品", "生活用品", "洗剤", "柔軟剤", "詰め替え", "つめかえ", "大容量", "紙類"],
+        ["トイレットペーパー", "トイレットロール", "ティッシュ", "ティッシュペーパー", "キッチンペーパー"],
+        ["掃除", "そうじ", "清掃", "洗濯", "ランドリー", "カビ", "カビ取り", "除湿", "湿気", "梅雨", "消臭", "部屋干し", "浴室", "風呂", "洗濯槽"],
+        ["保存容器", "タッパー", "フードコンテナ", "作り置き", "冷蔵庫", "収納", "キッチン収納", "ラック", "棚", "整理", "片付け", "密閉容器"],
+        ["家電", "小型家電", "時短家電", "キッチン家電", "ケトル", "電気ケトル", "扇風機", "サーキュレーター", "送風", "ハンディファン", "卓上ファン"],
+        ["タオル", "バスタオル", "フェイスタオル", "寝具", "枕", "まくら", "布団", "ふとん", "敷きパッド", "冷感", "バス用品", "快眠"],
+        ["ギフト", "プレゼント", "贈答", "贈り物", "お礼", "お返し", "手土産", "差し入れ", "お中元", "御中元", "お歳暮", "御歳暮", "父の日", "母の日", "敬老の日", "誕生日", "内祝い", "スイーツ"]
       ];
-      const normalize = (value) => String(value || "").normalize("NFKC").toLowerCase();
+      const toKatakana = (value) => value.replace(/[ぁ-ん]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));
+      const compact = (value) => value.replace(/[\\s\\-_/・,，.。()（）［］【】\\[\\]]+/g, "");
+      const normalize = (value) => compact(toKatakana(String(value || "").normalize("NFKC").toLowerCase()));
       const expandTerms = (query) => {
-        const terms = new Set(query.split(/[\\s　]+/).filter(Boolean));
+        const rawTerms = String(input.value || "").normalize("NFKC").toLowerCase().split(/[\\s　]+/).map(normalize).filter(Boolean);
+        const terms = new Set(rawTerms);
         terms.add(query);
         for (const group of aliases) {
           const normalizedGroup = group.map(normalize);
@@ -812,7 +819,7 @@ function layout({ title, description, body }) {
           status.textContent = "商品・カテゴリを検索";
           return;
         }
-        status.innerHTML = visible + "件表示 / <a href=\\"https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(input.value.trim()) + "/\\" rel=\\"sponsored nofollow noopener\\" target=\\"_blank\\">楽天で検索</a>";
+        status.innerHTML = visible + "件表示 / 見つからない場合は <a href=\\"https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(input.value.trim()) + "/\\" rel=\\"sponsored nofollow noopener\\" target=\\"_blank\\">楽天で検索</a>";
       };
       input.addEventListener("input", applySearch);
       clearButton.addEventListener("click", () => {
