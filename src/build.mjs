@@ -1110,6 +1110,20 @@ async function writeTopicPage(topic, items, source) {
   const faqs = getTopicFaq(topic);
   const searchTerms = getTopicSearchTerms(topic);
   const comparison = buildComparisonTable(items);
+  const priorityItems = items.slice(0, 3).map((item, index) => {
+    const href = item.url || item.fallbackUrl;
+    return `
+      <article class="priority-card" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
+        <span>${index + 1}</span>
+        ${item.imageUrl ? `<img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">` : ""}
+        <div>
+          <small>${index === 0 ? "まず見る候補" : index === 1 ? "比較候補" : "予備候補"}</small>
+          <h3>${escapeHtml(item.name)}</h3>
+          <p>${escapeHtml(getValueLine(item))}</p>
+          <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="priority-card">楽天で確認</a>
+        </div>
+      </article>`;
+  }).join("");
   const cards = items.map((item, index) => `
     <article class="product-card" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
       <span class="product-rank">候補 ${index + 1}</span>
@@ -1161,6 +1175,9 @@ async function writeTopicPage(topic, items, source) {
         <ul>
           ${guide.checks.map((check) => `<li>${escapeHtml(check)}</li>`).join("")}
         </ul>
+      </section>
+      <section class="priority-strip" aria-label="まず見る候補">
+        ${priorityItems}
       </section>
       <section class="section-heading compact-heading">
         <div>
