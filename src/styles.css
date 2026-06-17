@@ -64,6 +64,23 @@ a {
   font-size: 14px;
 }
 
+.site-footer p {
+  margin: 0 0 4px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px 18px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .brand {
   color: var(--teal-dark);
   font-weight: 850;

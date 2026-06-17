@@ -831,10 +831,10 @@ async function writeHomePage(topicResults, dataMode) {
           <span>季節</span>
           <strong>月ごとの買い物を確認</strong>
         </a>
-        <a href="disclosure.html">
-          <img src="assets/hygiene-care.svg" alt="" loading="lazy">
-          <span>広告</span>
-          <strong>広告掲載について</strong>
+        <a href="baby-care.html">
+          <img src="assets/baby-care.svg" alt="" loading="lazy">
+          <span>ベビー</span>
+          <strong>育児ストックを見る</strong>
         </a>
       </section>
       <section id="today-pickup" class="section-heading">
@@ -880,11 +880,11 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="topics-grid" aria-label="買い物テーマ">
         ${topicCards}
       </section>
-      <section class="affiliate-showcase" aria-label="広告商品リンク">
+      <section class="affiliate-showcase" aria-label="販売ページで詳しく見られる候補">
         <div>
-          <p class="eyebrow">AFFILIATE LINKS</p>
-          <h2>商品リンク枠</h2>
-          <p>表示中の商品リンクから楽天の販売ページへ進み、条件を満たす購入が発生すると紹介料の対象になる場合があります。</p>
+          <p class="eyebrow">CHECK ON RAKUTEN</p>
+          <h2>楽天で詳しく見られる候補</h2>
+          <p>写真、レビュー、在庫状況を見ながら、気になる候補を販売ページで確認できます。</p>
         </div>
         <div class="ad-product-grid">
           ${affiliateShowcase}
@@ -893,11 +893,11 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="content-with-rail">
         <div class="plain-section">
           <h2>掲載の考え方</h2>
-          <p>このサイトは、日用品や食品などの買い物候補を整理するためのメモです。商品リンク経由で購入や申込が発生すると、提携先の条件に応じて紹介料が発生する場合があります。掲載文では、価格、レビュー、季節性、比較しやすさを優先します。</p>
+          <p>このサイトは、日用品や食品などの買い物候補を整理するためのメモです。掲載文では、価格、レビュー、季節性、比較しやすさを優先します。</p>
         </div>
-        <aside class="ad-slot" aria-label="広告掲載枠">
-          <span>広告掲載枠</span>
-          <strong>季節特集や関連商品の掲載を想定</strong>
+        <aside class="ad-slot" aria-label="関連特集">
+          <span>関連特集</span>
+          <strong>季節ごとの買い物候補を追加予定</strong>
         </aside>
       </section>`
   });
@@ -1484,7 +1484,6 @@ function layout({ title, description, body, path = "index.html", structuredData 
       <a href="index.html">買い物テーマ</a>
       <a href="selection-policy.html">比較方針</a>
       <a href="seasonal-calendar.html">季節</a>
-      <a href="disclosure.html">広告掲載</a>
       <a href="privacy.html">プライバシー</a>
     </nav>
   </header>
@@ -1501,8 +1500,14 @@ function layout({ title, description, body, path = "index.html", structuredData 
     ${body}
   </main>
   <footer class="site-footer">
-    <p>${escapeHtml(config.tagline)}</p>
-    <p>商品情報は更新時点の公開データをもとに整理しています。</p>
+    <div>
+      <p>${escapeHtml(config.tagline)}</p>
+      <p>商品情報は更新時点の公開データをもとに整理しています。</p>
+    </div>
+    <nav class="footer-links" aria-label="サイト情報">
+      <a href="disclosure.html">広告掲載について</a>
+      <a href="privacy.html">プライバシー</a>
+    </nav>
   </footer>
   <script>
     (() => {
