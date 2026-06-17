@@ -576,6 +576,85 @@ main {
   color: #ffffff;
 }
 
+.guide-hero {
+  background:
+    linear-gradient(135deg, rgba(237, 245, 241, 0.95), rgba(255, 255, 255, 0.95)),
+    url("assets/kitchen-storage.svg") right 24px center / 250px auto no-repeat;
+}
+
+.guide-list {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0 64px;
+}
+
+.guide-card {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(32, 42, 45, 0.05);
+}
+
+.guide-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  object-fit: contain;
+  padding: 24px;
+  background: #f5f8f3;
+}
+
+.guide-card div {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+}
+
+.guide-card span {
+  color: var(--coral);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.guide-card h2 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.guide-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.guide-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.guide-card li {
+  color: var(--text);
+}
+
+.guide-card a {
+  justify-self: start;
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--teal);
+  color: #ffffff;
+  font-weight: 900;
+  text-decoration: none;
+}
+
 .category-nav {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1580,6 +1659,7 @@ main {
   .buyer-path,
   .ranking-feature-grid,
   .intent-grid,
+  .guide-card,
   .topic-summary,
   .policy-grid,
   .month-grid,

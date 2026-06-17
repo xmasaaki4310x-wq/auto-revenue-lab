@@ -74,6 +74,7 @@ const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.top
 await writeHomePage(topicResults, dataMode);
 await writeRankingPage(topicResults, dataMode);
 await writeIntentPage(topicResults, dataMode);
+await writeGuidesPage(topicResults, dataMode);
 await writeStaticPages();
 await writeJsonFeed(topicResults, dataMode);
 await writeBuildReport(dataMode);
@@ -783,6 +784,10 @@ async function writeHomePage(topicResults, dataMode) {
           <span>目的別</span>
           <strong>使う場面から探す</strong>
         </a>
+        <a href="guides.html">
+          <span>選び方</span>
+          <strong>買う前の確認点を読む</strong>
+        </a>
         <a href="selection-policy.html">
           <span>比較方針</span>
           <strong>候補の選び方を見る</strong>
@@ -1051,6 +1056,53 @@ async function writeIntentPage(topicResults, dataMode) {
   await writeFile(path.join(outDir, "shopping-intents.html"), html);
 }
 
+async function writeGuidesPage(topicResults, dataMode) {
+  const cards = config.topics.map((topic) => {
+    const guide = getTopicGuide(topic);
+    const item = getTopicTopItem(topicResults, topic);
+    const visual = item?.imageUrl || `assets/${topic.slug}.svg`;
+    const checks = guide.checks.slice(0, 4).map((check) => `<li>${escapeHtml(check)}</li>`).join("");
+    return `
+      <article class="guide-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic), guide.lead, guide.checks, item?.name || ""))}">
+        <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(item?.name || topic.title)}" loading="lazy">
+        <div>
+          <span>${escapeHtml(shortTitle(topic.title))}</span>
+          <h2>${escapeHtml(topic.title)}</h2>
+          <p>${escapeHtml(guide.lead)}</p>
+          <ul>${checks}</ul>
+          <a href="${topic.slug}.html">比較ページを見る</a>
+        </div>
+      </article>`;
+  }).join("");
+
+  const html = layout({
+    title: `買う前の選び方ガイド - ${config.siteName}`,
+    description: "暮らしの道具や日用品を買う前に確認したい、価格、レビュー、容量、保管、季節性などのチェックポイントをまとめたページです。",
+    path: "guides.html",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "買う前の選び方ガイド",
+        "url": pageUrl("guides.html"),
+        "description": "暮らしの買い物候補を選ぶ前のチェックポイント集です。"
+      }
+    ],
+    body: `
+      <section class="topic-hero guide-hero">
+        <p class="eyebrow">BUYING GUIDES</p>
+        <h1>買う前の選び方ガイド</h1>
+        <p>価格だけで決めにくい日用品や暮らしの道具を、容量、レビュー、置き場所、季節性、販売ページでの確認点に分けて整理しています。</p>
+        <div class="source-banner">${dataMode === "live" ? "楽天APIの商品情報とカテゴリ別の確認点をもとに整理しています。" : "一部サンプル表示を含みます。"}</div>
+      </section>
+      <section class="guide-list" aria-label="買う前の確認点">
+        ${cards}
+      </section>`
+  });
+
+  await writeFile(path.join(outDir, "guides.html"), html);
+}
+
 async function writeTopicPage(topic, items, source) {
   const topItem = items[0];
   const railLink = topItem?.url || topItem?.fallbackUrl || "";
@@ -1302,6 +1354,7 @@ async function writeSitemap() {
     "index.html",
     "ranking.html",
     "shopping-intents.html",
+    "guides.html",
     "disclosure.html",
     "privacy.html",
     "selection-policy.html",
@@ -1360,6 +1413,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
     <nav>
       <a href="ranking.html">ランキング</a>
       <a href="shopping-intents.html">目的別</a>
+      <a href="guides.html">選び方</a>
       <a href="index.html">買い物テーマ</a>
       <a href="selection-policy.html">比較方針</a>
       <a href="seasonal-calendar.html">季節</a>
