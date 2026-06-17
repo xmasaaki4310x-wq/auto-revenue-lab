@@ -72,6 +72,7 @@ for (const topic of config.topics) {
 const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.topics.length ? "live" : "mixed";
 
 await writeHomePage(topicResults, dataMode);
+await writeRankingPage(topicResults, dataMode);
 await writeStaticPages();
 await writeJsonFeed(topicResults, dataMode);
 await writeBuildReport(dataMode);
@@ -773,6 +774,10 @@ async function writeHomePage(topicResults, dataMode) {
         </div>
       </section>
       <section class="quick-links" aria-label="サイトの補助導線">
+        <a href="ranking.html">
+          <span>ランキング</span>
+          <strong>横断で人気候補を比べる</strong>
+        </a>
         <a href="selection-policy.html">
           <span>比較方針</span>
           <strong>候補の選び方を見る</strong>
@@ -852,6 +857,103 @@ async function writeHomePage(topicResults, dataMode) {
   });
 
   await writeFile(path.join(outDir, "index.html"), html);
+}
+
+async function writeRankingPage(topicResults, dataMode) {
+  const rankedItems = config.topics
+    .flatMap((topic) => (topicResults[topic.slug]?.items || []).map((item) => ({ topic, item })))
+    .sort((a, b) => b.item.score - a.item.score)
+    .slice(0, 30);
+
+  const featured = rankedItems.slice(0, 3).map(({ topic, item }, index) => {
+    const href = item.url || item.fallbackUrl;
+    return `
+      <article class="ranking-feature ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
+        <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="ranking-feature">
+          <span>${index + 1}</span>
+          <img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">
+          <div>
+            <small>${escapeHtml(shortTitle(topic.title))}</small>
+            <h2>${escapeHtml(item.name)}</h2>
+            <p>${escapeHtml(getValueLine(item))}</p>
+            <strong>楽天で価格・在庫を見る</strong>
+          </div>
+        </a>
+      </article>`;
+  }).join("");
+
+  const rows = rankedItems.map(({ topic, item }, index) => {
+    const href = item.url || item.fallbackUrl;
+    return `
+      <tr data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
+        <td><span>${index + 1}</span>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(shortTitle(topic.title))}</td>
+        <td>${formatPrice(item.price)}</td>
+        <td>${item.reviewAverage ? item.reviewAverage.toFixed(1) : "-"}</td>
+        <td>${item.reviewCount.toLocaleString("ja-JP")}件</td>
+        <td><a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="ranking-table">楽天で見る</a></td>
+      </tr>`;
+  }).join("");
+
+  const html = layout({
+    title: `横断ランキング - ${config.siteName}`,
+    description: "暮らしの買い物候補をカテゴリ横断で並べ、価格目安、レビュー件数、平均評価から比較できるページです。",
+    path: "ranking.html",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "横断ランキング",
+        "url": pageUrl("ranking.html"),
+        "description": "暮らしの買い物候補をカテゴリ横断で比較します。",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": rankedItems.map(({ item }, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": item.name,
+            "url": item.url || item.fallbackUrl
+          }))
+        }
+      }
+    ],
+    body: `
+      <section class="topic-hero ranking-hero">
+        <p class="eyebrow">CROSS CATEGORY RANKING</p>
+        <h1>暮らしの買い物候補ランキング</h1>
+        <p>各カテゴリの商品を横断して、レビュー件数、平均評価、価格目安、比較しやすさから並べています。気になる候補は楽天の商品ページで在庫、送料、ポイント条件を確認してください。</p>
+        <div class="source-banner">${dataMode === "live" ? "楽天APIの公開データをもとに更新しています。" : "一部サンプル表示を含みます。"}</div>
+      </section>
+      <section class="ranking-feature-grid" aria-label="上位候補">
+        ${featured}
+      </section>
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">COMPARE</p>
+          <h2>価格とレビューを横断比較</h2>
+          <p>カテゴリをまたいで見比べたいときの一覧です。購入前の最終条件は楽天の商品ページで確認してください。</p>
+        </div>
+      </section>
+      <div class="compare-table-wrap">
+        <table class="compare-table ranking-table">
+          <thead>
+            <tr>
+              <th>候補</th>
+              <th>カテゴリ</th>
+              <th>価格目安</th>
+              <th>平均評価</th>
+              <th>レビュー</th>
+              <th>販売ページ</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+      </div>`
+  });
+
+  await writeFile(path.join(outDir, "ranking.html"), html);
 }
 
 async function writeTopicPage(topic, items, source) {
@@ -1103,6 +1205,7 @@ async function writeCname() {
 async function writeSitemap() {
   const pages = [
     "index.html",
+    "ranking.html",
     "disclosure.html",
     "privacy.html",
     "selection-policy.html",
@@ -1159,6 +1262,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
   <header class="site-header">
     <a class="brand" href="index.html">${escapeHtml(config.siteName)}</a>
     <nav>
+      <a href="ranking.html">ランキング</a>
       <a href="index.html">買い物テーマ</a>
       <a href="selection-policy.html">比較方針</a>
       <a href="seasonal-calendar.html">季節</a>
