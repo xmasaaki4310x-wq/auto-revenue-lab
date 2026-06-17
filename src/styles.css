@@ -155,6 +155,12 @@ main {
   text-align: right;
 }
 
+.site-search p a {
+  color: var(--teal-dark);
+  font-weight: 850;
+  text-underline-offset: 3px;
+}
+
 .is-hidden {
   display: none !important;
 }
@@ -298,38 +304,6 @@ main {
   padding: 18px;
   background: var(--surface);
   box-shadow: var(--shadow);
-}
-
-.purpose-band {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
-  gap: 22px;
-  margin: 14px 0;
-  padding: 20px;
-  border: 1px solid #cfd9d1;
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, rgba(23, 107, 99, 0.11), rgba(201, 155, 45, 0.11)),
-    #ffffff;
-}
-
-.purpose-band span {
-  display: block;
-  color: var(--coral);
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.purpose-band strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 22px;
-  line-height: 1.35;
-}
-
-.purpose-band p {
-  margin: 0;
-  color: var(--muted);
 }
 
 .status-panel span,
@@ -1150,7 +1124,6 @@ main {
   }
 
   .feature-band,
-  .purpose-band,
   .season-lane,
   .guide-grid,
   .affiliate-showcase,

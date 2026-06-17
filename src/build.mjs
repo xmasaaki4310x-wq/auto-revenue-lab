@@ -372,9 +372,32 @@ function makeMiniReason(topic, item) {
   return `${title}の比較候補です。容量、価格、レビューを確認してから選べます。`;
 }
 
+function getTopicAliases(topic) {
+  const aliases = {
+    "drink-stock": "ポカリ ポカリスエット スポーツドリンク アクエリアス イオンウォーター サイダー 炭酸 炭酸飲料 コーラ スプライト 三ツ矢 水分補給 ドリンク 飲料",
+    "rice-pantry": "ごはん ご飯 白米 無洗米 パックご飯 レトルト 非常食 備蓄 防災",
+    "seasonal-gifts": "ギフト プレゼント お中元 お歳暮 父の日 母の日 敬老の日 手土産 贈り物",
+    "daily-essentials": "洗剤 トイレットペーパー ティッシュ キッチンペーパー 消耗品 詰め替え",
+    "cleaning-laundry": "掃除 洗濯 カビ 除湿 湿気 梅雨 洗剤 漂白",
+    "kitchen-storage": "保存容器 タッパー ラック 冷蔵庫 収納 キッチン 整理",
+    "small-appliances": "家電 ケトル 扇風機 サーキュレーター 時短 ハンディファン",
+    "bath-sleep": "タオル バスタオル 寝具 枕 布団 リラックス"
+  };
+  return aliases[topic.slug] || "";
+}
+
+function buildSearchText(...parts) {
+  return parts
+    .flat()
+    .map((part) => truncate(stripHtml(String(part || "")), 180))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function writeHomePage(topicResults, dataMode) {
   const categoryNav = config.topics.map((topic, index) => `
-    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${topic.angle}`)}">
+    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic)))}">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${escapeHtml(shortTitle(topic.title))}</strong>
       <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
@@ -385,7 +408,7 @@ async function writeHomePage(topicResults, dataMode) {
     const top = getTopicTopItem(topicResults, topic);
     if (!top) return "";
     return `
-      <article class="rank-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top.name} ${top.caption}`)}">
+      <article class="rank-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top.name, top.caption))}">
         <a href="${topic.slug}.html">
           <span class="rank-number">${index + 1}</span>
           <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
@@ -404,7 +427,7 @@ async function writeHomePage(topicResults, dataMode) {
     const top = getTopicTopItem(topicResults, topic);
     const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
     return `
-      <article class="topic-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${topic.angle} ${top?.name || ""}`)}">
+      <article class="topic-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic), top?.name || ""))}">
         <a href="${topic.slug}.html" class="topic-link">
           <img class="topic-visual" src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
@@ -421,7 +444,7 @@ async function writeHomePage(topicResults, dataMode) {
   const shoppingGuideCards = config.topics.slice(0, 4).map((topic) => {
     const top = getTopicTopItem(topicResults, topic);
     return `
-      <article data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top?.name || ""}`)}">
+      <article data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top?.name || ""))}">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <h3>${escapeHtml(makeMiniReason(topic, top))}</h3>
         <p>${top ? escapeHtml(getValueLine(top)) : escapeHtml(topic.angle)}</p>
@@ -433,7 +456,7 @@ async function writeHomePage(topicResults, dataMode) {
     if (!top) return "";
     const href = top.url || top.fallbackUrl;
     return `
-      <article class="ad-product" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top.name} ${top.caption}`)}">
+      <article class="ad-product" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top.name, top.caption))}">
         <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <strong>${escapeHtml(top.name)}</strong>
@@ -462,8 +485,8 @@ async function writeHomePage(topicResults, dataMode) {
         <div class="hero-copy">
           <img class="hero-visual" src="assets/season-hero.svg" alt="季節の買い物候補イメージ" loading="lazy">
           <p class="eyebrow">${escapeHtml(season.label)}</p>
-          <h1>${escapeHtml(config.siteName)}</h1>
-          <p>${escapeHtml(config.description)} 迷ったら、まず価格・レビュー・容量のバランスが見やすい候補から確認できます。</p>
+          <h1>楽天で買う前に候補を絞る</h1>
+          <p>${escapeHtml(config.siteName)}は、${escapeHtml(config.description)} 迷ったら、まず価格・レビュー・容量のバランスが見やすい候補から確認できます。</p>
           <div class="hero-actions">
             <a class="primary-action" href="#today-pickup">今日の候補を見る</a>
             <a class="secondary-action" href="#shopping-themes">カテゴリから探す</a>
@@ -475,20 +498,12 @@ async function writeHomePage(topicResults, dataMode) {
         <aside class="status-panel">
           <span>最終更新</span>
           <strong>${formatDate(now)}</strong>
-          <span>データ</span>
-          <strong>${statusText}</strong>
+          <small class="data-source">データ: ${statusText}</small>
           <small>${statusNote}</small>
         </aside>
       </section>
       <section id="shopping-themes" class="category-nav" aria-label="カテゴリから探す">
         ${categoryNav}
-      </section>
-      <section class="purpose-band" aria-label="サイトの目的">
-        <div>
-          <span>何のためのサイト?</span>
-          <strong>楽天で買う前に、候補をざっくり絞るための比較メモです。</strong>
-        </div>
-        <p>商品ページを一つずつ開く前に、価格目安、レビュー件数、平均評価、季節の需要を並べて見られるようにしています。最後は楽天の販売ページで在庫、送料、ポイントを確認します。</p>
       </section>
       <section class="feature-band" aria-label="このサイトの見方">
         <div>
@@ -499,19 +514,19 @@ async function writeHomePage(topicResults, dataMode) {
         <div>
           <span>02</span>
           <strong>価格とレビュー比較</strong>
-          <p>安さだけでなく、レビュー件数と平均評価も確認します。</p>
+          <p>価格だけでなく、レビュー件数と平均評価も見比べられます。</p>
         </div>
         <div>
           <span>03</span>
           <strong>販売ページで最終確認</strong>
-          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認します。</p>
+          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認できます。</p>
         </div>
       </section>
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
           <h2>今日のおすすめ</h2>
-          <p>レビュー数と価格目安が見える候補から、楽天の商品ページへ進めます。</p>
+          <p>下のリンクから楽天の商品ページへ進めます。</p>
         </div>
         <a href="feed.json">データを見る</a>
       </section>
@@ -569,7 +584,7 @@ async function writeTopicPage(topic, items, source) {
   const topItem = items[0];
   const railLink = topItem?.url || topItem?.fallbackUrl || "";
   const cards = items.map((item, index) => `
-    <article class="product-card" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${item.name} ${item.caption}`)}">
+    <article class="product-card" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
       <span class="product-rank">候補 ${index + 1}</span>
       ${item.imageUrl ? `<img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">` : ""}
       <div class="product-body">
@@ -760,16 +775,44 @@ function layout({ title, description, body }) {
         if (panel) panel.hidden = true;
         return;
       }
+      const aliases = [
+        ["ポカリ", "ポカリスエット", "スポーツドリンク", "アクエリアス", "イオンウォーター", "水分補給", "飲料"],
+        ["サイダー", "炭酸", "炭酸水", "炭酸飲料", "スプライト", "三ツ矢", "カナダドライ"],
+        ["ジュース", "飲料", "ドリンク", "水", "お茶", "炭酸"],
+        ["米", "ごはん", "ご飯", "白米", "無洗米", "パックご飯"],
+        ["防災", "非常食", "備蓄", "保存食", "水", "米"],
+        ["洗剤", "日用品", "詰め替え", "トイレットペーパー", "ティッシュ"],
+        ["掃除", "洗濯", "カビ", "除湿", "湿気"],
+        ["ギフト", "プレゼント", "お中元", "手土産", "贈り物"],
+        ["家電", "ケトル", "扇風機", "サーキュレーター", "時短"]
+      ];
       const normalize = (value) => String(value || "").normalize("NFKC").toLowerCase();
+      const expandTerms = (query) => {
+        const terms = new Set(query.split(/[\\s　]+/).filter(Boolean));
+        terms.add(query);
+        for (const group of aliases) {
+          const normalizedGroup = group.map(normalize);
+          if (normalizedGroup.some((term) => query.includes(term))) {
+            normalizedGroup.forEach((term) => terms.add(term));
+          }
+        }
+        return Array.from(terms).filter(Boolean);
+      };
       const applySearch = () => {
         const query = normalize(input.value).trim();
+        const terms = expandTerms(query);
         let visible = 0;
         for (const target of targets) {
-          const hit = !query || normalize(target.dataset.search).includes(query);
+          const searchable = normalize(target.dataset.search);
+          const hit = !query || terms.some((term) => searchable.includes(term));
           target.classList.toggle("is-hidden", !hit);
           if (hit) visible += 1;
         }
-        status.textContent = query ? visible + "件表示" : "商品・カテゴリを検索";
+        if (!query) {
+          status.textContent = "商品・カテゴリを検索";
+          return;
+        }
+        status.innerHTML = visible + "件表示 / <a href=\\"https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(input.value.trim()) + "/\\" rel=\\"sponsored nofollow noopener\\" target=\\"_blank\\">楽天で検索</a>";
       };
       input.addEventListener("input", applySearch);
       clearButton.addEventListener("click", () => {
