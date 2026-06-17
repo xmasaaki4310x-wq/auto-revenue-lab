@@ -75,6 +75,7 @@ await writeHomePage(topicResults, dataMode);
 await writeStaticPages();
 await writeJsonFeed(topicResults, dataMode);
 await writeBuildReport(dataMode);
+await writeCname();
 await writeSitemap();
 
 console.log(`Built ${outDir}${dataMode === "live" ? " using Rakuten API" : " using sample/fallback data"}.`);
@@ -716,6 +717,13 @@ async function writeBuildReport(dataMode) {
     diagnostics
   };
   await writeFile(path.join(outDir, "build-report.json"), JSON.stringify(report, null, 2));
+}
+
+async function writeCname() {
+  const host = new URL(config.baseUrl).hostname;
+  if (!host.endsWith("github.io")) {
+    await writeFile(path.join(outDir, "CNAME"), `${host}\n`);
+  }
 }
 
 async function writeSitemap() {
