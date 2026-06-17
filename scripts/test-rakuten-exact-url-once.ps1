@@ -6,11 +6,16 @@ Write-Host "The URL contains your key, so do not screenshot or share the pasted 
 Write-Host "Run this after waiting 5 minutes if you recently saw HTTP 429."
 
 $url = (Read-Host "Succeeded API URL").Trim()
+$referer = Read-Host "Referer [https://xmasaaki4310x-wq.github.io/auto-revenue-lab/]"
+if ([string]::IsNullOrWhiteSpace($referer)) {
+  $referer = "https://xmasaaki4310x-wq.github.io/auto-revenue-lab/"
+}
 $bodyFile = Join-Path $env:TEMP ("rakuten-api-body-" + [Guid]::NewGuid().ToString() + ".json")
 
 try {
-  $status = & curl.exe -s -L -A "Mozilla/5.0" -o $bodyFile -w "%{http_code}" $url
+  $status = & curl.exe -s -L -A "Mozilla/5.0" -e $referer -H ("Origin: " + $referer.TrimEnd("/")) -o $bodyFile -w "%{http_code}" $url
   Write-Host ("status: " + $status)
+  Write-Host ("referer: " + $referer)
 
   $body = Get-Content -Raw -Encoding UTF8 $bodyFile
   if ($body.Trim().StartsWith("{")) {
