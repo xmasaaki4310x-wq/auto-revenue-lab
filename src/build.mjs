@@ -1489,7 +1489,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
     </nav>
   </header>
   <main>
-    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。価格、在庫、送料、ポイント条件は販売ページでご確認ください。</div>
+    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。</div>
     <section class="site-search" role="search">
       <label for="site-search-input">検索</label>
       <div>
