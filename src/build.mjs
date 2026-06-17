@@ -619,6 +619,7 @@ async function writeHomePage(topicResults, dataMode) {
       <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(topic.title)}" loading="lazy">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${escapeHtml(shortTitle(topic.title))}</strong>
+      <p>${escapeHtml(topic.angle)}</p>
       <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
     </a>`;
   }).join("");
@@ -785,9 +786,6 @@ async function writeHomePage(topicResults, dataMode) {
           <small>${statusNote}</small>
         </aside>
       </section>
-      <section id="shopping-themes" class="category-nav" aria-label="カテゴリから探す">
-        ${categoryNav}
-      </section>
       <section class="feature-band" aria-label="このサイトの見方">
         <div>
           <span>01</span>
@@ -804,6 +802,16 @@ async function writeHomePage(topicResults, dataMode) {
           <strong>販売ページで最終確認</strong>
           <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認してください。</p>
         </div>
+      </section>
+      <section class="section-heading category-intro">
+        <div>
+          <p class="eyebrow">SHOPPING THEMES</p>
+          <h2>1〜12の暮らしカテゴリ</h2>
+          <p>まずは買いたい目的に近いカテゴリを選んでください。各ページで候補の商品画像、価格目安、レビュー件数、楽天の商品ページへのリンクを見られます。</p>
+        </div>
+      </section>
+      <section id="shopping-themes" class="category-nav" aria-label="カテゴリから探す">
+        ${categoryNav}
       </section>
       <section class="quick-links" aria-label="サイトの補助導線">
         <a href="ranking.html">
@@ -843,7 +851,6 @@ async function writeHomePage(topicResults, dataMode) {
           <h2>今日のおすすめ</h2>
           <p>下のリンクから楽天の商品ページへ進めます。</p>
         </div>
-        <a href="feed.json">データを見る</a>
       </section>
       <section class="rank-grid" aria-label="今日の候補">
         ${highlightItems}
@@ -1265,8 +1272,8 @@ async function writeTopicPage(topic, items, source) {
             <a href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(topItem.name)}" data-click-area="side-ad">楽天の商品ページで確認</a>
           </div>` : `
           <div class="ad-slot compact">
-            <span>広告掲載枠</span>
-            <strong>関連商品の紹介枠</strong>
+            <span>関連候補</span>
+            <strong>比較しやすい商品を追加予定</strong>
           </div>`}
         </aside>
       </section>

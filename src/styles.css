@@ -856,9 +856,9 @@ main {
 .category-chip {
   position: relative;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 7px 12px;
-  min-height: 116px;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 7px 13px;
+  min-height: 154px;
   padding: 12px;
   overflow: hidden;
   background:
@@ -872,9 +872,9 @@ main {
 }
 
 .category-chip img {
-  grid-row: 1 / span 3;
-  width: 72px;
-  height: 92px;
+  grid-row: 1 / span 4;
+  width: 78px;
+  height: 118px;
   object-fit: contain;
   align-self: center;
   padding: 7px;
@@ -907,6 +907,14 @@ main {
 .category-chip strong {
   line-height: 1.25;
   font-size: 15px;
+}
+
+.category-chip p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .category-chip em {
