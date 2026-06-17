@@ -59,6 +59,8 @@ GitHub Pagesの公開元を「GitHub Actions」に設定すると、`.github/wor
 https://xmasaaki4310x-wq.github.io/auto-revenue-lab/
 ```
 
+独自ドメインへ移行する場合は、先にドメイン購入とDNS設定を行い、楽天 Developers 側の許可ドメインを更新してから `src/config.json` の `baseUrl` を変更します。手順は [docs/custom-domain-setup.md](docs/custom-domain-setup.md) を参照してください。
+
 ## 参照
 
 - GitHub Pages quickstart: https://docs.github.com/en/pages/quickstart
