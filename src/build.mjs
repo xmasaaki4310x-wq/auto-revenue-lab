@@ -108,6 +108,9 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
   let lastReason = "no-results";
   const collected = [];
   const usedKeywords = [];
+  const addKeyword = (keyword) => {
+    if (!usedKeywords.includes(keyword)) usedKeywords.push(keyword);
+  };
 
   for (const keyword of keywords) {
     for (const relaxed of [false, true]) {
@@ -115,7 +118,7 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
         const items = await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 30 });
         if (items.length) {
           collected.push(...items);
-          usedKeywords.push(keyword);
+          addKeyword(keyword);
           if (dedupeRawItems(collected).length >= siteConfig.maxItemsPerTopic) {
             return {
               source: "live",
@@ -769,6 +772,20 @@ async function writeHomePage(topicResults, dataMode) {
           <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認してください。</p>
         </div>
       </section>
+      <section class="quick-links" aria-label="サイトの補助導線">
+        <a href="selection-policy.html">
+          <span>比較方針</span>
+          <strong>候補の選び方を見る</strong>
+        </a>
+        <a href="seasonal-calendar.html">
+          <span>季節</span>
+          <strong>月ごとの買い物を確認</strong>
+        </a>
+        <a href="disclosure.html">
+          <span>広告</span>
+          <strong>広告掲載について</strong>
+        </a>
+      </section>
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
@@ -968,6 +985,65 @@ async function writeStaticPages() {
       </section>`
   }));
 
+  await writeFile(path.join(outDir, "selection-policy.html"), layout({
+    title: `比較方針 - ${config.siteName}`,
+    description: "くらし道具ノートの商品候補の選び方と比較方針",
+    path: "selection-policy.html",
+    body: `
+      <section class="page-heading">
+        <p class="eyebrow">EDITORIAL POLICY</p>
+        <h1>比較方針</h1>
+        <p>くらし道具ノートでは、買い物前に候補を絞りやすくするため、価格、レビュー件数、平均評価、季節性、日常での使いやすさを軸に商品情報を整理します。</p>
+      </section>
+      <section class="policy-grid">
+        <article>
+          <span>01</span>
+          <h2>価格だけで判断しない</h2>
+          <p>同じ商品名でも容量、送料、ポイント条件、セット数が違う場合があります。価格はあくまで比較の入り口として扱います。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>レビューの量と安定感を見る</h2>
+          <p>平均評価だけでなく、レビュー件数も重視します。件数が少ない高評価より、一定数のレビューがある候補を優先します。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>暮らしのタイミングに合わせる</h2>
+          <p>水分補給、防災、年末掃除、季節ギフトなど、必要になりやすい時期に合わせて候補を見直します。</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2>最終確認は販売ページで行う</h2>
+          <p>在庫、送料、クーポン、ポイント、返品条件は変わるため、購入前に楽天の販売ページで確認してください。</p>
+        </article>
+      </section>`
+  }));
+
+  const monthCards = config.seasonalCalendar.map((entry) => `
+    <article>
+      <span>${entry.months.map((month) => `${month}月`).join(" / ")}</span>
+      <h2>${escapeHtml(entry.label)}</h2>
+      <div>
+        ${entry.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-calendar">${escapeHtml(keyword)}</a>`).join("")}
+      </div>
+    </article>
+  `).join("");
+
+  await writeFile(path.join(outDir, "seasonal-calendar.html"), layout({
+    title: `季節の買い物カレンダー - ${config.siteName}`,
+    description: "月ごとに見直しやすい日用品、食品、防災、ギフトの買い物候補",
+    path: "seasonal-calendar.html",
+    body: `
+      <section class="page-heading">
+        <p class="eyebrow">SEASONAL CALENDAR</p>
+        <h1>季節の買い物カレンダー</h1>
+        <p>日本の暮らしでは、季節や行事に合わせて必要になるものが変わります。月ごとに見直しやすい候補をまとめています。</p>
+      </section>
+      <section class="month-grid">
+        ${monthCards}
+      </section>`
+  }));
+
   await writeFile(path.join(outDir, "privacy.html"), layout({
     title: `プライバシーポリシー - ${config.siteName}`,
     description: "プライバシーポリシー",
@@ -1025,7 +1101,14 @@ async function writeCname() {
 }
 
 async function writeSitemap() {
-  const pages = ["index.html", "disclosure.html", "privacy.html", ...config.topics.map((topic) => `${topic.slug}.html`)];
+  const pages = [
+    "index.html",
+    "disclosure.html",
+    "privacy.html",
+    "selection-policy.html",
+    "seasonal-calendar.html",
+    ...config.topics.map((topic) => `${topic.slug}.html`)
+  ];
   const baseUrl = config.baseUrl.replace(/\/$/, "");
   const urls = pages.map((page) => {
     const loc = baseUrl ? `${baseUrl}/${page}` : page;
@@ -1077,6 +1160,8 @@ function layout({ title, description, body, path = "index.html", structuredData 
     <a class="brand" href="index.html">${escapeHtml(config.siteName)}</a>
     <nav>
       <a href="index.html">買い物テーマ</a>
+      <a href="selection-policy.html">比較方針</a>
+      <a href="seasonal-calendar.html">季節</a>
       <a href="disclosure.html">広告掲載</a>
       <a href="privacy.html">プライバシー</a>
     </nav>
