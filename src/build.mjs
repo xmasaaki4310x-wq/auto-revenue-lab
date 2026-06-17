@@ -611,19 +611,6 @@ function buildTopicJsonLd(topic, items) {
 }
 
 async function writeHomePage(topicResults, dataMode) {
-  const categoryNav = config.topics.map((topic, index) => {
-    const top = getTopicTopItem(topicResults, topic);
-    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
-    return `
-    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic)))}">
-      <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(topic.title)}" loading="lazy">
-      <span>${String(index + 1).padStart(2, "0")}</span>
-      <strong>${escapeHtml(shortTitle(topic.title))}</strong>
-      <p>${escapeHtml(topic.angle)}</p>
-      <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
-    </a>`;
-  }).join("");
-
   const highlightItems = config.topics.slice(0, 6).map((topic, index) => {
     const top = getTopicTopItem(topicResults, topic);
     if (!top) return "";
@@ -642,7 +629,7 @@ async function writeHomePage(topicResults, dataMode) {
       </article>`;
   }).join("");
 
-  const topicCards = config.topics.map((topic) => {
+  const topicCards = config.topics.map((topic, index) => {
     const topicResult = topicResults[topic.slug];
     const top = getTopicTopItem(topicResults, topic);
     const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
@@ -650,7 +637,7 @@ async function writeHomePage(topicResults, dataMode) {
       <article class="topic-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic), top?.name || ""))}">
         <a href="${topic.slug}.html" class="topic-link">
           <img class="topic-visual" src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
-          <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
+          <span class="topic-kicker">${String(index + 1).padStart(2, "0")} / ${escapeHtml(topic.keyword)}</span>
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
           ${top ? `<div class="topic-stats"><span>${escapeHtml(formatPrice(top.price))}</span><span>平均 ${top.reviewAverage ? top.reviewAverage.toFixed(1) : "-"}</span><span>${top.reviewCount.toLocaleString("ja-JP")}件</span></div>` : ""}
@@ -658,18 +645,6 @@ async function writeHomePage(topicResults, dataMode) {
           ${top ? `<strong>注目候補: ${escapeHtml(top.name)}</strong>` : ""}
           <span class="topic-cta">比較ページへ</span>
         </a>
-      </article>`;
-  }).join("");
-
-  const shoppingGuideCards = config.topics.slice(0, 4).map((topic) => {
-    const top = getTopicTopItem(topicResults, topic);
-    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
-    return `
-      <article data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top?.name || ""))}">
-        <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
-        <span>${escapeHtml(shortTitle(topic.title))}</span>
-        <h3>${escapeHtml(makeMiniReason(topic, top))}</h3>
-        <p>${top ? escapeHtml(getValueLine(top)) : escapeHtml(topic.angle)}</p>
       </article>`;
   }).join("");
 
@@ -704,6 +679,7 @@ async function writeHomePage(topicResults, dataMode) {
     const href = top.url || top.fallbackUrl;
     return `
       <article class="ad-product" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top.name, top.caption))}">
+        <span class="ad-product-label">広告</span>
         <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <strong>${escapeHtml(top.name)}</strong>
@@ -786,65 +762,6 @@ async function writeHomePage(topicResults, dataMode) {
           <small>${statusNote}</small>
         </aside>
       </section>
-      <section class="feature-band" aria-label="このサイトの見方">
-        <div>
-          <span>01</span>
-          <strong>今日のおすすめ</strong>
-          <p>季節イベントや買い置きなど、今見直しやすい候補を集めています。</p>
-        </div>
-        <div>
-          <span>02</span>
-          <strong>価格とレビュー比較</strong>
-          <p>価格だけでなく、レビュー件数と平均評価も一緒に見られます。</p>
-        </div>
-        <div>
-          <span>03</span>
-          <strong>販売ページで最終確認</strong>
-          <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認してください。</p>
-        </div>
-      </section>
-      <section class="section-heading category-intro">
-        <div>
-          <p class="eyebrow">SHOPPING THEMES</p>
-          <h2>1〜12の暮らしカテゴリ</h2>
-          <p>まずは買いたい目的に近いカテゴリを選んでください。各ページで候補の商品画像、価格目安、レビュー件数、楽天の商品ページへのリンクを見られます。</p>
-        </div>
-      </section>
-      <section id="shopping-themes" class="category-nav" aria-label="カテゴリから探す">
-        ${categoryNav}
-      </section>
-      <section class="quick-links" aria-label="サイトの補助導線">
-        <a href="ranking.html">
-          <img src="assets/season-hero.svg" alt="" loading="lazy">
-          <span>ランキング</span>
-          <strong>横断で人気候補を比べる</strong>
-        </a>
-        <a href="shopping-intents.html">
-          <img src="assets/daily-essentials.svg" alt="" loading="lazy">
-          <span>目的別</span>
-          <strong>使う場面から探す</strong>
-        </a>
-        <a href="guides.html">
-          <img src="assets/kitchen-storage.svg" alt="" loading="lazy">
-          <span>選び方</span>
-          <strong>買う前の確認点を読む</strong>
-        </a>
-        <a href="selection-policy.html">
-          <img src="assets/rice-pantry.svg" alt="" loading="lazy">
-          <span>比較方針</span>
-          <strong>候補の選び方を見る</strong>
-        </a>
-        <a href="seasonal-calendar.html">
-          <img src="assets/seasonal-gifts.svg" alt="" loading="lazy">
-          <span>季節</span>
-          <strong>月ごとの買い物を確認</strong>
-        </a>
-        <a href="baby-care.html">
-          <img src="assets/baby-care.svg" alt="" loading="lazy">
-          <span>ベビー</span>
-          <strong>育児ストックを見る</strong>
-        </a>
-      </section>
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
@@ -855,6 +772,16 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="rank-grid" aria-label="今日の候補">
         ${highlightItems}
       </section>
+      <section class="affiliate-showcase" aria-label="販売ページで詳しく見られる候補">
+        <div>
+          <p class="eyebrow">CHECK ON RAKUTEN</p>
+          <h2>楽天で詳しく見られる候補</h2>
+          <p>写真、レビュー、在庫状況を見ながら、気になる候補を販売ページで確認できます。</p>
+        </div>
+        <div class="ad-product-grid">
+          ${affiliateShowcase}
+        </div>
+      </section>
       <section class="season-lane" aria-label="季節の買い物メモ">
         <div>
           <p class="eyebrow">SEASONAL NOTE</p>
@@ -863,19 +790,6 @@ async function writeHomePage(topicResults, dataMode) {
         <div class="season-keywords">
           ${season.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-note">${escapeHtml(keyword)}</a>`).join("")}
         </div>
-      </section>
-      <section class="guide-grid" aria-label="買い物判断のメモ">
-        ${shoppingGuideCards}
-      </section>
-      <section class="section-heading">
-        <div>
-          <p class="eyebrow">BUYER PATH</p>
-          <h2>迷った時の選び方</h2>
-          <p>似た商品が多い時は、先に買う目的を決めてから価格、レビュー、容量、置き場所の順に見ていくと選びやすくなります。</p>
-        </div>
-      </section>
-      <section class="buyer-path" aria-label="買い物の見方">
-        ${buyerPathCards}
       </section>
       <section class="section-heading">
         <div>
@@ -887,15 +801,15 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="topics-grid" aria-label="買い物テーマ">
         ${topicCards}
       </section>
-      <section class="affiliate-showcase" aria-label="販売ページで詳しく見られる候補">
+      <section class="section-heading">
         <div>
-          <p class="eyebrow">CHECK ON RAKUTEN</p>
-          <h2>楽天で詳しく見られる候補</h2>
-          <p>写真、レビュー、在庫状況を見ながら、気になる候補を販売ページで確認できます。</p>
+          <p class="eyebrow">BUYER PATH</p>
+          <h2>迷った時の選び方</h2>
+          <p>似た商品が多い時は、先に買う目的を決めてから価格、レビュー、容量、置き場所の順に見ていくと選びやすくなります。</p>
         </div>
-        <div class="ad-product-grid">
-          ${affiliateShowcase}
-        </div>
+      </section>
+      <section class="buyer-path" aria-label="買い物の見方">
+        ${buyerPathCards}
       </section>
       <section class="content-with-rail">
         <div class="plain-section">
