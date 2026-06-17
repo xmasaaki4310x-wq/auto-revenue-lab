@@ -199,7 +199,17 @@ async function fetchRakutenItemsWithCurl(endpoint, referer, origin, retries = 2)
     throw new Error(message ? `curl HTTP ${status}: ${message}` : `curl HTTP ${status}`);
   }
 
-  return Array.isArray(data.items) ? data.items : [];
+  return extractRakutenItems(data);
+}
+
+function extractRakutenItems(data) {
+  if (Array.isArray(data.items)) {
+    return data.items.map((entry) => entry.Item || entry);
+  }
+  if (Array.isArray(data.Items)) {
+    return data.Items.map((entry) => entry.Item || entry);
+  }
+  return [];
 }
 
 async function waitForRakutenSlot() {
