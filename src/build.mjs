@@ -402,18 +402,43 @@ async function writeHomePage(topicResults, dataMode) {
   const topicCards = config.topics.map((topic) => {
     const topicResult = topicResults[topic.slug];
     const top = getTopicTopItem(topicResults, topic);
+    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
     return `
       <article class="topic-card ${escapeAttribute(topic.accent || "")}">
         <a href="${topic.slug}.html" class="topic-link">
-          <img class="topic-visual" src="assets/${escapeAttribute(topic.slug)}.svg" alt="${escapeAttribute(topic.title)}" loading="lazy">
+          <img class="topic-visual" src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
+          ${top ? `<div class="topic-stats"><span>${escapeHtml(formatPrice(top.price))}</span><span>平均 ${top.reviewAverage ? top.reviewAverage.toFixed(1) : "-"}</span><span>${top.reviewCount.toLocaleString("ja-JP")}件</span></div>` : ""}
           <span class="topic-source ${topicResult?.source === "live" ? "live" : "sample"}">${topicResult?.source === "live" ? "実データ" : "サンプル表示"}</span>
           ${top ? `<strong>注目候補: ${escapeHtml(top.name)}</strong>` : ""}
           <span class="topic-cta">比較ページへ</span>
         </a>
       </article>`;
+  }).join("");
+
+  const shoppingGuideCards = config.topics.slice(0, 4).map((topic) => {
+    const top = getTopicTopItem(topicResults, topic);
+    return `
+      <article>
+        <span>${escapeHtml(shortTitle(topic.title))}</span>
+        <h3>${escapeHtml(makeMiniReason(topic, top))}</h3>
+        <p>${top ? escapeHtml(getValueLine(top)) : escapeHtml(topic.angle)}</p>
+      </article>`;
+  }).join("");
+
+  const affiliateShowcase = config.topics.slice(0, 3).map((topic) => {
+    const top = getTopicTopItem(topicResults, topic);
+    if (!top) return "";
+    const href = top.url || top.fallbackUrl;
+    return `
+      <a class="ad-product" href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">
+        <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
+        <span>${escapeHtml(shortTitle(topic.title))}</span>
+        <strong>${escapeHtml(top.name)}</strong>
+        <em>${escapeHtml(getValueLine(top))}</em>
+      </a>`;
   }).join("");
 
   const statusText = dataMode === "live"
@@ -501,6 +526,9 @@ async function writeHomePage(topicResults, dataMode) {
           ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
         </div>
       </section>
+      <section class="guide-grid" aria-label="買い物判断のメモ">
+        ${shoppingGuideCards}
+      </section>
       <section class="section-heading">
         <div>
           <p class="eyebrow">SHOPPING THEMES</p>
@@ -510,6 +538,16 @@ async function writeHomePage(topicResults, dataMode) {
       </section>
       <section class="topics-grid" aria-label="買い物テーマ">
         ${topicCards}
+      </section>
+      <section class="affiliate-showcase" aria-label="広告商品リンク">
+        <div>
+          <p class="eyebrow">AFFILIATE LINKS</p>
+          <h2>商品リンク枠</h2>
+          <p>ここに表示している商品リンクから楽天の販売ページへ進み、条件を満たす購入が発生すると紹介料の対象になる場合があります。</p>
+        </div>
+        <div class="ad-product-grid">
+          ${affiliateShowcase}
+        </div>
       </section>
       <section class="content-with-rail">
         <div class="plain-section">
@@ -527,6 +565,8 @@ async function writeHomePage(topicResults, dataMode) {
 }
 
 async function writeTopicPage(topic, items, source) {
+  const topItem = items[0];
+  const railLink = topItem?.url || topItem?.fallbackUrl || "";
   const cards = items.map((item, index) => `
     <article class="product-card">
       <span class="product-rank">候補 ${index + 1}</span>
@@ -580,10 +620,17 @@ async function writeTopicPage(topic, items, source) {
             <li>ポイントやクーポン条件が合うか</li>
             <li>容量やサイズが置き場所に合うか</li>
           </ul>
+          ${topItem ? `
+          <a class="side-affiliate" href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank">
+            <img src="${escapeAttribute(topItem.imageUrl)}" alt="${escapeAttribute(topItem.name)}" loading="lazy">
+            <span>広告 / 商品リンク</span>
+            <strong>${escapeHtml(topItem.name)}</strong>
+            <em>${escapeHtml(getValueLine(topItem))}</em>
+          </a>` : `
           <div class="ad-slot compact">
             <span>広告掲載枠</span>
             <strong>関連商品の紹介枠</strong>
-          </div>
+          </div>`}
         </aside>
       </section>`
   });
