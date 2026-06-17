@@ -335,17 +335,38 @@ function getSeason(date) {
   return config.seasonalCalendar.find((entry) => entry.months.includes(month)) || config.seasonalCalendar[0];
 }
 
+function getTopicTopItem(topicResults, topic) {
+  return topicResults[topic.slug]?.items?.[0] || null;
+}
+
+function getValueLine(item) {
+  if (!item) return "価格・レビューを見て比較";
+  const parts = [];
+  if (item.price > 0) parts.push(formatPrice(item.price));
+  if (item.reviewAverage > 0) parts.push(`平均${item.reviewAverage.toFixed(1)}`);
+  if (item.reviewCount > 0) parts.push(`${item.reviewCount.toLocaleString("ja-JP")}件`);
+  return parts.join(" / ") || item.reason;
+}
+
+function makeMiniReason(topic, item) {
+  if (!item) return topic.angle;
+  const title = shortTitle(topic.title);
+  if (item.reviewCount >= 1000) return `${title}でレビュー数が多く、購入前に条件を見比べやすい候補です。`;
+  if (item.reviewAverage >= 4.4) return `${title}で平均評価が高めの候補です。価格や送料は楽天側で確認できます。`;
+  return `${title}の比較候補です。容量、価格、レビューを確認してから選べます。`;
+}
+
 async function writeHomePage(topicResults, dataMode) {
   const categoryNav = config.topics.map((topic, index) => `
     <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${escapeHtml(shortTitle(topic.title))}</strong>
+      <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
     </a>
   `).join("");
 
-  const highlightItems = config.topics.map((topic, index) => {
-    const topicResult = topicResults[topic.slug];
-    const top = topicResult?.items?.[0];
+  const highlightItems = config.topics.slice(0, 6).map((topic, index) => {
+    const top = getTopicTopItem(topicResults, topic);
     if (!top) return "";
     return `
       <article class="rank-card ${escapeAttribute(topic.accent || "")}">
@@ -355,7 +376,8 @@ async function writeHomePage(topicResults, dataMode) {
           <div>
             <small>${escapeHtml(shortTitle(topic.title))}</small>
             <h3>${escapeHtml(top.name)}</h3>
-            <p>${escapeHtml(top.reason)}</p>
+            <p>${escapeHtml(getValueLine(top))}</p>
+            <strong>候補を見る</strong>
           </div>
         </a>
       </article>`;
@@ -363,7 +385,7 @@ async function writeHomePage(topicResults, dataMode) {
 
   const topicCards = config.topics.map((topic) => {
     const topicResult = topicResults[topic.slug];
-    const top = topicResult?.items?.[0];
+    const top = getTopicTopItem(topicResults, topic);
     return `
       <article class="topic-card ${escapeAttribute(topic.accent || "")}">
         <a href="${topic.slug}.html" class="topic-link">
@@ -372,7 +394,8 @@ async function writeHomePage(topicResults, dataMode) {
           <h2>${escapeHtml(topic.title)}</h2>
           <p>${escapeHtml(topic.angle)}</p>
           <span class="topic-source ${topicResult?.source === "live" ? "live" : "sample"}">${topicResult?.source === "live" ? "実データ" : "サンプル表示"}</span>
-          ${top ? `<strong>今の候補: ${escapeHtml(top.name)}</strong>` : ""}
+          ${top ? `<strong>注目候補: ${escapeHtml(top.name)}</strong>` : ""}
+          <span class="topic-cta">比較ページへ</span>
         </a>
       </article>`;
   }).join("");
@@ -398,7 +421,11 @@ async function writeHomePage(topicResults, dataMode) {
           <img class="hero-visual" src="assets/season-hero.svg" alt="季節の買い物候補イメージ" loading="lazy">
           <p class="eyebrow">${escapeHtml(season.label)}</p>
           <h1>${escapeHtml(config.siteName)}</h1>
-          <p>${escapeHtml(config.description)}</p>
+          <p>${escapeHtml(config.description)} 迷ったら、まず価格・レビュー・容量のバランスが見やすい候補から確認できます。</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#today-pickup">今日の候補を見る</a>
+            <a class="secondary-action" href="#shopping-themes">カテゴリから探す</a>
+          </div>
           <div class="season-tags" aria-label="季節の注目キーワード">
             ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
           </div>
@@ -411,14 +438,21 @@ async function writeHomePage(topicResults, dataMode) {
           <small>${statusNote}</small>
         </aside>
       </section>
-      <section class="category-nav" aria-label="カテゴリから探す">
+      <section id="shopping-themes" class="category-nav" aria-label="カテゴリから探す">
         ${categoryNav}
+      </section>
+      <section class="purpose-band" aria-label="サイトの目的">
+        <div>
+          <span>何のためのサイト?</span>
+          <strong>楽天で買う前に、候補をざっくり絞るための比較メモです。</strong>
+        </div>
+        <p>商品ページを一つずつ開く前に、価格目安、レビュー件数、平均評価、季節の需要を並べて見られるようにしています。最後は楽天の販売ページで在庫、送料、ポイントを確認します。</p>
       </section>
       <section class="feature-band" aria-label="このサイトの見方">
         <div>
           <span>01</span>
-          <strong>売れ筋の流れを見る</strong>
-          <p>季節イベントやまとめ買い需要に合う候補を中心に整理します。</p>
+          <strong>今見る理由がある物を先に出す</strong>
+          <p>季節イベント、買い置き、梅雨や暑さ対策など、タイミングのある候補を前に出します。</p>
         </div>
         <div>
           <span>02</span>
@@ -431,20 +465,31 @@ async function writeHomePage(topicResults, dataMode) {
           <p>在庫、送料、クーポン、ポイント条件は購入前に公式ページで確認します。</p>
         </div>
       </section>
-      <section class="section-heading">
+      <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
-          <h2>今日チェックする買い物候補</h2>
+          <h2>まず見ていい買い物候補</h2>
+          <p>レビュー数と価格目安が見える候補から、楽天の商品ページへ進めます。</p>
         </div>
         <a href="feed.json">データを見る</a>
       </section>
       <section class="rank-grid" aria-label="今日の候補">
         ${highlightItems}
       </section>
+      <section class="season-lane" aria-label="季節の買い物メモ">
+        <div>
+          <p class="eyebrow">SEASONAL NOTE</p>
+          <h2>${escapeHtml(season.label)}で見直したいもの</h2>
+        </div>
+        <div class="season-keywords">
+          ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+        </div>
+      </section>
       <section class="section-heading">
         <div>
           <p class="eyebrow">SHOPPING THEMES</p>
           <h2>暮らしのカテゴリ</h2>
+          <p>水、米、日用品、収納、掃除、家電、ギフトまで、買い物の目的別に整理しています。</p>
         </div>
       </section>
       <section class="topics-grid" aria-label="買い物テーマ">
@@ -466,19 +511,25 @@ async function writeHomePage(topicResults, dataMode) {
 }
 
 async function writeTopicPage(topic, items, source) {
-  const cards = items.map((item) => `
+  const cards = items.map((item, index) => `
     <article class="product-card">
+      <span class="product-rank">候補 ${index + 1}</span>
       ${item.imageUrl ? `<img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">` : ""}
       <div class="product-body">
         <div class="product-meta">
           <span>${formatPrice(item.price)}</span>
-          <span>${item.reviewCount.toLocaleString("ja-JP")} reviews</span>
+          <span>レビュー ${item.reviewCount.toLocaleString("ja-JP")}件</span>
         </div>
         <h2>${escapeHtml(item.name)}</h2>
-        <p>${escapeHtml(item.reason)}</p>
+        <div class="score-row">
+          <span>平均 ${item.reviewAverage ? item.reviewAverage.toFixed(1) : "-"}</span>
+          <span>${item.reviewCount.toLocaleString("ja-JP")}件</span>
+          <span>${formatPrice(item.price)}</span>
+        </div>
+        <p class="reason">${escapeHtml(makeMiniReason(topic, item))}</p>
         ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 130))}</p>` : ""}
         ${item.url
-          ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">販売ページで確認</a>`
+          ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">楽天で価格・在庫を見る</a>`
           : `<a class="buy-link search" href="${escapeAttribute(item.fallbackUrl)}" rel="noopener" target="_blank">楽天で候補を見る</a>`}
       </div>
     </article>
@@ -494,15 +545,25 @@ async function writeTopicPage(topic, items, source) {
         <p class="eyebrow">${escapeHtml(topic.keyword)}</p>
         <h1>${escapeHtml(topic.title)}</h1>
         <p>${escapeHtml(topic.angle)}</p>
+        <div class="topic-actions">
+          <a class="primary-action" href="#products">候補を比較する</a>
+          <span>${source === "live" ? "楽天の商品データを表示中" : "サンプル表示中"}</span>
+        </div>
         ${source === "sample" ? `<div class="topic-alert">このテーマは現在サンプル表示です。実データ取得に成功すると販売ページへの実リンクと商品画像へ切り替わります。</div>` : ""}
       </section>
       <section class="content-with-rail">
-        <div class="product-grid">
+        <div id="products" class="product-grid">
           ${cards || "<p>掲載候補がまだありません。</p>"}
         </div>
         <aside class="side-note">
           <span>比較メモ</span>
-          <p>価格、送料、クーポン、ポイント条件は変わることがあります。購入前に販売ページの最新情報を確認してください。</p>
+          <strong>買う前に見るポイント</strong>
+          <ul>
+            <li>価格は送料込みか</li>
+            <li>レビュー件数が十分か</li>
+            <li>ポイントやクーポン条件が合うか</li>
+            <li>容量やサイズが置き場所に合うか</li>
+          </ul>
           <div class="ad-slot compact">
             <span>広告掲載枠</span>
             <strong>関連商品の紹介枠</strong>

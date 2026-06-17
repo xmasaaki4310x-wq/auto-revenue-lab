@@ -13,6 +13,10 @@
   --mint: #e5f2ee;
   --peach: #fff1e8;
   --cream: #f7f0dd;
+  --rose: #f8d9cf;
+  --sky: #dfeaf4;
+  --leaf: #d8ead5;
+  --shadow: 0 14px 34px rgba(30, 42, 45, 0.09);
 }
 
 * {
@@ -23,7 +27,7 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    linear-gradient(180deg, #ffffff 0, var(--paper) 360px),
+    linear-gradient(180deg, #fffaf1 0, #ffffff 230px, var(--paper) 680px),
     var(--paper);
   color: var(--ink);
   line-height: 1.68;
@@ -73,6 +77,11 @@ a {
   font-size: 14px;
 }
 
+.site-header nav a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
 main {
   width: min(1160px, calc(100% - 32px));
   margin: 0 auto;
@@ -90,10 +99,10 @@ main {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 34px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 22px;
   align-items: end;
-  padding: clamp(44px, 8vw, 92px) 0 30px;
+  padding: clamp(24px, 5vw, 56px) 0 22px;
 }
 
 .hero-copy {
@@ -101,10 +110,11 @@ main {
   padding: clamp(22px, 4vw, 38px);
   overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(229, 242, 238, 0.92), rgba(255, 241, 232, 0.86)),
-    linear-gradient(90deg, #ffffff, #f4f0e4);
+    linear-gradient(135deg, rgba(255, 248, 232, 0.98), rgba(229, 242, 238, 0.96) 54%, rgba(255, 233, 221, 0.94)),
+    #ffffff;
   border: 1px solid var(--line);
   border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
 .hero-visual {
@@ -136,7 +146,7 @@ main {
   position: relative;
   margin: 0;
   max-width: 780px;
-  font-size: clamp(42px, 8vw, 76px);
+  font-size: clamp(40px, 7vw, 70px);
   line-height: 1.06;
   letter-spacing: 0;
 }
@@ -147,6 +157,42 @@ main {
   max-width: 720px;
   color: var(--muted);
   font-size: 18px;
+}
+
+.hero-actions,
+.topic-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.primary-action {
+  background: var(--teal);
+  color: #ffffff;
+}
+
+.primary-action:hover {
+  background: var(--teal-dark);
+}
+
+.secondary-action {
+  border: 1px solid var(--teal);
+  background: #ffffff;
+  color: var(--teal-dark);
 }
 
 .eyebrow,
@@ -189,7 +235,39 @@ main {
   gap: 4px;
   padding: 18px;
   background: var(--surface);
-  box-shadow: 0 14px 34px rgba(20, 41, 44, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.purpose-band {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 22px;
+  margin: 14px 0;
+  padding: 20px;
+  border: 1px solid #cfd9d1;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(23, 107, 99, 0.11), rgba(201, 155, 45, 0.11)),
+    #ffffff;
+}
+
+.purpose-band span {
+  display: block;
+  color: var(--coral);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.purpose-band strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.purpose-band p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .status-panel span,
@@ -213,7 +291,7 @@ main {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
-  margin: 10px 0 28px;
+  margin: 14px 0 26px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -221,9 +299,21 @@ main {
 }
 
 .feature-band div {
-  min-height: 150px;
+  min-height: 132px;
   padding: 20px;
-  background: var(--surface);
+  background: #ffffff;
+}
+
+.feature-band div:nth-child(1) {
+  background: linear-gradient(180deg, #ffffff, var(--mint));
+}
+
+.feature-band div:nth-child(2) {
+  background: linear-gradient(180deg, #ffffff, var(--cream));
+}
+
+.feature-band div:nth-child(3) {
+  background: linear-gradient(180deg, #ffffff, var(--peach));
 }
 
 .feature-band span {
@@ -247,21 +337,31 @@ main {
 
 .category-nav {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0 0 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 14px;
 }
 
 .category-chip {
   display: grid;
-  gap: 8px;
-  min-height: 92px;
-  padding: 14px 12px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px 12px;
+  min-height: 86px;
+  padding: 14px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
   text-decoration: none;
   box-shadow: 0 8px 18px rgba(32, 42, 45, 0.05);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.category-chip:hover,
+.rank-card:hover,
+.topic-card:hover,
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .category-chip span {
@@ -278,7 +378,15 @@ main {
 
 .category-chip strong {
   line-height: 1.25;
-  font-size: 13px;
+  font-size: 15px;
+}
+
+.category-chip em {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.35;
 }
 
 .category-chip.stock span {
@@ -311,7 +419,7 @@ main {
   align-items: end;
   justify-content: space-between;
   gap: 18px;
-  margin: 34px 0 16px;
+  margin: 30px 0 14px;
 }
 
 .section-heading h2 {
@@ -325,10 +433,16 @@ main {
   font-weight: 800;
 }
 
+.section-heading p {
+  max-width: 640px;
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
 .rank-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   margin-bottom: 22px;
 }
 
@@ -344,16 +458,16 @@ main {
 .rank-card a {
   position: relative;
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  gap: 12px;
-  min-height: 158px;
-  padding: 12px;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 174px;
+  padding: 14px;
   text-decoration: none;
 }
 
 .rank-card img {
-  width: 96px;
-  height: 128px;
+  width: 112px;
+  height: 146px;
   object-fit: cover;
   border-radius: 7px;
   background: var(--mint);
@@ -383,12 +497,57 @@ main {
   margin: 8px 0;
   font-size: 16px;
   line-height: 1.35;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .rank-card p {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.rank-card strong {
+  display: inline-flex;
+  margin-top: 10px;
+  color: var(--teal-dark);
+  font-size: 13px;
+}
+
+.season-lane {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 18px;
+  align-items: center;
+  margin: 20px 0 30px;
+  padding: 20px;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(199, 95, 58, 0.12), rgba(70, 111, 143, 0.12)),
+    #ffffff;
+  border: 1px solid var(--line);
+}
+
+.season-lane h2 {
+  margin: 4px 0 0;
+  line-height: 1.25;
+}
+
+.season-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.season-keywords span {
+  padding: 9px 12px;
+  border: 1px solid rgba(15, 73, 68, 0.18);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--teal-dark);
+  font-weight: 800;
 }
 
 .topics-grid {
@@ -437,7 +596,7 @@ main {
 
 .topic-link {
   display: block;
-  min-height: 250px;
+  min-height: 300px;
   padding: 24px;
   text-decoration: none;
 }
@@ -458,6 +617,21 @@ main {
   letter-spacing: 0;
 }
 
+.topic-link h2,
+.product-body h2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.topic-link h2 {
+  -webkit-line-clamp: 2;
+}
+
+.product-body h2 {
+  -webkit-line-clamp: 3;
+}
+
 .topic-link p,
 .product-body p,
 .plain-section p,
@@ -470,6 +644,17 @@ main {
   margin-top: 18px;
   color: var(--teal-dark);
   font-size: 14px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.topic-cta {
+  display: inline-flex;
+  margin-top: 14px;
+  color: var(--coral);
+  font-weight: 900;
 }
 
 .topic-source {
@@ -502,6 +687,7 @@ main {
 }
 
 .topic-heading {
+  position: relative;
   margin-top: 18px;
   padding: 28px;
   border: 1px solid var(--line);
@@ -544,7 +730,7 @@ main {
 
 .content-with-rail {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 24px;
   align-items: start;
 }
@@ -552,18 +738,33 @@ main {
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
   padding: 24px 0 56px;
 }
 
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.product-rank {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .product-card img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   background: var(--mint);
 }
@@ -586,13 +787,38 @@ main {
 
 .caption {
   font-size: 14px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.reason {
+  margin: 8px 0;
+  font-weight: 700;
+}
+
+.score-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 8px;
+}
+
+.score-row span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: #f2f5f1;
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .buy-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
   margin-top: auto;
   padding: 10px 14px;
   background: var(--teal);
@@ -631,6 +857,22 @@ main {
   margin-top: 24px;
   padding: 18px;
   background: #ffffff;
+}
+
+.side-note strong {
+  display: block;
+  margin: 6px 0 8px;
+  font-size: 18px;
+}
+
+.side-note ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.side-note li + li {
+  margin-top: 6px;
 }
 
 .ad-slot {
@@ -677,6 +919,8 @@ main {
   }
 
   .feature-band,
+  .purpose-band,
+  .season-lane,
   .rank-grid,
   .topics-grid,
   .product-grid {
@@ -707,5 +951,29 @@ main {
   .side-note {
     position: static;
     margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  main {
+    width: min(100% - 22px, 1160px);
+  }
+
+  .category-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .rank-card a {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .rank-card img {
+    width: 96px;
+    height: 128px;
+  }
+
+  .hero h1,
+  .page-heading h1 {
+    font-size: 40px;
   }
 }
