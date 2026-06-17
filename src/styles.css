@@ -97,6 +97,68 @@ main {
   font-size: 14px;
 }
 
+.site-search {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(32, 42, 45, 0.05);
+}
+
+.site-search label {
+  color: var(--teal-dark);
+  font-weight: 900;
+}
+
+.site-search div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.site-search input {
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--ink);
+  font: inherit;
+}
+
+.site-search input:focus {
+  outline: 2px solid rgba(23, 107, 99, 0.22);
+  border-color: var(--teal);
+}
+
+.site-search button {
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--teal);
+  border-radius: 7px;
+  background: #ffffff;
+  color: var(--teal-dark);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.site-search p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -1124,6 +1186,14 @@ main {
     position: static;
     margin-top: 0;
   }
+
+  .site-search {
+    grid-template-columns: 1fr;
+  }
+
+  .site-search p {
+    text-align: left;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1147,5 +1217,9 @@ main {
   .hero h1,
   .page-heading h1 {
     font-size: 40px;
+  }
+
+  .site-search div {
+    grid-template-columns: 1fr;
   }
 }

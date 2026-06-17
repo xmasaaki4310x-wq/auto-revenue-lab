@@ -374,7 +374,7 @@ function makeMiniReason(topic, item) {
 
 async function writeHomePage(topicResults, dataMode) {
   const categoryNav = config.topics.map((topic, index) => `
-    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html">
+    <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${topic.angle}`)}">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${escapeHtml(shortTitle(topic.title))}</strong>
       <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
@@ -385,7 +385,7 @@ async function writeHomePage(topicResults, dataMode) {
     const top = getTopicTopItem(topicResults, topic);
     if (!top) return "";
     return `
-      <article class="rank-card ${escapeAttribute(topic.accent || "")}">
+      <article class="rank-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top.name} ${top.caption}`)}">
         <a href="${topic.slug}.html">
           <span class="rank-number">${index + 1}</span>
           <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
@@ -404,7 +404,7 @@ async function writeHomePage(topicResults, dataMode) {
     const top = getTopicTopItem(topicResults, topic);
     const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
     return `
-      <article class="topic-card ${escapeAttribute(topic.accent || "")}">
+      <article class="topic-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${topic.angle} ${top?.name || ""}`)}">
         <a href="${topic.slug}.html" class="topic-link">
           <img class="topic-visual" src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
           <span class="topic-kicker">${escapeHtml(topic.keyword)}</span>
@@ -421,7 +421,7 @@ async function writeHomePage(topicResults, dataMode) {
   const shoppingGuideCards = config.topics.slice(0, 4).map((topic) => {
     const top = getTopicTopItem(topicResults, topic);
     return `
-      <article>
+      <article data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top?.name || ""}`)}">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <h3>${escapeHtml(makeMiniReason(topic, top))}</h3>
         <p>${top ? escapeHtml(getValueLine(top)) : escapeHtml(topic.angle)}</p>
@@ -433,7 +433,7 @@ async function writeHomePage(topicResults, dataMode) {
     if (!top) return "";
     const href = top.url || top.fallbackUrl;
     return `
-      <article class="ad-product">
+      <article class="ad-product" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${top.name} ${top.caption}`)}">
         <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <strong>${escapeHtml(top.name)}</strong>
@@ -493,13 +493,13 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="feature-band" aria-label="このサイトの見方">
         <div>
           <span>01</span>
-          <strong>今見る理由がある物を先に出す</strong>
-          <p>季節イベント、買い置き、梅雨や暑さ対策など、タイミングのある候補を前に出します。</p>
+          <strong>今日のおすすめ</strong>
+          <p>季節イベントや買い置きなど、今の時期に見直しやすい候補を紹介します。</p>
         </div>
         <div>
           <span>02</span>
-          <strong>価格とレビューを比べる</strong>
-          <p>安さだけでなく、レビュー件数と平均評価も並べて確認します。</p>
+          <strong>価格とレビュー比較</strong>
+          <p>安さだけでなく、レビュー件数と平均評価も確認します。</p>
         </div>
         <div>
           <span>03</span>
@@ -510,7 +510,7 @@ async function writeHomePage(topicResults, dataMode) {
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
-          <h2>まず見ていい買い物候補</h2>
+          <h2>今日のおすすめ</h2>
           <p>レビュー数と価格目安が見える候補から、楽天の商品ページへ進めます。</p>
         </div>
         <a href="feed.json">データを見る</a>
@@ -569,7 +569,7 @@ async function writeTopicPage(topic, items, source) {
   const topItem = items[0];
   const railLink = topItem?.url || topItem?.fallbackUrl || "";
   const cards = items.map((item, index) => `
-    <article class="product-card">
+    <article class="product-card" data-search="${escapeAttribute(`${topic.title} ${topic.keyword} ${item.name} ${item.caption}`)}">
       <span class="product-rank">候補 ${index + 1}</span>
       ${item.imageUrl ? `<img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">` : ""}
       <div class="product-body">
@@ -735,12 +735,50 @@ function layout({ title, description, body }) {
   </header>
   <main>
     <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。価格、在庫、送料、ポイント条件は販売ページでご確認ください。</div>
+    <section class="site-search" role="search">
+      <label for="site-search-input">検索</label>
+      <div>
+        <input id="site-search-input" type="search" placeholder="商品名・カテゴリ・キーワード" autocomplete="off" data-site-search>
+        <button type="button" data-search-clear>クリア</button>
+      </div>
+      <p data-search-status>商品・カテゴリを検索</p>
+    </section>
     ${body}
   </main>
   <footer class="site-footer">
     <p>${escapeHtml(config.tagline)}</p>
     <p>商品情報は更新時点の公開データをもとに整理しています。</p>
   </footer>
+  <script>
+    (() => {
+      const input = document.querySelector("[data-site-search]");
+      const panel = document.querySelector(".site-search");
+      const clearButton = document.querySelector("[data-search-clear]");
+      const status = document.querySelector("[data-search-status]");
+      const targets = Array.from(document.querySelectorAll("[data-search]"));
+      if (!input || !panel || !targets.length) {
+        if (panel) panel.hidden = true;
+        return;
+      }
+      const normalize = (value) => String(value || "").normalize("NFKC").toLowerCase();
+      const applySearch = () => {
+        const query = normalize(input.value).trim();
+        let visible = 0;
+        for (const target of targets) {
+          const hit = !query || normalize(target.dataset.search).includes(query);
+          target.classList.toggle("is-hidden", !hit);
+          if (hit) visible += 1;
+        }
+        status.textContent = query ? visible + "件表示" : "商品・カテゴリを検索";
+      };
+      input.addEventListener("input", applySearch);
+      clearButton.addEventListener("click", () => {
+        input.value = "";
+        input.focus();
+        applySearch();
+      });
+    })();
+  </script>
 </body>
 </html>`;
 }
