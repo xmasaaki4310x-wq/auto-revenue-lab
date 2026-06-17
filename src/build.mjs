@@ -893,9 +893,23 @@ async function writeHomePage(topicResults, dataMode) {
 }
 
 async function writeRankingPage(topicResults, dataMode) {
-  const rankedItems = config.topics
+  const allRankedItems = config.topics
     .flatMap((topic) => (topicResults[topic.slug]?.items || []).map((item) => ({ topic, item })))
-    .sort((a, b) => b.item.score - a.item.score)
+    .sort((a, b) => b.item.score - a.item.score);
+  const requiredCategoryItems = config.topics
+    .map((topic) => {
+      const item = topicResults[topic.slug]?.items?.[0];
+      return item ? { topic, item } : null;
+    })
+    .filter(Boolean);
+  const seenRankingKeys = new Set();
+  const rankedItems = [...requiredCategoryItems, ...allRankedItems]
+    .filter(({ item }) => {
+      const key = item.url || item.directUrl || item.name;
+      if (seenRankingKeys.has(key)) return false;
+      seenRankingKeys.add(key);
+      return true;
+    })
     .slice(0, 30);
 
   const featured = rankedItems.slice(0, 3).map(({ topic, item }, index) => {
