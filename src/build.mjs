@@ -410,7 +410,7 @@ function makeMiniReason(topic, item) {
   if (!item) return topic.angle;
   const title = shortTitle(topic.title);
   if (item.reviewCount >= 1000) return `${title}の中でもレビュー数が多く、条件を比べやすい候補です。`;
-  if (item.reviewAverage >= 4.4) return `${title}の中でも平均評価が高めの候補です。価格や送料は楽天側で確認してください。`;
+  if (item.reviewAverage >= 4.4) return `${title}の中でも平均評価が高めで、比較候補に入れやすい商品です。`;
   return `${title}の比較候補です。容量、価格、レビューを見てから選べます。`;
 }
 
@@ -611,13 +611,17 @@ function buildTopicJsonLd(topic, items) {
 }
 
 async function writeHomePage(topicResults, dataMode) {
-  const categoryNav = config.topics.map((topic, index) => `
+  const categoryNav = config.topics.map((topic, index) => {
+    const top = getTopicTopItem(topicResults, topic);
+    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
+    return `
     <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic)))}">
+      <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(topic.title)}" loading="lazy">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${escapeHtml(shortTitle(topic.title))}</strong>
       <em>${escapeHtml(topic.keyword.split(" ").slice(0, 3).join(" / "))}</em>
-    </a>
-  `).join("");
+    </a>`;
+  }).join("");
 
   const highlightItems = config.topics.slice(0, 6).map((topic, index) => {
     const top = getTopicTopItem(topicResults, topic);
@@ -658,8 +662,10 @@ async function writeHomePage(topicResults, dataMode) {
 
   const shoppingGuideCards = config.topics.slice(0, 4).map((topic) => {
     const top = getTopicTopItem(topicResults, topic);
+    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
     return `
       <article data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top?.name || ""))}">
+        <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <h3>${escapeHtml(makeMiniReason(topic, top))}</h3>
         <p>${top ? escapeHtml(getValueLine(top)) : escapeHtml(topic.angle)}</p>
@@ -682,8 +688,9 @@ async function writeHomePage(topicResults, dataMode) {
       title: "サイズと置き場所を先に見る",
       text: "収納用品や小型家電は、商品そのものより置く場所との相性が大事です。寸法、重さ、手入れのしやすさを比べます。"
     }
-  ].map((card) => `
+  ].map((card, index) => `
     <article>
+      <img src="${["assets/drink-stock.svg", "assets/seasonal-gifts.svg", "assets/kitchen-storage.svg"][index]}" alt="" loading="lazy">
       <span>${escapeHtml(card.label)}</span>
       <h3>${escapeHtml(card.title)}</h3>
       <p>${escapeHtml(card.text)}</p>
@@ -800,26 +807,32 @@ async function writeHomePage(topicResults, dataMode) {
       </section>
       <section class="quick-links" aria-label="サイトの補助導線">
         <a href="ranking.html">
+          <img src="assets/season-hero.svg" alt="" loading="lazy">
           <span>ランキング</span>
           <strong>横断で人気候補を比べる</strong>
         </a>
         <a href="shopping-intents.html">
+          <img src="assets/daily-essentials.svg" alt="" loading="lazy">
           <span>目的別</span>
           <strong>使う場面から探す</strong>
         </a>
         <a href="guides.html">
+          <img src="assets/kitchen-storage.svg" alt="" loading="lazy">
           <span>選び方</span>
           <strong>買う前の確認点を読む</strong>
         </a>
         <a href="selection-policy.html">
+          <img src="assets/rice-pantry.svg" alt="" loading="lazy">
           <span>比較方針</span>
           <strong>候補の選び方を見る</strong>
         </a>
         <a href="seasonal-calendar.html">
+          <img src="assets/seasonal-gifts.svg" alt="" loading="lazy">
           <span>季節</span>
           <strong>月ごとの買い物を確認</strong>
         </a>
         <a href="disclosure.html">
+          <img src="assets/hygiene-care.svg" alt="" loading="lazy">
           <span>広告</span>
           <strong>広告掲載について</strong>
         </a>
@@ -841,7 +854,7 @@ async function writeHomePage(topicResults, dataMode) {
           <h2>${escapeHtml(season.label)}で見直したいもの</h2>
         </div>
         <div class="season-keywords">
-          ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+          ${season.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-note">${escapeHtml(keyword)}</a>`).join("")}
         </div>
       </section>
       <section class="guide-grid" aria-label="買い物判断のメモ">
@@ -850,7 +863,7 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="section-heading">
         <div>
           <p class="eyebrow">BUYER PATH</p>
-          <h2>迷った時の見方</h2>
+          <h2>迷った時の選び方</h2>
           <p>似た商品が多い時は、先に買う目的を決めてから価格、レビュー、容量、置き場所の順に見ていくと選びやすくなります。</p>
         </div>
       </section>
