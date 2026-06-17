@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" role="img" aria-labelledby="title desc">
+  <title id="title">ベビー用品・育児ストック</title>
+  <desc id="desc">おむつ、おしりふき、ミルクなどの育児用品を表すやわらかいイラスト</desc>
+  <rect width="720" height="540" fill="#f8efe8"/>
+  <circle cx="590" cy="96" r="64" fill="#f1cfc2"/>
+  <circle cx="128" cy="390" r="86" fill="#d9eee9"/>
+  <path d="M0 392c78-48 166-70 265-42 92 26 160 98 262 90 75-6 135-44 193-86v186H0z" fill="#ead6c9"/>
+  <rect x="110" y="118" width="220" height="260" rx="34" fill="#ffffff" stroke="#c8b8ad" stroke-width="8"/>
+  <path d="M154 118c20 54 110 54 132 0" fill="none" stroke="#c8b8ad" stroke-width="8"/>
+  <rect x="380" y="140" width="156" height="220" rx="28" fill="#fffaf2" stroke="#c8b8ad" stroke-width="8"/>
+  <path d="M410 198h96M410 242h96M410 286h70" stroke="#d9aa95" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="516" cy="145" r="26" fill="#f1cfc2"/>
+  <path d="M182 432h260" stroke="#176b63" stroke-width="18" stroke-linecap="round" opacity=".5"/>
+  <path d="M160 462h330" stroke="#176b63" stroke-width="14" stroke-linecap="round" opacity=".34"/>
+</svg>

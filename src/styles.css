@@ -290,6 +290,67 @@ main {
   font-weight: 700;
 }
 
+.hero-info-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.hero-info-row span {
+  display: grid;
+  gap: 2px;
+  min-height: 70px;
+  align-content: center;
+  padding: 12px;
+  border: 1px solid rgba(23, 107, 99, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.hero-info-row strong {
+  color: var(--teal-dark);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.hero-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.hero-gallery a {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid rgba(23, 107, 99, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--teal-dark);
+  text-decoration: none;
+}
+
+.hero-gallery img {
+  width: 100%;
+  aspect-ratio: 1.25;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #f5f8f3;
+}
+
+.hero-gallery span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .status-panel,
 .side-note,
 .ad-slot {
@@ -1433,6 +1494,52 @@ main {
   text-decoration: none;
 }
 
+.ranking-table {
+  min-width: 1040px;
+  table-layout: fixed;
+}
+
+.ranking-table th:nth-child(1),
+.ranking-table td:nth-child(1) {
+  width: 52%;
+}
+
+.ranking-table th:nth-child(2),
+.ranking-table td:nth-child(2) {
+  width: 12%;
+}
+
+.ranking-table th:nth-child(3),
+.ranking-table td:nth-child(3),
+.ranking-table th:nth-child(4),
+.ranking-table td:nth-child(4),
+.ranking-table th:nth-child(5),
+.ranking-table td:nth-child(5) {
+  width: 9%;
+}
+
+.ranking-table th:nth-child(6),
+.ranking-table td:nth-child(6) {
+  width: 9%;
+}
+
+.ranking-table td:first-child {
+  display: table-cell;
+  min-width: 0;
+  line-height: 1.55;
+}
+
+.ranking-table td:first-child span {
+  display: inline-grid;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.ranking-table a {
+  width: 100%;
+  white-space: nowrap;
+}
+
 .content-with-rail {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -1782,6 +1889,14 @@ main {
 
   .site-search p {
     text-align: left;
+  }
+
+  .hero-info-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

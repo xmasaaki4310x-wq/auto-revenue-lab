@@ -383,5 +383,40 @@
       "affiliateRate": 4,
       "itemCaption": "キッチンや外出用に補充しやすい除菌シート候補。枚数と保管場所を比較します。"
     }
+  ],
+  "baby-care": [
+    {
+      "itemName": "テープタイプ おむつ まとめ買い 3パック",
+      "itemPrice": 4980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f5ede6/5a3f32?text=Baby+Diapers" }],
+      "reviewAverage": 4.6,
+      "reviewCount": 8420,
+      "affiliateRate": 3,
+      "itemCaption": "毎日使うおむつのまとめ買い候補。サイズ、枚数、肌あたり、保管場所を比較します。"
+    },
+    {
+      "itemName": "おしりふき 厚手タイプ ケース販売",
+      "itemPrice": 2680,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e8f3f4/1f5a5a?text=Baby+Wipes" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 5360,
+      "affiliateRate": 4,
+      "itemCaption": "おむつ替えや手口ふきにも使いやすい厚手タイプ候補。枚数と乾きにくさを確認します。"
+    },
+    {
+      "itemName": "粉ミルク 大容量 缶タイプ 2缶セット",
+      "itemPrice": 5980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f6f1de/4b4228?text=Baby+Milk" }],
+      "reviewAverage": 4.7,
+      "reviewCount": 2910,
+      "affiliateRate": 3,
+      "itemCaption": "買い足し頻度が高いミルク候補。月齢、容量、賞味期限、配送条件を確認します。"
+    }
   ]
 }

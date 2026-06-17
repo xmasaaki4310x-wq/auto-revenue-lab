@@ -5,7 +5,8 @@ on:
   push:
     branches: [master, main]
   schedule:
-    - cron: "17 21 * * *"
+    # 05:40 JST. GitHub Actions cron uses UTC.
+    - cron: "40 20 * * *"
 
 permissions:
   contents: read

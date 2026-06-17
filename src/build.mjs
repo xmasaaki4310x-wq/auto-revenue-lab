@@ -426,7 +426,8 @@ function getTopicAliases(topic) {
     "bath-sleep": "タオル バスタオル フェイスタオル 寝具 枕 まくら 布団 ふとん 敷きパッド 冷感 夏用 バス用品 お風呂 風呂 リラックス くつろぎ 快眠",
     "emergency-stock": "防災 備蓄 非常食 保存食 備蓄水 水 ランタン ライト 懐中電灯 ラジオ 防災リュック 防災セット 停電 災害 ローリングストック",
     "summer-cooling": "暑さ対策 熱中症対策 冷感 日傘 晴雨兼用 ネッククーラー 冷却プレート 冷感タオル ハンディファン 扇風機 外出 通勤 夏",
-    "hygiene-care": "衛生用品 マスク 不織布マスク ハンドソープ 除菌シート ウェットティッシュ 消毒 詰め替え まとめ買い 日用品 身だしなみ"
+    "hygiene-care": "衛生用品 マスク 不織布マスク ハンドソープ 除菌シート ウェットティッシュ 消毒 詰め替え まとめ買い 日用品 身だしなみ",
+    "baby-care": "ベビー用品 育児用品 赤ちゃん用品 おむつ オムツ おしめ パンツタイプ テープタイプ おしりふき お尻拭き ベビーワイプ 粉ミルク 液体ミルク ベビーフード 離乳食 哺乳瓶 ベビーソープ ベビーローション まとめ買い ケース買い 出産準備 子育て"
   };
   return aliases[topic.slug] || "";
 }
@@ -501,6 +502,10 @@ function getTopicGuide(topic) {
     "hygiene-care": {
       lead: "衛生用品は毎日使うものが多いため、価格だけでなく、容量、肌あたり、保管しやすさを見て補充すると続けやすくなります。",
       checks: ["マスクはサイズと枚数を見る", "ハンドソープは詰め替え対応を確認する", "除菌シートは枚数と乾きにくさを見る", "まとめ買いは置き場所を先に決める"]
+    },
+    "baby-care": {
+      lead: "ベビー用品は切らすと困るものが多いため、サイズ、月齢、肌あたり、消費ペース、保管場所を先に見ておくと買い足しが楽になります。",
+      checks: ["おむつはサイズとタイプを先に確認する", "おしりふきは厚みと枚数、乾きにくさを見る", "ミルクや離乳食は月齢と賞味期限を確認する", "まとめ買いは置き場所と配送条件も見る"]
     }
   };
   return guides[topic.slug] || {
@@ -699,6 +704,16 @@ async function writeHomePage(topicResults, dataMode) {
       </article>`;
   }).join("");
 
+  const heroGallery = config.topics.slice(0, 5).map((topic) => {
+    const top = getTopicTopItem(topicResults, topic);
+    const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
+    return `
+      <a href="${topic.slug}.html" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top?.name || ""))}">
+        <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
+        <span>${escapeHtml(shortTitle(topic.title))}</span>
+      </a>`;
+  }).join("");
+
   const statusText = dataMode === "live"
     ? "Rakuten API"
     : dataMode === "mixed"
@@ -746,6 +761,14 @@ async function writeHomePage(topicResults, dataMode) {
           </div>
           <div class="season-tags" aria-label="季節の注目キーワード">
             ${season.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+          </div>
+          <div class="hero-info-row" aria-label="サイトの更新情報">
+            <span><strong>${config.topics.length}</strong>カテゴリ</span>
+            <span><strong>${liveTopicCount}</strong>カテゴリ更新</span>
+            <span><strong>毎日</strong>自動更新</span>
+          </div>
+          <div class="hero-gallery" aria-label="注目カテゴリ">
+            ${heroGallery}
           </div>
         </div>
         <aside class="status-panel">
@@ -978,7 +1001,7 @@ async function writeIntentPage(topicResults, dataMode) {
       label: "切らすと困る",
       title: "食品・日用品・防災ストック",
       text: "まとめ買いしやすく、残量管理に向いている候補です。",
-      slugs: ["rice-pantry", "daily-essentials", "emergency-stock"]
+      slugs: ["rice-pantry", "daily-essentials", "emergency-stock", "baby-care"]
     },
     {
       label: "家事を軽くする",
