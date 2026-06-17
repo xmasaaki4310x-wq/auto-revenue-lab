@@ -44,7 +44,8 @@ for (const topic of config.topics) {
     .sort((a, b) => b.score - a.score);
 
   const qualityItems = scoredItems.filter(isPreferredItem);
-  const normalizedItems = (qualityItems.length >= 3 ? qualityItems : scoredItems)
+  const reviewedItems = scoredItems.filter(hasAnyReview);
+  const normalizedItems = (qualityItems.length >= 3 ? qualityItems : reviewedItems.length >= 3 ? reviewedItems : scoredItems)
     .slice(0, config.maxItemsPerTopic);
 
   topicResults[topic.slug] = {
@@ -330,6 +331,11 @@ function isPreferredItem(item) {
   return item.price > 0 &&
     item.reviewAverage >= config.rakuten.minReviewAverage &&
     item.reviewCount >= config.rakuten.minReviewCount;
+}
+
+function hasAnyReview(item) {
+  if (item.source === "sample") return true;
+  return item.price > 0 && item.reviewAverage > 0 && item.reviewCount > 0;
 }
 
 function makeReason(item) {
