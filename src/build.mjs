@@ -1,9 +1,12 @@
 import { mkdir, readFile, writeFile, copyFile, cp, rm } from "node:fs/promises";
+import { execFile as execFileCallback } from "node:child_process";
 import path from "node:path";
+import { promisify } from "node:util";
 
 const root = process.cwd();
 const outDir = path.join(root, "site");
 const offline = process.argv.includes("--offline");
+const execFile = promisify(execFileCallback);
 
 const config = JSON.parse(await readFile(path.join(root, "src", "config.json"), "utf8"));
 const samples = JSON.parse(await readFile(path.join(root, "src", "sample-products.json"), "utf8"));
@@ -56,6 +59,9 @@ for (const topic of config.topics) {
   });
 
   await writeTopicPage(topic, normalizedItems, source);
+  if (rakutenAuth.ok) {
+    await wait(1200);
+  }
 }
 
 const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.topics.length ? "live" : "mixed";
@@ -149,9 +155,12 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   }
 
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
+  const referer = `${siteConfig.baseUrl.replace(/\/$/, "")}/`;
+  const origin = new URL(siteConfig.baseUrl).origin;
   const headers = {
     "User-Agent": "kurashi-dougu-note/0.6",
-    Referer: `${siteConfig.baseUrl.replace(/\/$/, "")}/`
+    Referer: referer,
+    Origin: origin
   };
 
   const response = await fetch(endpoint, {
@@ -159,10 +168,48 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   });
 
   if (!response.ok) {
+    if (response.status === 403) {
+      return fetchRakutenItemsWithCurl(endpoint, referer, origin);
+    }
     throw new Error(await formatRakutenError(response));
   }
 
   const data = await response.json();
+  return Array.isArray(data.items) ? data.items : [];
+}
+
+async function fetchRakutenItemsWithCurl(endpoint, referer, origin) {
+  const args = [
+    "-sS",
+    "-L",
+    "-A",
+    "Mozilla/5.0",
+    "-e",
+    referer,
+    "-H",
+    `Origin: ${origin}`,
+    "-w",
+    "\nHTTP_STATUS:%{http_code}",
+    endpoint
+  ];
+
+  const { stdout } = await execFile("curl", args, { maxBuffer: 1024 * 1024 * 8 });
+  const statusMatch = stdout.match(/\nHTTP_STATUS:(\d+)\s*$/);
+  const status = statusMatch ? Number(statusMatch[1]) : 0;
+  const body = statusMatch ? stdout.slice(0, statusMatch.index) : stdout;
+
+  let data;
+  try {
+    data = JSON.parse(body);
+  } catch {
+    throw new Error(`curl HTTP ${status || "unknown"}: non-json-response`);
+  }
+
+  if (status < 200 || status >= 300) {
+    const message = data.error_description || data.error || data.message;
+    throw new Error(message ? `curl HTTP ${status}: ${message}` : `curl HTTP ${status}`);
+  }
+
   return Array.isArray(data.items) ? data.items : [];
 }
 
