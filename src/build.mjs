@@ -396,6 +396,158 @@ function buildSearchText(...parts) {
     .trim();
 }
 
+function getBaseUrl() {
+  return config.baseUrl.replace(/\/$/, "");
+}
+
+function pageUrl(page = "index.html") {
+  const baseUrl = getBaseUrl();
+  return page === "index.html" ? `${baseUrl}/` : `${baseUrl}/${page}`;
+}
+
+function getTopicSearchTerms(topic) {
+  const terms = buildSearchText(topic.keyword, getTopicAliases(topic))
+    .split(/\s+/)
+    .filter(Boolean);
+  return Array.from(new Set(terms)).slice(0, 14);
+}
+
+function getTopicGuide(topic) {
+  const guides = {
+    "drink-stock": {
+      lead: "飲料のまとめ買いは、1本あたりの価格だけでなく、置き場所、飲み切れる本数、ラベルの捨てやすさまで見ると選びやすくなります。",
+      checks: ["500mlか2Lかを先に決める", "ラベルレスやケースサイズを確認する", "炭酸水は割り材用かそのまま飲む用かで選ぶ", "夏場はスポーツドリンクやお茶も候補に入れる"]
+    },
+    "rice-pantry": {
+      lead: "主食や保存食は、安さだけでなく、保管しやすさ、賞味期限、普段の食事で消費できるかを見ておくと無駄が出にくくなります。",
+      checks: ["米は5kg袋か10kg袋かを置き場所で選ぶ", "パックご飯は食数と賞味期限を見る", "非常食は普段食べられる味を選ぶ", "水や日用品と一緒に備蓄量を見直す"]
+    },
+    "seasonal-gifts": {
+      lead: "ギフトは価格よりも、贈る相手、配送日、のし対応、レビューの安定感が大事です。季節イベント前は早めに候補を絞ると選びやすくなります。",
+      checks: ["配送日指定やのし対応を確認する", "冷凍・冷蔵品は受け取りやすさを見る", "レビュー件数が多い定番品を優先する", "家族向けか職場向けかで量を決める"]
+    },
+    "daily-essentials": {
+      lead: "日用品はまとめ買いしやすい一方で、置き場所を圧迫しがちです。単価、容量、保管スペースを一緒に見ると失敗しにくくなります。",
+      checks: ["月に使う量から買い過ぎを防ぐ", "詰め替え用は本体対応を確認する", "紙類はケースサイズを見る", "重いものは送料込みか確認する"]
+    },
+    "cleaning-laundry": {
+      lead: "掃除・洗濯用品は、使う場所や素材との相性が重要です。まとめ買い前に、対応素材、香り、保管しやすさを確認してください。",
+      checks: ["カビ取り剤は使える素材を確認する", "洗剤は香りや液性を見る", "除湿剤は置く場所の数で選ぶ", "洗濯槽クリーナーはドラム式対応を確認する"]
+    },
+    "kitchen-storage": {
+      lead: "キッチン収納は、見た目よりもサイズと使う頻度が大事です。冷蔵庫や棚の寸法に合うかを先に確認すると選びやすくなります。",
+      checks: ["置き場所の幅・奥行き・高さを測る", "保存容器は電子レンジ対応を確認する", "重ねやすさと洗いやすさを見る", "食品ストックは中身が見えるものを選ぶ"]
+    },
+    "small-appliances": {
+      lead: "小型家電は、価格だけでなく、音、サイズ、手入れのしやすさ、消費電力も比較すると日常使いしやすいものを選べます。",
+      checks: ["置き場所とコードの長さを見る", "音量や風量のレビューを確認する", "洗える部品があるか見る", "保証や返品条件を販売ページで確認する"]
+    },
+    "bath-sleep": {
+      lead: "タオルや寝具は肌に触れる時間が長いので、素材、洗濯しやすさ、乾きやすさ、サイズ感を見て選ぶと満足度が上がりやすいです。",
+      checks: ["洗濯頻度に合わせて枚数を決める", "寝具はサイズと固定方法を見る", "冷感素材はレビューの体感差も確認する", "枕は高さ調整や返品条件を見る"]
+    }
+  };
+  return guides[topic.slug] || {
+    lead: topic.angle,
+    checks: ["価格を確認する", "レビュー件数を見る", "送料やポイント条件を見る", "販売ページで最新情報を確認する"]
+  };
+}
+
+function getTopicFaq(topic) {
+  const title = shortTitle(topic.title);
+  return [
+    {
+      question: `${title}は何を基準に比べると選びやすいですか？`,
+      answer: `まず価格、レビュー件数、平均評価を見て候補を絞り、最後に送料、在庫、クーポン、ポイント条件を楽天の販売ページで確認してください。`
+    },
+    {
+      question: `安い商品を選べば十分ですか？`,
+      answer: `安さだけで決めると、容量やサイズ、保管しやすさが合わないことがあります。価格目安とレビューの量、日常で使い切れるかを一緒に見るのがおすすめです。`
+    },
+    {
+      question: `このページの商品リンクは広告ですか？`,
+      answer: `はい。商品リンク経由で購入や申込が発生すると、運営者が紹介料を受け取る場合があります。掲載順位は価格、レビュー、季節性、比較しやすさをもとに整理しています。`
+    }
+  ];
+}
+
+function buildComparisonTable(items) {
+  const rows = items.slice(0, 6).map((item, index) => {
+    const href = item.url || item.fallbackUrl;
+    return `
+      <tr>
+        <td><span>${index + 1}</span>${escapeHtml(truncate(item.name, 46))}</td>
+        <td>${escapeHtml(formatPrice(item.price))}</td>
+        <td>${item.reviewAverage ? item.reviewAverage.toFixed(1) : "-"}</td>
+        <td>${item.reviewCount.toLocaleString("ja-JP")}件</td>
+        <td><a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">楽天で見る</a></td>
+      </tr>`;
+  }).join("");
+
+  return `
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>候補</th>
+            <th>価格目安</th>
+            <th>平均</th>
+            <th>レビュー</th>
+            <th>確認</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+function buildTopicJsonLd(topic, items) {
+  const page = `${topic.slug}.html`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": config.siteName,
+          "item": pageUrl("index.html")
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": topic.title,
+          "item": pageUrl(page)
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": `${topic.title}の比較候補`,
+      "itemListElement": items.slice(0, 10).map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "url": item.url || item.fallbackUrl
+      }))
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": getTopicFaq(topic).map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ];
+}
+
 async function writeHomePage(topicResults, dataMode) {
   const categoryNav = config.topics.map((topic, index) => `
     <a class="category-chip ${escapeAttribute(topic.accent || "")}" href="${topic.slug}.html" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, topic.angle, getTopicAliases(topic)))}">
@@ -452,6 +604,30 @@ async function writeHomePage(topicResults, dataMode) {
       </article>`;
   }).join("");
 
+  const buyerPathCards = [
+    {
+      label: "買い置き",
+      title: "重いものは先に候補を作る",
+      text: "水、米、紙類、洗剤は買う頻度が決まりやすいので、価格とレビューの変化を見ながら定番候補を持っておくと迷いにくくなります。"
+    },
+    {
+      label: "季節",
+      title: "イベント前に贈り物を絞る",
+      text: "お中元、父の日、敬老の日などは直前に選ぶほど迷いやすくなります。レビュー数が多い候補から早めに見ておくのが現実的です。"
+    },
+    {
+      label: "収納",
+      title: "サイズと置き場所を先に見る",
+      text: "収納用品や小型家電は、商品そのものより置く場所との相性が大事です。寸法、重さ、手入れのしやすさを比べます。"
+    }
+  ].map((card) => `
+    <article>
+      <span>${escapeHtml(card.label)}</span>
+      <h3>${escapeHtml(card.title)}</h3>
+      <p>${escapeHtml(card.text)}</p>
+    </article>
+  `).join("");
+
   const affiliateShowcase = config.topics.slice(0, 3).map((topic) => {
     const top = getTopicTopItem(topicResults, topic);
     if (!top) return "";
@@ -481,6 +657,25 @@ async function writeHomePage(topicResults, dataMode) {
   const html = layout({
     title: config.siteName,
     description: config.description,
+    path: "index.html",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": config.siteName,
+        "url": pageUrl("index.html"),
+        "description": config.description,
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": config.topics.map((topic, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": topic.title,
+            "url": pageUrl(`${topic.slug}.html`)
+          }))
+        }
+      }
+    ],
     body: `
       <section class="hero">
         <div class="hero-copy">
@@ -548,6 +743,16 @@ async function writeHomePage(topicResults, dataMode) {
       </section>
       <section class="section-heading">
         <div>
+          <p class="eyebrow">BUYER PATH</p>
+          <h2>迷った時の見方</h2>
+          <p>似た商品が多い時は、先に買う目的を決めてから価格、レビュー、容量、置き場所の順に見ていくと選びやすくなります。</p>
+        </div>
+      </section>
+      <section class="buyer-path" aria-label="買い物の見方">
+        ${buyerPathCards}
+      </section>
+      <section class="section-heading">
+        <div>
           <p class="eyebrow">SHOPPING THEMES</p>
           <h2>暮らしのカテゴリ</h2>
           <p>水、米、日用品、収納、掃除、家電、ギフトまで、買いたい目的に合わせて探せます。</p>
@@ -584,6 +789,10 @@ async function writeHomePage(topicResults, dataMode) {
 async function writeTopicPage(topic, items, source) {
   const topItem = items[0];
   const railLink = topItem?.url || topItem?.fallbackUrl || "";
+  const guide = getTopicGuide(topic);
+  const faqs = getTopicFaq(topic);
+  const searchTerms = getTopicSearchTerms(topic);
+  const comparison = buildComparisonTable(items);
   const cards = items.map((item, index) => `
     <article class="product-card" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
       <span class="product-rank">候補 ${index + 1}</span>
@@ -611,6 +820,8 @@ async function writeTopicPage(topic, items, source) {
   const html = layout({
     title: `${topic.title} - ${config.siteName}`,
     description: topic.angle,
+    path: `${topic.slug}.html`,
+    structuredData: buildTopicJsonLd(topic, items),
     body: `
       <nav class="breadcrumb"><a href="index.html">トップ</a> / ${escapeHtml(topic.title)}</nav>
       <section class="page-heading topic-heading ${escapeAttribute(topic.accent || "")}">
@@ -624,6 +835,24 @@ async function writeTopicPage(topic, items, source) {
         </div>
         ${source === "sample" ? `<div class="topic-alert">このテーマは現在サンプルで表示しています。実データ取得に成功すると、販売ページへのリンクと商品画像に切り替わります。</div>` : ""}
       </section>
+      <section class="topic-summary" data-search="${escapeAttribute(buildSearchText(topic.title, guide.lead, guide.checks, searchTerms))}">
+        <div>
+          <p class="eyebrow">BUYING GUIDE</p>
+          <h2>${escapeHtml(shortTitle(topic.title))}の選び方</h2>
+          <p>${escapeHtml(guide.lead)}</p>
+        </div>
+        <ul>
+          ${guide.checks.map((check) => `<li>${escapeHtml(check)}</li>`).join("")}
+        </ul>
+      </section>
+      <section class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">QUICK COMPARE</p>
+          <h2>価格とレビューを一覧で比較</h2>
+          <p>気になる候補を先に絞り、最終的な在庫、送料、ポイント条件は楽天の販売ページで確認してください。</p>
+        </div>
+      </section>
+      ${comparison}
       <section class="content-with-rail">
         <div id="products" class="product-grid">
           ${cards || "<p>掲載候補がまだありません。</p>"}
@@ -637,6 +866,12 @@ async function writeTopicPage(topic, items, source) {
             <li>ポイントやクーポン条件が合うか</li>
             <li>容量やサイズが置き場所に合うか</li>
           </ul>
+          <div class="related-searches">
+            <strong>関連検索</strong>
+            <div>
+              ${searchTerms.slice(0, 10).map((term) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(term)}/" rel="sponsored nofollow noopener" target="_blank">${escapeHtml(term)}</a>`).join("")}
+            </div>
+          </div>
           ${topItem ? `
           <div class="side-affiliate">
             <img src="${escapeAttribute(topItem.imageUrl)}" alt="${escapeAttribute(topItem.name)}" loading="lazy">
@@ -650,6 +885,16 @@ async function writeTopicPage(topic, items, source) {
             <strong>関連商品の紹介枠</strong>
           </div>`}
         </aside>
+      </section>
+      <section class="faq-section" data-search="${escapeAttribute(buildSearchText(topic.title, faqs.map((faq) => `${faq.question} ${faq.answer}`)))}">
+        <p class="eyebrow">FAQ</p>
+        <h2>よくある確認ポイント</h2>
+        ${faqs.map((faq) => `
+          <details>
+            <summary>${escapeHtml(faq.question)}</summary>
+            <p>${escapeHtml(faq.answer)}</p>
+          </details>
+        `).join("")}
       </section>`
   });
 
@@ -660,6 +905,7 @@ async function writeStaticPages() {
   await writeFile(path.join(outDir, "disclosure.html"), layout({
     title: `広告掲載について - ${config.siteName}`,
     description: "広告とアフィリエイトリンクの開示",
+    path: "disclosure.html",
     body: `
       <section class="page-heading">
         <h1>広告掲載について</h1>
@@ -674,6 +920,7 @@ async function writeStaticPages() {
   await writeFile(path.join(outDir, "privacy.html"), layout({
     title: `プライバシーポリシー - ${config.siteName}`,
     description: "プライバシーポリシー",
+    path: "privacy.html",
     body: `
       <section class="page-heading">
         <h1>プライバシーポリシー</h1>
@@ -688,7 +935,7 @@ async function writeStaticPages() {
   await writeFile(path.join(outDir, "robots.txt"), [
     "User-agent: *",
     "Allow: /",
-    "Sitemap: sitemap.xml"
+    `Sitemap: ${pageUrl("sitemap.xml")}`
   ].join("\n"));
 }
 
@@ -737,7 +984,26 @@ async function writeSitemap() {
   await writeFile(path.join(outDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 }
 
-function layout({ title, description, body }) {
+function layout({ title, description, body, path = "index.html", structuredData = [] }) {
+  const canonicalUrl = pageUrl(path);
+  const baseStructuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": config.siteName,
+      "url": pageUrl("index.html"),
+      "description": config.description
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": config.operator.name,
+      "url": pageUrl("index.html")
+    }
+  ];
+  const jsonLd = [...baseStructuredData, ...structuredData]
+    .map((data) => `<script type="application/ld+json">${escapeJsonForHtml(JSON.stringify(data))}</script>`)
+    .join("\n  ");
   return `<!doctype html>
 <html lang="${escapeAttribute(config.language)}">
 <head>
@@ -745,7 +1011,15 @@ function layout({ title, description, body }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeAttribute(description)}">
+  <link rel="canonical" href="${escapeAttribute(canonicalUrl)}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${escapeAttribute(config.siteName)}">
+  <meta property="og:title" content="${escapeAttribute(title)}">
+  <meta property="og:description" content="${escapeAttribute(description)}">
+  <meta property="og:url" content="${escapeAttribute(canonicalUrl)}">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles.css">
+  ${jsonLd}
 </head>
 <body>
   <header class="site-header">
@@ -877,6 +1151,13 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function escapeJsonForHtml(value) {
+  return String(value)
+    .replaceAll("<", "\\u003c")
+    .replaceAll(">", "\\u003e")
+    .replaceAll("&", "\\u0026");
 }
 
 function escapeAttribute(value) {
