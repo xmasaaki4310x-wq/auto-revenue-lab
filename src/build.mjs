@@ -673,21 +673,6 @@ async function writeHomePage(topicResults, dataMode) {
     </article>
   `).join("");
 
-  const affiliateShowcase = config.topics.slice(0, 3).map((topic) => {
-    const top = getTopicTopItem(topicResults, topic);
-    if (!top) return "";
-    const href = top.url || top.fallbackUrl;
-    return `
-      <article class="ad-product" data-search="${escapeAttribute(buildSearchText(topic.title, topic.keyword, getTopicAliases(topic), top.name, top.caption))}">
-        <span class="ad-product-label">広告</span>
-        <img src="${escapeAttribute(top.imageUrl)}" alt="${escapeAttribute(top.name)}" loading="lazy">
-        <span>${escapeHtml(shortTitle(topic.title))}</span>
-        <strong>${escapeHtml(top.name)}</strong>
-        <em>${escapeHtml(getValueLine(top))}</em>
-        <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(top.name)}" data-click-area="home-ad">楽天の商品ページで確認</a>
-      </article>`;
-  }).join("");
-
   const heroGallery = config.topics.slice(0, 5).map((topic) => {
     const top = getTopicTopItem(topicResults, topic);
     const visual = top?.imageUrl || `assets/${topic.slug}.svg`;
@@ -696,6 +681,31 @@ async function writeHomePage(topicResults, dataMode) {
         <img src="${escapeAttribute(visual)}" alt="${escapeAttribute(top?.name || topic.title)}" loading="lazy">
         <span>${escapeHtml(shortTitle(topic.title))}</span>
       </a>`;
+  }).join("");
+
+  const seasonVisuals = [
+    "assets/season-hero.svg",
+    "assets/kitchen-storage.svg",
+    "assets/summer-cooling.svg",
+    "assets/emergency-stock.svg",
+    "assets/seasonal-gifts.svg",
+    "assets/bath-sleep.svg",
+    "assets/cleaning-laundry.svg"
+  ];
+  const currentSeasonIndex = Math.max(0, config.seasonalCalendar.findIndex((entry) => entry.months.includes(now.getMonth() + 1)));
+  const seasonalFeatureCards = Array.from({ length: 4 }, (_, offset) => {
+    const entry = config.seasonalCalendar[(currentSeasonIndex + offset) % config.seasonalCalendar.length];
+    const visual = seasonVisuals[(currentSeasonIndex + offset) % seasonVisuals.length];
+    const keywords = entry.keywords.slice(0, 4).map((keyword) => `
+      <a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-card">${escapeHtml(keyword)}</a>
+    `).join("");
+    return `
+      <article class="season-card">
+        <img src="${escapeAttribute(visual)}" alt="" loading="lazy">
+        <span>${entry.months.map((month) => `${month}月`).join("・")}</span>
+        <h3>${escapeHtml(entry.label)}</h3>
+        <div class="season-card-links">${keywords}</div>
+      </article>`;
   }).join("");
 
   const statusText = dataMode === "live"
@@ -772,24 +782,18 @@ async function writeHomePage(topicResults, dataMode) {
       <section class="rank-grid" aria-label="今日の候補">
         ${highlightItems}
       </section>
-      <section class="affiliate-showcase" aria-label="販売ページで詳しく見られる候補">
-        <div>
-          <p class="eyebrow">CHECK ON RAKUTEN</p>
-          <h2>楽天で詳しく見られる候補</h2>
-          <p>写真、レビュー、在庫状況を見ながら、気になる候補を販売ページで確認できます。</p>
-        </div>
-        <div class="ad-product-grid">
-          ${affiliateShowcase}
-        </div>
-      </section>
       <section class="season-lane" aria-label="季節の買い物メモ">
-        <div>
+        <div class="season-main">
+          <img src="assets/season-hero.svg" alt="" loading="lazy">
           <p class="eyebrow">SEASONAL NOTE</p>
           <h2>${escapeHtml(season.label)}で見直したいもの</h2>
+          <p>季節の行事や気温の変化に合わせて、早めに見ておきたい買い物候補をまとめます。</p>
+          <div class="season-keywords">
+            ${season.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-note">${escapeHtml(keyword)}</a>`).join("")}
+          </div>
+          <a class="season-calendar-link" href="seasonal-calendar.html">年間の季節メモを見る</a>
         </div>
-        <div class="season-keywords">
-          ${season.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-note">${escapeHtml(keyword)}</a>`).join("")}
-        </div>
+        <div class="season-card-grid">${seasonalFeatureCards}</div>
       </section>
       <section class="section-heading">
         <div>
