@@ -17,6 +17,9 @@
 - 楽天Web ServiceのRakuten Ichiba Item Search APIに対応
 - APIキーがない状態でもサンプルデータで表示確認できる
 - 商品候補をレビュー件数、平均評価、価格帯でスコアリング
+- 商品リンクにクリック計測用の属性を付与
+- カテゴリ別の比較表、選び方、FAQ、関連検索リンクを生成
+- canonical、OGP、JSON-LD構造化データを生成
 - 季節イベントに合わせたキーワード表示
 - 広告掲載ページ、プライバシーポリシー、robots.txt、sitemap.xmlを生成
 - GitHub ActionsでGitHub Pagesへデプロイ
@@ -60,6 +63,15 @@ https://kurashi-dougu-note.com/
 ```
 
 独自ドメインへ移行する場合は、先にドメイン購入とDNS設定を行い、楽天 Developers 側の許可ドメインを更新してから `src/config.json` の `baseUrl` を変更します。手順は [docs/custom-domain-setup.md](docs/custom-domain-setup.md) を参照してください。
+
+## 計測
+
+商品リンクには `data-affiliate-click` と `data-click-area` を付与しています。ブラウザ内では直近50件を `localStorage` に保存し、GA4の `gtag` または Plausible が導入されている場合はクリックイベントを送信します。
+
+- GA4イベント名: `affiliate_click`
+- Plausibleイベント名: `Affiliate Click`
+
+本番で集計する場合は、Google Analytics、Plausible、Cloudflare Web Analyticsなどを導入してください。
 
 ## 参照
 

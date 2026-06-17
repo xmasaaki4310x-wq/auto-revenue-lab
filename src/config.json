@@ -78,6 +78,30 @@
       "title": "バス・睡眠・くつろぎ用品",
       "angle": "タオル、寝具、くつろぎ用品など、毎日の快適さに関わる候補を整理します。",
       "accent": "rest"
+    },
+    {
+      "slug": "emergency-stock",
+      "keyword": "防災セット 非常食 備蓄水 ランタン",
+      "fallbackKeywords": ["防災セット", "非常食 セット", "備蓄水 まとめ買い"],
+      "title": "防災・備蓄用品",
+      "angle": "非常食、備蓄水、ライトなど、普段から置いておきたい備えを比較します。",
+      "accent": "fresh"
+    },
+    {
+      "slug": "summer-cooling",
+      "keyword": "暑さ対策 冷感グッズ 日傘 ネッククーラー",
+      "fallbackKeywords": ["冷感グッズ", "日傘 晴雨兼用", "ネッククーラー"],
+      "title": "暑さ対策・外出用品",
+      "angle": "夏の外出や通勤で使いやすい暑さ対策用品を、価格とレビューから整理します。",
+      "accent": "utility"
+    },
+    {
+      "slug": "hygiene-care",
+      "keyword": "衛生用品 マスク ハンドソープ 除菌シート",
+      "fallbackKeywords": ["マスク まとめ買い", "ハンドソープ 詰め替え", "除菌シート"],
+      "title": "衛生用品・身だしなみ",
+      "angle": "マスク、ハンドソープ、除菌シートなど、日常で補充しやすい衛生用品を整理します。",
+      "accent": "daily"
     }
   ],
   "seasonalCalendar": [

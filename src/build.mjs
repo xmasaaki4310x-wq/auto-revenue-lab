@@ -104,20 +104,29 @@ async function checkRakutenAccess(siteConfig) {
 }
 
 async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
-  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 2);
+  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 4);
   let lastReason = "no-results";
+  const collected = [];
+  const usedKeywords = [];
 
   for (const keyword of keywords) {
     for (const relaxed of [false, true]) {
       try {
-        const items = await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode });
+        const items = await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 30 });
         if (items.length) {
-          return {
-            source: "live",
-            items,
-            keyword,
-            reason: relaxed ? "relaxed-query" : "primary-query"
-          };
+          collected.push(...items);
+          usedKeywords.push(keyword);
+          if (dedupeRawItems(collected).length >= siteConfig.maxItemsPerTopic) {
+            return {
+              source: "live",
+              items: dedupeRawItems(collected),
+              keyword: usedKeywords.join(" / "),
+              reason: relaxed ? "merged-relaxed-query" : "merged-primary-query"
+            };
+          }
+          lastReason = relaxed ? "merged-relaxed-partial" : "merged-primary-partial";
+          await wait(350);
+          continue;
         }
         lastReason = relaxed ? "relaxed-empty" : "primary-empty";
         await wait(250);
@@ -125,15 +134,29 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
         lastReason = error.message;
         console.warn(`Rakuten fetch failed for ${keyword}: ${error.message}`);
         if (error.message.includes("HTTP 403") || error.message.includes("HTTP 429")) {
-          return {
-            source: "sample",
-            items: [],
-            keyword: null,
-            reason: error.message
-          };
+          const merged = dedupeRawItems(collected);
+          if (merged.length) {
+            return {
+              source: "live",
+              items: merged,
+              keyword: usedKeywords.join(" / "),
+              reason: `${lastReason}; partial-live`
+            };
+          }
+          return { source: "sample", items: [], keyword: null, reason: error.message };
         }
       }
     }
+  }
+
+  const merged = dedupeRawItems(collected);
+  if (merged.length) {
+    return {
+      source: "live",
+      items: merged,
+      keyword: usedKeywords.join(" / "),
+      reason: lastReason
+    };
   }
 
   return {
@@ -142,6 +165,18 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
     keyword: null,
     reason: lastReason
   };
+}
+
+function dedupeRawItems(items) {
+  const seen = new Set();
+  const result = [];
+  for (const item of items) {
+    const key = String(item.itemCode || item.itemUrl || item.affiliateUrl || item.itemName || "").trim();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    result.push(item);
+  }
+  return result;
 }
 
 async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options = {}) {
@@ -382,7 +417,10 @@ function getTopicAliases(topic) {
     "cleaning-laundry": "掃除 そうじ 清掃 洗濯 ランドリー カビ カビ取り 除湿 湿気 梅雨 洗剤 漂白 消臭 部屋干し 浴室 風呂 洗濯槽 クリーナー",
     "kitchen-storage": "保存容器 タッパー フードコンテナ 作り置き 冷蔵庫 収納 キッチン収納 ラック 棚 整理 整頓 片付け 小物入れ 食品ストック 密閉容器",
     "small-appliances": "家電 小型家電 時短家電 キッチン家電 ケトル 電気ケトル 扇風機 サーキュレーター 送風 部屋干し ハンディファン 卓上ファン 省スペース 時短",
-    "bath-sleep": "タオル バスタオル フェイスタオル 寝具 枕 まくら 布団 ふとん 敷きパッド 冷感 夏用 バス用品 お風呂 風呂 リラックス くつろぎ 快眠"
+    "bath-sleep": "タオル バスタオル フェイスタオル 寝具 枕 まくら 布団 ふとん 敷きパッド 冷感 夏用 バス用品 お風呂 風呂 リラックス くつろぎ 快眠",
+    "emergency-stock": "防災 備蓄 非常食 保存食 備蓄水 水 ランタン ライト 懐中電灯 ラジオ 防災リュック 防災セット 停電 災害 ローリングストック",
+    "summer-cooling": "暑さ対策 熱中症対策 冷感 日傘 晴雨兼用 ネッククーラー 冷却プレート 冷感タオル ハンディファン 扇風機 外出 通勤 夏",
+    "hygiene-care": "衛生用品 マスク 不織布マスク ハンドソープ 除菌シート ウェットティッシュ 消毒 詰め替え まとめ買い 日用品 身だしなみ"
   };
   return aliases[topic.slug] || "";
 }
@@ -445,6 +483,18 @@ function getTopicGuide(topic) {
     "bath-sleep": {
       lead: "タオルや寝具は肌に触れる時間が長いので、素材、洗濯しやすさ、乾きやすさ、サイズ感を見て選ぶと満足度が上がりやすいです。",
       checks: ["洗濯頻度に合わせて枚数を決める", "寝具はサイズと固定方法を見る", "冷感素材はレビューの体感差も確認する", "枕は高さ調整や返品条件を見る"]
+    },
+    "emergency-stock": {
+      lead: "防災用品は一度に全部そろえるより、水、食料、明かり、情報手段を分けて見直すと抜け漏れを減らせます。",
+      checks: ["人数と日数に合う量を選ぶ", "賞味期限や交換時期を確認する", "ライトやランタンは充電方法を見る", "普段の置き場所と重さを確認する"]
+    },
+    "summer-cooling": {
+      lead: "暑さ対策用品は、外出用か室内用かで選び方が変わります。重さ、連続使用時間、持ち運びやすさを比べてください。",
+      checks: ["通勤用は軽さと収納性を見る", "冷却グッズは連続使用時間を確認する", "日傘は遮光率とサイズを見る", "家族用は複数枚セットも候補にする"]
+    },
+    "hygiene-care": {
+      lead: "衛生用品は毎日使うものが多いため、価格だけでなく、容量、肌あたり、保管しやすさを見て補充すると続けやすくなります。",
+      checks: ["マスクはサイズと枚数を見る", "ハンドソープは詰め替え対応を確認する", "除菌シートは枚数と乾きにくさを見る", "まとめ買いは置き場所を先に決める"]
     }
   };
   return guides[topic.slug] || {
@@ -474,13 +524,14 @@ function getTopicFaq(topic) {
 function buildComparisonTable(items) {
   const rows = items.slice(0, 6).map((item, index) => {
     const href = item.url || item.fallbackUrl;
+    const label = truncate(item.name, 64);
     return `
       <tr>
         <td><span>${index + 1}</span>${escapeHtml(truncate(item.name, 46))}</td>
         <td>${escapeHtml(formatPrice(item.price))}</td>
         <td>${item.reviewAverage ? item.reviewAverage.toFixed(1) : "-"}</td>
         <td>${item.reviewCount.toLocaleString("ja-JP")}件</td>
-        <td><a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">楽天で見る</a></td>
+        <td><a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(label)}" data-click-area="comparison">楽天で見る</a></td>
       </tr>`;
   }).join("");
 
@@ -638,7 +689,7 @@ async function writeHomePage(topicResults, dataMode) {
         <span>${escapeHtml(shortTitle(topic.title))}</span>
         <strong>${escapeHtml(top.name)}</strong>
         <em>${escapeHtml(getValueLine(top))}</em>
-        <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank">楽天の商品ページで確認</a>
+        <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(top.name)}" data-click-area="home-ad">楽天の商品ページで確認</a>
       </article>`;
   }).join("");
 
@@ -811,8 +862,8 @@ async function writeTopicPage(topic, items, source) {
         <p class="reason">${escapeHtml(makeMiniReason(topic, item))}</p>
         ${item.caption ? `<p class="caption">${escapeHtml(truncate(item.caption, 130))}</p>` : ""}
         ${item.url
-          ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank">楽天で価格・在庫を見る</a>`
-          : `<a class="buy-link search" href="${escapeAttribute(item.fallbackUrl)}" rel="noopener" target="_blank">楽天で候補を見る</a>`}
+          ? `<a class="buy-link" href="${escapeAttribute(item.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="product-card">楽天で価格・在庫を見る</a>`
+          : `<a class="buy-link search" href="${escapeAttribute(item.fallbackUrl)}" rel="noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="product-search">楽天で候補を見る</a>`}
       </div>
     </article>
   `).join("");
@@ -869,7 +920,7 @@ async function writeTopicPage(topic, items, source) {
           <div class="related-searches">
             <strong>関連検索</strong>
             <div>
-              ${searchTerms.slice(0, 10).map((term) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(term)}/" rel="sponsored nofollow noopener" target="_blank">${escapeHtml(term)}</a>`).join("")}
+              ${searchTerms.slice(0, 10).map((term) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(term)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(term)}" data-click-area="related-search">${escapeHtml(term)}</a>`).join("")}
             </div>
           </div>
           ${topItem ? `
@@ -878,7 +929,7 @@ async function writeTopicPage(topic, items, source) {
             <span>広告 / 商品リンク</span>
             <strong>${escapeHtml(topItem.name)}</strong>
             <em>${escapeHtml(getValueLine(topItem))}</em>
-            <a href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank">楽天の商品ページで確認</a>
+            <a href="${escapeAttribute(railLink)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(topItem.name)}" data-click-area="side-ad">楽天の商品ページで確認</a>
           </div>` : `
           <div class="ad-slot compact">
             <span>広告掲載枠</span>
@@ -1108,6 +1159,39 @@ function layout({ title, description, body, path = "index.html", structuredData 
         input.value = "";
         input.focus();
         applySearch();
+      });
+
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest("[data-affiliate-click]");
+        if (!link) return;
+        const payload = {
+          label: link.dataset.affiliateClick || link.textContent.trim(),
+          area: link.dataset.clickArea || "unknown",
+          href: link.href,
+          page: location.pathname,
+          at: new Date().toISOString()
+        };
+        try {
+          const key = "affiliate_clicks";
+          const current = JSON.parse(localStorage.getItem(key) || "[]");
+          current.push(payload);
+          localStorage.setItem(key, JSON.stringify(current.slice(-50)));
+        } catch {}
+        if (window.gtag) {
+          window.gtag("event", "affiliate_click", {
+            event_category: "affiliate",
+            event_label: payload.label,
+            click_area: payload.area
+          });
+        }
+        if (window.plausible) {
+          window.plausible("Affiliate Click", {
+            props: {
+              label: payload.label,
+              area: payload.area
+            }
+          });
+        }
       });
     })();
   </script>

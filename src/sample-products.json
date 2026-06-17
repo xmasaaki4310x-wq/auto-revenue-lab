@@ -278,5 +278,110 @@
       "affiliateRate": 3,
       "itemCaption": "寝具を見直したい人向けの候補。高さ調整と返品条件は販売ページで確認してください。"
     }
+  ],
+  "emergency-stock": [
+    {
+      "itemName": "防災セット 2人用 リュック付き",
+      "itemPrice": 9980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e7f2f4/164b58?text=Emergency+Kit" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 2860,
+      "affiliateRate": 3,
+      "itemCaption": "家に置きやすい防災リュック候補。内容物、人数、重さを比較してください。"
+    },
+    {
+      "itemName": "非常食 5年保存 セット 7日分",
+      "itemPrice": 6480,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f5eedb/6d4e12?text=Emergency+Food" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 1840,
+      "affiliateRate": 4,
+      "itemCaption": "普段の備蓄にも使いやすい保存食候補。賞味期限と食数を確認してください。"
+    },
+    {
+      "itemName": "LEDランタン 充電式 防災用",
+      "itemPrice": 2980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e9edf6/243b5b?text=Lantern" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 3120,
+      "affiliateRate": 3,
+      "itemCaption": "停電時やアウトドアにも使えるランタン候補。明るさと充電方法を比較します。"
+    }
+  ],
+  "summer-cooling": [
+    {
+      "itemName": "晴雨兼用 日傘 軽量タイプ",
+      "itemPrice": 3280,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e9edf6/253b5f?text=Parasol" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 2540,
+      "affiliateRate": 3,
+      "itemCaption": "通勤や外出で使いやすい軽量日傘候補。重さ、遮光率、収納サイズを比較します。"
+    },
+    {
+      "itemName": "ネッククーラー 冷却プレート付き",
+      "itemPrice": 4980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e7f2f4/164b58?text=Neck+Cooler" }],
+      "reviewAverage": 4.2,
+      "reviewCount": 1760,
+      "affiliateRate": 4,
+      "itemCaption": "外出や作業時の暑さ対策候補。連続使用時間と重さを確認してください。"
+    },
+    {
+      "itemName": "冷感タオル 4枚セット",
+      "itemPrice": 1680,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/dff1eb/0f5b54?text=Cool+Towel" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 2210,
+      "affiliateRate": 3,
+      "itemCaption": "家族で使いやすい冷感タオル候補。枚数と洗いやすさを比較します。"
+    }
+  ],
+  "hygiene-care": [
+    {
+      "itemName": "不織布マスク 100枚セット",
+      "itemPrice": 1680,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e8f3f4/17343a?text=Masks" }],
+      "reviewAverage": 4.3,
+      "reviewCount": 4820,
+      "affiliateRate": 3,
+      "itemCaption": "日常用に補充しやすいマスク候補。サイズ、枚数、耳ひもの仕様を比較します。"
+    },
+    {
+      "itemName": "ハンドソープ 詰め替え 大容量",
+      "itemPrice": 2380,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/e5efe9/1d564e?text=Hand+Soap" }],
+      "reviewAverage": 4.5,
+      "reviewCount": 3140,
+      "affiliateRate": 3,
+      "itemCaption": "家族で使いやすい詰め替え用候補。香り、容量、ボトル対応を確認してください。"
+    },
+    {
+      "itemName": "除菌シート ケース販売",
+      "itemPrice": 2980,
+      "itemUrl": "",
+      "affiliateUrl": "",
+      "mediumImageUrls": [{ "imageUrl": "https://placehold.co/720x540/f2f6ef/315d43?text=Wipes" }],
+      "reviewAverage": 4.4,
+      "reviewCount": 1960,
+      "affiliateRate": 4,
+      "itemCaption": "キッチンや外出用に補充しやすい除菌シート候補。枚数と保管場所を比較します。"
+    }
   ]
 }
