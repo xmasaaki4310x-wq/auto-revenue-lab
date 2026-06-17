@@ -73,6 +73,7 @@ const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.top
 
 await writeHomePage(topicResults, dataMode);
 await writeRankingPage(topicResults, dataMode);
+await writeIntentPage(topicResults, dataMode);
 await writeStaticPages();
 await writeJsonFeed(topicResults, dataMode);
 await writeBuildReport(dataMode);
@@ -778,6 +779,10 @@ async function writeHomePage(topicResults, dataMode) {
           <span>ランキング</span>
           <strong>横断で人気候補を比べる</strong>
         </a>
+        <a href="shopping-intents.html">
+          <span>目的別</span>
+          <strong>使う場面から探す</strong>
+        </a>
         <a href="selection-policy.html">
           <span>比較方針</span>
           <strong>候補の選び方を見る</strong>
@@ -954,6 +959,96 @@ async function writeRankingPage(topicResults, dataMode) {
   });
 
   await writeFile(path.join(outDir, "ranking.html"), html);
+}
+
+async function writeIntentPage(topicResults, dataMode) {
+  const groups = [
+    {
+      label: "今日すぐ見たい",
+      title: "暑さ・水分補給・季節ギフト",
+      text: "時期の影響を受けやすい候補を先に並べています。",
+      slugs: ["drink-stock", "summer-cooling", "seasonal-gifts"]
+    },
+    {
+      label: "切らすと困る",
+      title: "食品・日用品・防災ストック",
+      text: "まとめ買いしやすく、残量管理に向いている候補です。",
+      slugs: ["rice-pantry", "daily-essentials", "emergency-stock"]
+    },
+    {
+      label: "家事を軽くする",
+      title: "掃除・洗濯・キッチン収納",
+      text: "作業時間や片付けやすさに関わる候補を集めています。",
+      slugs: ["cleaning-laundry", "kitchen-storage", "small-appliances"]
+    },
+    {
+      label: "毎日の快適さ",
+      title: "バス・睡眠・衛生用品",
+      text: "日常で使う頻度が高く、レビュー差を見たい候補です。",
+      slugs: ["bath-sleep", "hygiene-care"]
+    }
+  ];
+
+  const sections = groups.map((group) => {
+    const cards = group.slugs.map((slug) => {
+      const topic = config.topics.find((entry) => entry.slug === slug);
+      const item = topic ? getTopicTopItem(topicResults, topic) : null;
+      if (!topic || !item) return "";
+      const href = item.url || item.fallbackUrl;
+      return `
+        <article class="intent-card ${escapeAttribute(topic.accent || "")}" data-search="${escapeAttribute(buildSearchText(group.title, group.text, topic.title, topic.keyword, getTopicAliases(topic), item.name, item.caption))}">
+          <img src="${escapeAttribute(item.imageUrl)}" alt="${escapeAttribute(item.name)}" loading="lazy">
+          <div>
+            <span>${escapeHtml(shortTitle(topic.title))}</span>
+            <h3>${escapeHtml(item.name)}</h3>
+            <p>${escapeHtml(getValueLine(item))}</p>
+            <div class="intent-actions">
+              <a href="${topic.slug}.html">比較を見る</a>
+              <a href="${escapeAttribute(href)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(item.name)}" data-click-area="intent-card">楽天で見る</a>
+            </div>
+          </div>
+        </article>`;
+    }).join("");
+
+    return `
+      <section class="intent-group">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">${escapeHtml(group.label)}</p>
+            <h2>${escapeHtml(group.title)}</h2>
+            <p>${escapeHtml(group.text)}</p>
+          </div>
+        </div>
+        <div class="intent-grid">
+          ${cards}
+        </div>
+      </section>`;
+  }).join("");
+
+  const html = layout({
+    title: `目的別に探す - ${config.siteName}`,
+    description: "暮らしの買い物候補を、今日見たいもの、ストック、家事、快適さなどの目的別に整理したページです。",
+    path: "shopping-intents.html",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "目的別に探す",
+        "url": pageUrl("shopping-intents.html"),
+        "description": "暮らしの買い物候補を目的別に整理します。"
+      }
+    ],
+    body: `
+      <section class="topic-hero intent-hero">
+        <p class="eyebrow">SHOP BY PURPOSE</p>
+        <h1>目的別に買い物候補を探す</h1>
+        <p>商品名が決まっていなくても、使う場面から候補に進めるページです。比較ページで価格とレビューを見て、最後は楽天の商品ページで条件を確認してください。</p>
+        <div class="source-banner">${dataMode === "live" ? "楽天APIの公開データをもとに更新しています。" : "一部サンプル表示を含みます。"}</div>
+      </section>
+      ${sections}`
+  });
+
+  await writeFile(path.join(outDir, "shopping-intents.html"), html);
 }
 
 async function writeTopicPage(topic, items, source) {
@@ -1206,6 +1301,7 @@ async function writeSitemap() {
   const pages = [
     "index.html",
     "ranking.html",
+    "shopping-intents.html",
     "disclosure.html",
     "privacy.html",
     "selection-policy.html",
@@ -1263,6 +1359,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
     <a class="brand" href="index.html">${escapeHtml(config.siteName)}</a>
     <nav>
       <a href="ranking.html">ランキング</a>
+      <a href="shopping-intents.html">目的別</a>
       <a href="index.html">買い物テーマ</a>
       <a href="selection-policy.html">比較方針</a>
       <a href="seasonal-calendar.html">季節</a>
