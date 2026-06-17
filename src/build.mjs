@@ -13,6 +13,7 @@ const samples = JSON.parse(await readFile(path.join(root, "src", "sample-product
 const now = new Date();
 const season = getSeason(now);
 const diagnostics = [];
+let lastRakutenRequestAt = 0;
 
 await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
@@ -60,7 +61,7 @@ for (const topic of config.topics) {
 
   await writeTopicPage(topic, normalizedItems, source);
   if (rakutenAuth.ok) {
-    await wait(1200);
+    await wait(2200);
   }
 }
 
@@ -157,28 +158,12 @@ async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options =
   const endpoint = `https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401?${params}`;
   const referer = `${siteConfig.baseUrl.replace(/\/$/, "")}/`;
   const origin = new URL(siteConfig.baseUrl).origin;
-  const headers = {
-    "User-Agent": "kurashi-dougu-note/0.6",
-    Referer: referer,
-    Origin: origin
-  };
 
-  const response = await fetch(endpoint, {
-    headers
-  });
-
-  if (!response.ok) {
-    if (response.status === 403) {
-      return fetchRakutenItemsWithCurl(endpoint, referer, origin);
-    }
-    throw new Error(await formatRakutenError(response));
-  }
-
-  const data = await response.json();
-  return Array.isArray(data.items) ? data.items : [];
+  return fetchRakutenItemsWithCurl(endpoint, referer, origin);
 }
 
-async function fetchRakutenItemsWithCurl(endpoint, referer, origin) {
+async function fetchRakutenItemsWithCurl(endpoint, referer, origin, retries = 2) {
+  await waitForRakutenSlot();
   const args = [
     "-sS",
     "-L",
@@ -206,11 +191,24 @@ async function fetchRakutenItemsWithCurl(endpoint, referer, origin) {
   }
 
   if (status < 200 || status >= 300) {
+    if (status === 429 && retries > 0) {
+      await wait(3500);
+      return fetchRakutenItemsWithCurl(endpoint, referer, origin, retries - 1);
+    }
     const message = data.error_description || data.error || data.message;
     throw new Error(message ? `curl HTTP ${status}: ${message}` : `curl HTTP ${status}`);
   }
 
   return Array.isArray(data.items) ? data.items : [];
+}
+
+async function waitForRakutenSlot() {
+  const minimumGapMs = 2600;
+  const elapsed = Date.now() - lastRakutenRequestAt;
+  if (elapsed < minimumGapMs) {
+    await wait(minimumGapMs - elapsed);
+  }
+  lastRakutenRequestAt = Date.now();
 }
 
 async function formatRakutenError(response) {
