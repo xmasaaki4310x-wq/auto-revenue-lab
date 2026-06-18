@@ -749,6 +749,7 @@ async function writeHomePage(topicResults, dataMode) {
     title: config.siteName,
     description: config.description,
     path: "index.html",
+    showUtility: false,
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -797,6 +798,9 @@ async function writeHomePage(topicResults, dataMode) {
           <small>${statusNote}</small>
         </aside>
       </section>
+      <div class="home-utility">
+        ${utilityBlock()}
+      </div>
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
@@ -1396,7 +1400,20 @@ async function writeSitemap() {
   await writeFile(path.join(outDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 }
 
-function layout({ title, description, body, path = "index.html", structuredData = [] }) {
+function utilityBlock() {
+  return `
+    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。</div>
+    <section class="site-search" role="search">
+      <label for="site-search-input">検索</label>
+      <div>
+        <input id="site-search-input" type="search" placeholder="商品名・カテゴリ・キーワード" autocomplete="off" data-site-search>
+        <button type="button" data-search-clear>クリア</button>
+      </div>
+      <p data-search-status>商品・カテゴリを検索</p>
+    </section>`;
+}
+
+function layout({ title, description, body, path = "index.html", structuredData = [], showUtility = true }) {
   const canonicalUrl = pageUrl(path);
   const baseStructuredData = [
     {
@@ -1447,15 +1464,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
     </nav>
   </header>
   <main>
-    <div class="ad-notice">このサイトには広告リンクが含まれる場合があります。</div>
-    <section class="site-search" role="search">
-      <label for="site-search-input">検索</label>
-      <div>
-        <input id="site-search-input" type="search" placeholder="商品名・カテゴリ・キーワード" autocomplete="off" data-site-search>
-        <button type="button" data-search-clear>クリア</button>
-      </div>
-      <p data-search-status>商品・カテゴリを検索</p>
-    </section>
+    ${showUtility ? utilityBlock() : ""}
     ${body}
   </main>
   <footer class="site-footer">
