@@ -1391,9 +1391,8 @@ async function writeSitemap() {
     "seasonal-calendar.html",
     ...config.topics.map((topic) => `${topic.slug}.html`)
   ];
-  const baseUrl = config.baseUrl.replace(/\/$/, "");
   const urls = pages.map((page) => {
-    const loc = baseUrl ? `${baseUrl}/${page}` : page;
+    const loc = pageUrl(page);
     return `  <url><loc>${escapeHtml(loc)}</loc><lastmod>${now.toISOString().slice(0, 10)}</lastmod></url>`;
   }).join("\n");
 
