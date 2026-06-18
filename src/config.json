@@ -112,6 +112,27 @@
       "accent": "fresh"
     }
   ],
+  "categoryDescriptions": {
+    "drink-stock": {
+      "title": "水・炭酸水・お茶をまとめ買いする前に",
+      "paragraphs": [
+        "水やお茶、炭酸水は毎日使う量が多く、まとめ買いのしやすさと置き場所のバランスが大切です。価格だけでなく、本数、容量、ラベルレスかどうか、配送時の受け取りやすさも見ておくと選びやすくなります。",
+        "備蓄用にする場合は、普段飲むものを少し多めに買って回すローリングストックにすると、賞味期限切れを防ぎやすくなります。"
+      ],
+      "points": ["本数と1本あたり容量を見る", "ラベルレスやケース形状を確認する", "日常用か備蓄用かを分けて考える"]
+    },
+    "rice-pantry": {},
+    "seasonal-gifts": {},
+    "daily-essentials": {},
+    "cleaning-laundry": {},
+    "kitchen-storage": {},
+    "small-appliances": {},
+    "bath-sleep": {},
+    "emergency-stock": {},
+    "summer-cooling": {},
+    "hygiene-care": {},
+    "baby-care": {}
+  },
   "seasonalCalendar": [
     {
       "months": [1],

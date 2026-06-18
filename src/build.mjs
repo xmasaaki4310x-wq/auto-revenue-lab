@@ -458,6 +458,15 @@ function getTopicAliases(topic) {
   return aliases[topic.slug] || "";
 }
 
+function getCategoryDescription(topic) {
+  const description = config.categoryDescriptions?.[topic.slug] || {};
+  return {
+    title: description.title || `${shortTitle(topic.title)}の解説`,
+    paragraphs: Array.isArray(description.paragraphs) ? description.paragraphs.filter(Boolean) : [],
+    points: Array.isArray(description.points) ? description.points.filter(Boolean) : []
+  };
+}
+
 function buildSearchText(...parts) {
   return parts
     .flat()
@@ -1113,6 +1122,7 @@ async function writeTopicPage(topic, items, source) {
   const guide = getTopicGuide(topic);
   const faqs = getTopicFaq(topic);
   const searchTerms = getTopicSearchTerms(topic);
+  const categoryDescription = getCategoryDescription(topic);
   const comparison = buildComparisonTable(items);
   const priorityItems = items.slice(0, 3).map((item, index) => {
     const href = item.url || item.fallbackUrl;
@@ -1151,6 +1161,21 @@ async function writeTopicPage(topic, items, source) {
       </div>
     </article>
   `).join("");
+  const categoryDescriptionSection = `
+      <section class="category-description ${categoryDescription.paragraphs.length ? "has-content" : "is-empty"}" data-search="${escapeAttribute(buildSearchText(topic.title, categoryDescription.title, categoryDescription.paragraphs, categoryDescription.points))}">
+        <div>
+          <p class="eyebrow">CATEGORY NOTE</p>
+          <h2>${escapeHtml(categoryDescription.title)}</h2>
+          ${categoryDescription.paragraphs.length
+            ? categoryDescription.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")
+            : `<p>このカテゴリの解説文は準備中です。文章を追加すると、ここに固定の説明として表示されます。</p>`}
+        </div>
+        <ul>
+          ${(categoryDescription.points.length ? categoryDescription.points : ["カテゴリの特徴", "比較するときの注意点", "買う前に確認したい条件"])
+            .map((point) => `<li>${escapeHtml(point)}</li>`)
+            .join("")}
+        </ul>
+      </section>`;
 
   const html = layout({
     title: `${topic.title} - ${config.siteName}`,
@@ -1191,6 +1216,7 @@ async function writeTopicPage(topic, items, source) {
         </div>
       </section>
       ${comparison}
+      ${categoryDescriptionSection}
       <section class="content-with-rail">
         <div id="products" class="product-grid">
           ${cards || "<p>掲載候補がまだありません。</p>"}
