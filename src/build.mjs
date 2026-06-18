@@ -685,23 +685,44 @@ async function writeHomePage(topicResults, dataMode) {
 
   const buyerPathCards = [
     {
-      label: "買い置き",
-      title: "重いものは先に候補を作る",
-      text: "水、米、紙類、洗剤は買う頻度が決まりやすいので、価格とレビューの変化を見ながら定番候補を持っておくと迷いにくくなります。"
+      label: "定番化",
+      title: "重いもの・かさばるものは先に定番を決める",
+      text: "水、米、洗剤、トイレットペーパーは消費ペースが読めるので、一度「これでいい」という定番を決めておくと、毎回比較する手間が消えます。価格とレビューの変化だけ時々チェックすれば十分です。",
+      visual: "assets/drink-stock.svg"
     },
     {
       label: "季節",
-      title: "イベント前に贈り物を絞る",
-      text: "お中元、父の日、敬老の日などは直前に選ぶほど迷いやすくなります。レビュー数が多い候補から早めに見ておくのが現実的です。"
+      title: "イベント・季節ものは時期の前に絞る",
+      text: "お中元、父の日、敬老の日などは直前ほど選択肢が減り、価格も上がります。早割や配送枠があるうちに、レビュー数の多い候補から絞っておくと、安く・確実に・迷わず買えます。",
+      visual: "assets/seasonal-gifts.svg"
     },
     {
       label: "収納",
-      title: "サイズと置き場所を先に見る",
-      text: "収納用品や小型家電は、商品そのものより置く場所との相性が大事です。寸法、重さ、手入れのしやすさを比べます。"
+      title: "収納・家電はサイズと置き場所を先に見る",
+      text: "収納用品や小型家電は、商品の良し悪しより「置き場所に合うか」が重要です。買う前に寸法を測り、手入れのしやすさ（洗えるか、パーツが外れるか）もレビューで確認すると失敗しません。",
+      visual: "assets/kitchen-storage.svg"
+    },
+    {
+      label: "単価",
+      title: "まとめ買いは「1個あたりの単価」で判断する",
+      text: "総額が安く見えても、1個（1回分・1本）あたりに直すと割高なことがあります。総額 ÷ 個数で単価を出し、置ける量と合わせて判断するのが鉄則です。",
+      visual: "assets/daily-essentials.svg"
+    },
+    {
+      label: "肌あたり",
+      title: "子ども・肌に触れるものは少量から試す",
+      text: "おむつ、衣類、肌に使うものは、体格や肌質で合う合わないがあります。いきなりまとめ買いせず、合うと分かってから大容量に切り替えると無駄が出ません。",
+      visual: "assets/baby-care.svg"
+    },
+    {
+      label: "備蓄",
+      title: "防災・備蓄は日常の延長で回す",
+      text: "非常食や備蓄水は、専用品を別に持つより、普段使う食品を少し多めに買って古いものから消費する「ローリングストック」が続けやすく、賞味期限切れも防げます。",
+      visual: "assets/emergency-stock.svg"
     }
   ].map((card, index) => `
     <article>
-      <img src="${["assets/drink-stock.svg", "assets/seasonal-gifts.svg", "assets/kitchen-storage.svg"][index]}" alt="" loading="lazy">
+      <img src="${escapeAttribute(card.visual)}" alt="" loading="lazy">
       <span>${escapeHtml(card.label)}</span>
       <h3>${escapeHtml(card.title)}</h3>
       <p>${escapeHtml(card.text)}</p>
@@ -780,7 +801,6 @@ async function writeHomePage(topicResults, dataMode) {
     body: `
       <section class="hero">
         <div class="hero-copy">
-          <img class="hero-visual" src="assets/season-hero.svg" alt="季節の買い物候補イメージ" loading="lazy">
           <p class="eyebrow">${escapeHtml(season.label)}</p>
           <h1>${escapeHtml(config.siteName)}</h1>
           <p>楽天で買う前に、日用品・食品・収納・掃除・季節ギフトなどの候補を価格目安、レビュー件数、平均評価から整理する買い物メモです。迷ったら、まず比較しやすい候補から見ていけます。</p>

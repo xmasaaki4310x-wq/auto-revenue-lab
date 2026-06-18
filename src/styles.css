@@ -2400,6 +2400,10 @@ a {
   display: none;
 }
 
+.hero-visual {
+  display: none;
+}
+
 .hero h1,
 .page-heading h1 {
   line-height: 1.1;
@@ -2439,6 +2443,17 @@ a {
 .season-calendar-link {
   background: var(--teal);
   border-radius: 8px;
+  color: #ffffff;
+}
+
+.primary-action:visited,
+.buy-link:visited,
+.compare-table a:visited,
+.priority-card a:visited,
+.intent-card a:visited,
+.guide-card a:visited,
+.season-calendar-link:visited {
+  color: #ffffff;
 }
 
 .primary-action:hover,
