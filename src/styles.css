@@ -2638,3 +2638,12 @@ a {
 .topic-heading-visual {
   border-radius: 8px;
 }
+
+.season-lane .season-calendar-link,
+.season-lane .season-calendar-link:link,
+.season-lane .season-calendar-link:visited,
+.season-lane .season-calendar-link:hover,
+.season-lane .season-calendar-link:focus {
+  background: var(--teal);
+  color: #ffffff;
+}
