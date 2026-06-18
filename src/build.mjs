@@ -1375,12 +1375,41 @@ async function writeStaticPages() {
     path: "privacy.html",
     body: `
       <section class="page-heading">
+        <p class="eyebrow">PRIVACY POLICY</p>
         <h1>プライバシーポリシー</h1>
-        <p>当サイトは、アクセス解析や広告配信サービスを導入する場合があります。各サービスはCookie等を利用して利用状況を把握することがあります。</p>
+        <p>当サイト「${escapeHtml(config.siteName)}」の広告、Cookie、アクセス解析、免責事項、お問い合わせ先について記載します。</p>
       </section>
-      <section class="plain-section">
-        <h2>お問い合わせ</h2>
-        <p>運営者: ${escapeHtml(config.operator.name)}<br>連絡先: ${escapeHtml(config.operator.contact)}</p>
+      <section class="policy-grid privacy-policy">
+        <article>
+          <span>01</span>
+          <h2>アフィリエイトプログラムについて</h2>
+          <p>当サイト「${escapeHtml(config.siteName)}」は、楽天アフィリエイトをはじめとするアフィリエイトプログラムに参加しています。当サイト内の商品リンクを経由して商品が購入された場合、運営者が報酬を得ることがあります。商品の価格や在庫状況は変動するため、最新の情報は各販売サイトでご確認ください。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>アクセス解析ツールについて</h2>
+          <p>当サイトでは、サイトの利用状況を把握するためにGoogleアナリティクスを利用する場合があります。このツールはCookieを使用して匿名のトラフィックデータを収集します。個人を特定する情報は含まれません。収集されるデータはGoogleのプライバシーポリシーに基づいて管理されます。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Cookieについて</h2>
+          <p>当サイトおよび一部の外部サービスは、利便性向上やアクセス解析のためにCookieを使用することがあります。ブラウザの設定によりCookieを無効にすることができますが、その場合一部の機能が正しく動作しないことがあります。</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2>免責事項</h2>
+          <p>当サイトに掲載する情報は、できる限り正確であるよう努めていますが、その正確性・完全性を保証するものではありません。掲載商品の購入やご利用は、利用者ご自身の判断と責任において行ってください。当サイトの情報により生じたいかなる損害についても、運営者は責任を負いかねます。</p>
+        </article>
+        <article>
+          <span>05</span>
+          <h2>著作権について</h2>
+          <p>当サイトに掲載している商品画像・商品情報の著作権は、各販売元・権利者に帰属します。</p>
+        </article>
+        <article>
+          <span>06</span>
+          <h2>お問い合わせ</h2>
+          <p>運営者: ${escapeHtml(config.operator.name)}<br>連絡先: ${escapeHtml(config.operator.contact)}<br>（[at] を @ に置き換えてご連絡ください）</p>
+        </article>
       </section>`
   }));
 
