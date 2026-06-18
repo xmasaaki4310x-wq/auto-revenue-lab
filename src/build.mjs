@@ -1161,6 +1161,7 @@ async function writeTopicPage(topic, items, source) {
       </div>
     </article>
   `).join("");
+  const kanjiNumerals = ["一", "二", "三", "四", "五", "六"];
   const categoryDescriptionSection = `
       <section class="category-description ${categoryDescription.paragraphs.length ? "has-content" : "is-empty"}" data-search="${escapeAttribute(buildSearchText(topic.title, categoryDescription.title, categoryDescription.paragraphs, categoryDescription.points))}">
         <div>
@@ -1172,7 +1173,7 @@ async function writeTopicPage(topic, items, source) {
         </div>
         <ul>
           ${(categoryDescription.points.length ? categoryDescription.points : ["カテゴリの特徴", "比較するときの注意点", "買う前に確認したい条件"])
-            .map((point) => `<li>${escapeHtml(point)}</li>`)
+            .map((point, index) => `<li><span class="kanji-index">${kanjiNumerals[index] || index + 1}</span><span>${escapeHtml(point)}</span></li>`)
             .join("")}
         </ul>
       </section>`;
