@@ -393,6 +393,32 @@ function getSeason(date) {
   return config.seasonalCalendar.find((entry) => entry.months.includes(month)) || config.seasonalCalendar[0];
 }
 
+function getEventMonthDistance(event, date) {
+  const month = date.getMonth() + 1;
+  return (event.month - month + 12) % 12;
+}
+
+function getUpcomingSeasonalEvents(date, limit = 6) {
+  return [...config.seasonalEvents]
+    .sort((a, b) => {
+      const distanceA = getEventMonthDistance(a, date);
+      const distanceB = getEventMonthDistance(b, date);
+      if (distanceA !== distanceB) return distanceA - distanceB;
+      return config.seasonalEvents.indexOf(a) - config.seasonalEvents.indexOf(b);
+    })
+    .slice(0, limit);
+}
+
+function getEventsByMonth() {
+  return Array.from({ length: 12 }, (_, index) => {
+    const month = index + 1;
+    return {
+      month,
+      events: config.seasonalEvents.filter((event) => event.month === month)
+    };
+  });
+}
+
 function getTopicTopItem(topicResults, topic) {
   return topicResults[topic.slug]?.items?.[0] || null;
 }
@@ -692,18 +718,17 @@ async function writeHomePage(topicResults, dataMode) {
     "assets/bath-sleep.svg",
     "assets/cleaning-laundry.svg"
   ];
-  const currentSeasonIndex = Math.max(0, config.seasonalCalendar.findIndex((entry) => entry.months.includes(now.getMonth() + 1)));
-  const seasonalFeatureCards = Array.from({ length: 4 }, (_, offset) => {
-    const entry = config.seasonalCalendar[(currentSeasonIndex + offset) % config.seasonalCalendar.length];
-    const visual = seasonVisuals[(currentSeasonIndex + offset) % seasonVisuals.length];
+  const seasonalFeatureCards = getUpcomingSeasonalEvents(now, 6).map((entry, index) => {
+    const visual = seasonVisuals[index % seasonVisuals.length];
     const keywords = entry.keywords.slice(0, 4).map((keyword) => `
       <a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-card">${escapeHtml(keyword)}</a>
     `).join("");
     return `
       <article class="season-card">
         <img src="${escapeAttribute(visual)}" alt="" loading="lazy">
-        <span>${entry.months.map((month) => `${month}月`).join("・")}</span>
-        <h3>${escapeHtml(entry.label)}</h3>
+        <span>${entry.dateLabel}</span>
+        <h3>${escapeHtml(entry.title)}</h3>
+        <p>${escapeHtml(entry.description)}</p>
         <div class="season-card-links">${keywords}</div>
       </article>`;
   }).join("");
@@ -786,12 +811,12 @@ async function writeHomePage(topicResults, dataMode) {
         <div class="season-main">
           <img src="assets/season-hero.svg" alt="" loading="lazy">
           <p class="eyebrow">SEASONAL NOTE</p>
-          <h2>${escapeHtml(season.label)}で見直したいもの</h2>
-          <p>季節の行事や気温の変化に合わせて、早めに見ておきたい買い物候補をまとめます。</p>
+          <h2>今から見たい季節イベント</h2>
+          <p>祝日、学校行事、ギフト、天候、セール時期に合わせて、早めに見ておきたい買い物候補をまとめます。</p>
           <div class="season-keywords">
             ${season.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-note">${escapeHtml(keyword)}</a>`).join("")}
           </div>
-          <a class="season-calendar-link" href="seasonal-calendar.html">年間の季節メモを見る</a>
+          <a class="season-calendar-link" href="seasonal-calendar.html">年間イベントを全部見る</a>
         </div>
         <div class="season-card-grid">${seasonalFeatureCards}</div>
       </section>
@@ -1260,12 +1285,21 @@ async function writeStaticPages() {
       </section>`
   }));
 
-  const monthCards = config.seasonalCalendar.map((entry) => `
-    <article>
-      <span>${entry.months.map((month) => `${month}月`).join(" / ")}</span>
-      <h2>${escapeHtml(entry.label)}</h2>
-      <div>
-        ${entry.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-calendar">${escapeHtml(keyword)}</a>`).join("")}
+  const monthCards = getEventsByMonth().map(({ month, events }) => `
+    <article class="month-card">
+      <span>${month}月</span>
+      <h2>${month}月の行事と買い物候補</h2>
+      <div class="event-list">
+        ${events.map((event) => `
+          <section class="event-card">
+            <small>${escapeHtml(event.dateLabel)}</small>
+            <h3>${escapeHtml(event.title)}</h3>
+            <p>${escapeHtml(event.description)}</p>
+            <div>
+              ${event.keywords.map((keyword) => `<a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-calendar">${escapeHtml(keyword)}</a>`).join("")}
+            </div>
+          </section>
+        `).join("")}
       </div>
     </article>
   `).join("");
@@ -1277,8 +1311,8 @@ async function writeStaticPages() {
     body: `
       <section class="page-heading">
         <p class="eyebrow">SEASONAL CALENDAR</p>
-        <h1>季節の買い物カレンダー</h1>
-        <p>日本の暮らしでは、季節や行事に合わせて必要になるものが変わります。月ごとに見直しやすい候補をまとめています。</p>
+        <h1>年間イベント買い物カレンダー</h1>
+        <p>祝日、学校行事、ギフト、天候、セール時期など、1年の暮らしで買い物が発生しやすいタイミングを月別にまとめています。</p>
       </section>
       <section class="month-grid">
         ${monthCards}

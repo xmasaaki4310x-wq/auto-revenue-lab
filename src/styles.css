@@ -1160,6 +1160,13 @@ main {
   line-height: 1.28;
 }
 
+.season-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .season-card-links a {
   min-height: 30px;
   padding: 6px 9px;
@@ -2021,11 +2028,49 @@ main {
   color: var(--muted);
 }
 
-.month-grid div {
+.month-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.event-list {
+  display: grid;
+  gap: 12px;
+}
+
+.event-card {
+  padding: 14px;
+  border: 1px solid rgba(15, 73, 68, 0.10);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 243, 0.92)),
+    #ffffff;
+}
+
+.event-card small {
+  color: var(--coral);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.event-card h3 {
+  margin: 6px 0 6px;
+  line-height: 1.32;
+}
+
+.event-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.event-card div {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .month-grid a {
