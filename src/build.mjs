@@ -115,10 +115,11 @@ async function checkRakutenAccess(siteConfig) {
 }
 
 async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
+  const maxKeywords = Math.max(1, Math.min(Number(topic.maxKeywords || siteConfig.rakuten?.maxKeywordsPerTopic || 4), 6));
   const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])]
     .map((keyword) => String(keyword || "").trim())
     .filter(Boolean)
-    .slice(0, 7);
+    .slice(0, maxKeywords);
   let lastReason = "no-results";
   const collected = [];
   const usedKeywords = [];

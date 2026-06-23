@@ -10,6 +10,7 @@
     "applicationIdEnv": "RAKUTEN_APPLICATION_ID",
     "accessKeyEnv": "RAKUTEN_ACCESS_KEY",
     "affiliateIdEnv": "RAKUTEN_AFFILIATE_ID",
+    "maxKeywordsPerTopic": 4,
     "minAffiliateRate": 2,
     "minReviewAverage": 4,
     "minReviewCount": 10
@@ -124,9 +125,10 @@
     },
     {
       "slug": "otoriyose-gourmet",
-      "keyword": "海鮮 セット 冷凍 魚介",
-      "fallbackKeywords": ["鮭 切り身 冷凍", "ホタテ 冷凍", "カニ 冷凍", "うなぎ 蒲焼き", "干物 セット", "海鮮丼 具材"],
-      "excludeKeywords": ["カタログギフト", "カタログ ギフト", "おいしさのつぼ", "カタログ管理", "ログインID", "受付番号"],
+      "keyword": "鮭 切り身 冷凍",
+      "fallbackKeywords": ["干物 セット", "ホタテ 冷凍", "海鮮 詰め合わせ", "うなぎ 蒲焼", "カニ 冷凍", "海鮮丼 具材"],
+      "maxKeywords": 5,
+      "excludeKeywords": ["カタログギフト", "カタログ ギフト", "おいしさのつぼ", "カタログ管理", "ログインID", "受付番号", "ギフト券", "体験ギフト", "選べるギフト", "引き出物"],
       "title": "産直・お取り寄せグルメ",
       "angle": "海鮮、肉、果物、惣菜など、家庭用にも贈り物にも使いやすいお取り寄せ候補を整理します。",
       "accent": "season"
