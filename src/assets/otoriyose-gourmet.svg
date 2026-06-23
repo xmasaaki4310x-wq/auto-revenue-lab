@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="産直・お取り寄せグルメ">
+  <rect width="960" height="540" fill="#fae7dd"/>
+  <rect x="0" y="354" width="960" height="186" fill="#fffaf4"/>
+  <circle cx="806" cy="116" r="92" fill="#ca5e39" opacity=".16"/>
+  <rect x="96" y="172" width="270" height="184" rx="26" fill="#ffffff" stroke="#e5c9bb"/>
+  <ellipse cx="232" cy="266" rx="104" ry="46" fill="#d86f4f" opacity=".24"/>
+  <path d="M154 268 C202 226, 266 226, 316 268 C266 308, 204 308, 154 268 Z" fill="#ca5e39" opacity=".66"/>
+  <circle cx="208" cy="264" r="10" fill="#fff8ec"/>
+  <rect x="430" y="152" width="178" height="206" rx="24" fill="#ffffff" stroke="#e5c9bb"/>
+  <rect x="462" y="190" width="114" height="22" rx="11" fill="#ca5e39" opacity=".6"/>
+  <rect x="462" y="232" width="96" height="16" rx="8" fill="#ca5e39" opacity=".26"/>
+  <rect x="462" y="262" width="122" height="16" rx="8" fill="#ca5e39" opacity=".18"/>
+  <rect x="660" y="210" width="160" height="126" rx="24" fill="#fff8ec" stroke="#e2cdb8"/>
+  <circle cx="706" cy="250" r="28" fill="#f3c46d" opacity=".65"/>
+  <circle cx="754" cy="284" r="34" fill="#86aaa4" opacity=".42"/>
+  <path d="M0 430 C128 360, 272 362, 430 420 S716 498, 960 418 V540 H0 Z" fill="#ca5e39" opacity=".12"/>
+  <text x="88" y="86" font-family="Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#7c2f1f">産直・お取り寄せグルメ</text>
+  <text x="88" y="452" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#ca5e39">家庭用も贈り物も、量と配送条件で比べる</text>
+</svg>
