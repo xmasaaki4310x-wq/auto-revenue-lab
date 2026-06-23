@@ -14,6 +14,9 @@
     "minReviewAverage": 4,
     "minReviewCount": 10
   },
+  "analytics": {
+    "measurementId": "G-0J4TPP3N11"
+  },
   "topics": [
     {
       "slug": "drink-stock",

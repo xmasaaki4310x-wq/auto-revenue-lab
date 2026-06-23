@@ -1521,6 +1521,20 @@ function utilityBlock() {
     </section>`;
 }
 
+function analyticsScript() {
+  const measurementId = String(config.analytics?.measurementId || "").trim();
+  if (!measurementId) return "";
+  const measurementLiteral = escapeJsonForHtml(JSON.stringify(measurementId));
+  const gtagSrc = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  return `<script async src="${escapeAttribute(gtagSrc)}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", ${measurementLiteral});
+  </script>`;
+}
+
 function layout({ title, description, body, path = "index.html", structuredData = [], showUtility = true }) {
   const canonicalUrl = pageUrl(path);
   const baseStructuredData = [
@@ -1541,6 +1555,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
   const jsonLd = [...baseStructuredData, ...structuredData]
     .map((data) => `<script type="application/ld+json">${escapeJsonForHtml(JSON.stringify(data))}</script>`)
     .join("\n  ");
+  const analytics = analyticsScript();
   return `<!doctype html>
 <html lang="${escapeAttribute(config.language)}">
 <head>
@@ -1556,6 +1571,7 @@ function layout({ title, description, body, path = "index.html", structuredData 
   <meta property="og:url" content="${escapeAttribute(canonicalUrl)}">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles.css">
+  ${analytics}
   ${jsonLd}
 </head>
 <body>
