@@ -15,7 +15,8 @@ const types = {
 createServer(async (request, response) => {
   const requested = decodeURIComponent(new URL(request.url, `http://localhost:${port}`).pathname);
   const fileName = requested === "/" ? "index.html" : requested.replace(/^\/+/, "");
-  const filePath = path.join(siteDir, fileName);
+  const localName = fileName.endsWith("/") ? path.join(fileName, "index.html") : fileName;
+  const filePath = path.join(siteDir, localName);
 
   if (!filePath.startsWith(siteDir)) {
     response.writeHead(403);

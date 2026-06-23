@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家庭の備蓄量 かんたん計算｜くらし道具ノート</title>
+<meta name="description" content="家族の人数を入れるだけで、災害に備える水・食料・燃料の必要量と買い物リストが出る無料ツール。農林水産省・環境省の推奨値に基づく概算。">
+<link rel="canonical" href="https://kurashi-dougu-note.com/bichiku/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="くらし道具ノート">
+<meta property="og:title" content="家庭の備蓄量 かんたん計算｜くらし道具ノート">
+<meta property="og:description" content="家族の人数を入れるだけで、災害に備える水・食料・燃料の必要量と買い物リストが出る無料ツール。農林水産省・環境省の推奨値に基づく概算。">
+<meta property="og:url" content="https://kurashi-dougu-note.com/bichiku/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0J4TPP3N11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0J4TPP3N11');
+</script>
+<style>
+  :root{
+    --bg:#f3efe6;          /* 紙のような温かい背景 */
+    --panel:#fbf9f4;       /* カード面 */
+    --ink:#2c2a26;         /* 本文 */
+    --ink-soft:#6b665c;    /* 補助テキスト */
+    --line:#ddd6c7;        /* 罫線 */
+    --accent:#3f6b53;      /* 深い緑（安心・備え） */
+    --accent-soft:#e4ede7;
+    --warn:#b06a3a;        /* 期限・注意 */
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:28px 18px 60px}
+  header.tool-head{margin-bottom:22px}
+  .eyebrow{font-size:.78rem;letter-spacing:.18em;color:var(--accent);font-weight:700;margin:0 0 6px}
+  h1{font-size:1.55rem;margin:0 0 8px;font-weight:800;letter-spacing:.01em}
+  .lead{color:var(--ink-soft);margin:0;font-size:.95rem}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 18px;margin:18px 0;
+  }
+  .card h2{font-size:1.05rem;margin:0 0 14px;font-weight:800;display:flex;align-items:center;gap:8px}
+  .card h2 .n{
+    width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;
+    font-size:.8rem;display:grid;place-items:center;flex:none;font-weight:700;
+  }
+  .field{margin:14px 0}
+  .field label{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px}
+  .hint{font-size:.8rem;color:var(--ink-soft);margin:4px 0 0}
+  .stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .stepper button{
+    width:42px;height:42px;border:0;background:#fff;font-size:1.3rem;color:var(--accent);
+    cursor:pointer;line-height:1;
+  }
+  .stepper button:active{background:var(--accent-soft)}
+  .stepper input{
+    width:54px;height:42px;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);
+    text-align:center;font-size:1.05rem;font-weight:700;color:var(--ink);background:#fff;
+  }
+  .seg{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .seg button{
+    border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;
+    padding:8px 16px;font-size:.9rem;cursor:pointer;font-weight:600;
+  }
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  details.opt{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+  details.opt summary{cursor:pointer;font-weight:700;font-size:.92rem;color:var(--accent);list-style:none;padding:6px 0}
+  details.opt summary::-webkit-details-marker{display:none}
+  details.opt summary::before{content:"＋ ";font-weight:800}
+  details.opt[open] summary::before{content:"− "}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600}
+  .toggle input{width:18px;height:18px;accent-color:var(--accent)}
+
+  /* 結果 */
+  .result-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .result-head h2{margin:0}
+  .basis{font-size:.8rem;color:var(--ink-soft)}
+  table.qty{width:100%;border-collapse:collapse;margin-top:6px;font-size:.92rem}
+  table.qty th,table.qty td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.qty th{font-size:.78rem;color:var(--ink-soft);font-weight:700}
+  table.qty td.amt{font-weight:800;white-space:nowrap}
+  table.qty td .sub{display:block;font-size:.76rem;color:var(--ink-soft);font-weight:500}
+  .buy{display:block;margin-top:4px;font-size:.82rem;color:var(--accent);font-weight:700;text-decoration:none}
+  .buy:hover{text-decoration:underline}
+  .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:.85rem;color:#33503f;margin-top:14px}
+  .note strong{color:var(--accent)}
+  .disclaimer{font-size:.75rem;color:var(--ink-soft);margin-top:16px}
+  .empty{color:var(--ink-soft);font-size:.9rem;padding:8px 0}
+  footer{margin-top:30px;font-size:.78rem;color:var(--ink-soft);text-align:center;border-top:1px solid var(--line);padding-top:16px}
+  main.bichiku-page{width:100%;max-width:none;margin:0;background:var(--bg)}
+  footer.site-footer{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:24px;
+    margin-top:0;padding:18px clamp(16px,4vw,52px);border-top:1px solid var(--line);
+    border-bottom:0;background:rgba(255,255,255,.86);color:#5c676b;font-size:14px;text-align:left;
+  }
+  footer.site-footer p{margin:0 0 4px}
+  footer.site-footer .footer-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px 18px}
+  footer.site-footer .footer-links a{color:#5c676b;text-decoration:underline;text-underline-offset:4px}
+  @media (max-width:480px){
+    .stepper input{width:46px}
+    footer.site-footer{display:block}
+    footer.site-footer .footer-links{justify-content:flex-start;margin-top:10px}
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">くらし道具ノート</a>
+  <nav>
+    <a href="/ranking.html">ランキング</a>
+    <a href="/shopping-intents.html">目的別</a>
+    <a href="/guides.html">選び方</a>
+    <a href="/">買い物テーマ</a>
+    <a href="/selection-policy.html">比較方針</a>
+    <a href="/seasonal-calendar.html">季節</a>
+    <a href="/privacy.html">プライバシー</a>
+  </nav>
+</header>
+<main class="bichiku-page">
+<div class="wrap">
+  <header class="tool-head">
+    <p class="eyebrow">くらし道具ノート</p>
+    <h1>家庭の備蓄量　かんたん計算</h1>
+    <p class="lead">家族の人数を入れるだけで、災害に備える水・食料・燃料の必要量と、買い物リストが出ます。公的機関（農林水産省・環境省ほか）の推奨値をもとに計算します。</p>
+  </header>
+
+  <!-- 入力1 家族構成 -->
+  <section class="card">
+    <h2><span class="n">1</span>家族の人数</h2>
+
+    <div class="field">
+      <label>大人（中学生以上）</label>
+      <div class="stepper" data-key="adults">
+        <button type="button" data-d="-1" aria-label="減らす">−</button>
+        <input type="number" id="adults" value="2" min="0" max="20" inputmode="numeric">
+        <button type="button" data-d="1" aria-label="増やす">＋</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>小学生</label>
+      <div class="stepper" data-key="kids">
+        <button type="button" data-d="-1" aria-label="減らす">−</button>
+        <input type="number" id="kids" value="0" min="0" max="20" inputmode="numeric">
+        <button type="button" data-d="1" aria-label="増やす">＋</button>
+      </div>
+      <p class="hint">小学生は飲み水の必要量を少なめに計算します。</p>
+    </div>
+
+    <div class="field">
+      <label>乳幼児（未就学）</label>
+      <div class="stepper" data-key="infants">
+        <button type="button" data-d="-1" aria-label="減らす">−</button>
+        <input type="number" id="infants" value="0" min="0" max="20" inputmode="numeric">
+        <button type="button" data-d="1" aria-label="増やす">＋</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 入力2 日数 -->
+  <section class="card">
+    <h2><span class="n">2</span>何日分そなえる？</h2>
+    <div class="seg" id="days" role="group" aria-label="備蓄日数">
+      <button type="button" data-days="3">3日分（最低限）</button>
+      <button type="button" data-days="7" aria-pressed="true">1週間分（推奨）</button>
+      <button type="button" data-days="14">2週間分（手厚く）</button>
+    </div>
+    <p class="hint">国は最低3日、できれば1週間分を推奨しています。在宅避難を想定するなら1週間分が安心です。</p>
+  </section>
+
+  <!-- 入力3 オプション -->
+  <section class="card">
+    <h2><span class="n">3</span>くわしい設定（任意）</h2>
+    <p class="hint" style="margin-top:0">必要な人だけ。空欄でも計算できます。</p>
+
+    <details class="opt">
+      <summary>高齢者・ペット・生活用水</summary>
+
+      <div class="field">
+        <div class="toggle">
+          <input type="checkbox" id="elderly">
+          <label for="elderly" style="margin:0">高齢者がいる</label>
+        </div>
+        <p class="hint">やわらかい非常食・常備薬の確認をおすすめします。</p>
+      </div>
+
+      <div class="field">
+        <div class="toggle">
+          <input type="checkbox" id="hasPet">
+          <label for="hasPet" style="margin:0">ペットがいる</label>
+        </div>
+        <div class="row" id="petRow" style="display:none;margin-top:8px">
+          <span style="font-size:.9rem">頭数</span>
+          <div class="stepper" data-key="pets">
+            <button type="button" data-d="-1" aria-label="減らす">−</button>
+            <input type="number" id="pets" value="1" min="0" max="20" inputmode="numeric">
+            <button type="button" data-d="1" aria-label="増やす">＋</button>
+          </div>
+        </div>
+        <p class="hint">環境省は最低5日、できれば7日分の水とフードを推奨。中型犬1頭をめやすに概算します。</p>
+      </div>
+
+      <div class="field">
+        <div class="toggle">
+          <input type="checkbox" id="seikatsu">
+          <label for="seikatsu" style="margin:0">生活用水も計算に含める</label>
+        </div>
+        <p class="hint">トイレ・手洗い用。全量の備蓄は非現実的なので、お風呂の汲み置きで補う前提の目安量を表示します。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 結果 -->
+  <section class="card" id="resultCard">
+    <div class="result-head">
+      <h2 style="display:block">必要な備蓄量</h2>
+      <span class="basis" id="basis"></span>
+    </div>
+    <div id="result"></div>
+
+    <div class="note">
+      <strong>ローリングストックがおすすめ。</strong>
+      多めに買って、古いものから普段使い→使った分を買い足す方法なら、賞味期限切れを防ぎながら無理なく備えられます。生活用水はお風呂に水をためておくと数日分まかなえます。
+    </div>
+
+    <p class="disclaimer">
+      ※本ツールは農林水産省・環境省・自治体などの推奨値をもとにした概算です。健康状態・アレルギー・地域のリスクにより必要量は変わります。買い物リストのリンクは楽天市場の商品ページ（アフィリエイト）です。<span id="aff-placeholder" style="color:var(--warn);display:none">※現在リンクは準備中です</span>
+    </p>
+  </section>
+
+  <footer>
+    くらし道具ノート ／ 家庭の備蓄量 かんたん計算（プロトタイプ）
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- 状態 ----
+  var state = {
+    adults:2, kids:0, infants:0,
+    days:7,
+    elderly:false, hasPet:false, pets:1, seikatsu:false
+  };
+
+  // ---- 計算ロジック（公的基準に基づく概算） ----
+  // 水(飲料・調理): 大人3L/日, 小学生≒2L/日, 乳幼児≒1.5L/日
+  // 米: 1食=75g, 1人1日3食
+  // カセットボンベ: 1人1週間あたり約6本
+  // 主食食数: 総人数 × 3食 × 日数
+  // ペット水: 中型犬めやす 約2L/日（フードは概算表示）
+  // 生活用水: 1人1日 約15L（10-20Lの中央値、汲み置き前提の目安）
+  function calc(s){
+    var people = s.adults + s.kids + s.infants;
+    var waterL = (s.adults*3 + s.kids*2 + s.infants*1.5) * s.days;
+    var meals  = people * 3 * s.days;
+    var riceG  = meals * 75;
+    var riceKg = riceG/1000;
+    var bombe  = Math.ceil(people * 6 * (s.days/7));
+    var petWaterL = s.hasPet ? (s.pets * 2 * Math.max(s.days,7)) : 0; // 最低7日
+    var seikatsuL = s.seikatsu ? (people * 15 * s.days) : 0;
+
+    return {people:people, waterL:waterL, meals:meals, riceKg:riceKg,
+            bombe:bombe, petWaterL:petWaterL, seikatsuL:seikatsuL};
+  }
+
+  // 数量を商品単位に変換
+  function waterPacks(L){ // 2L×6本=12L/箱
+    var bottles2L = Math.ceil(L/2);
+    var boxes = Math.ceil(bottles2L/6);
+    return {bottles2L:bottles2L, boxes:boxes};
+  }
+  function riceBags(kg){ // 5kg袋
+    return Math.max(1, Math.ceil(kg/5));
+  }
+  function fmt(n){ return (Math.round(n*10)/10).toLocaleString('ja-JP'); }
+
+  // ============================================================
+  // ▼▼▼ 楽天アフィリエイトリンク差し込み箇所 ▼▼▼
+  // ここの "" の中に、楽天アフィリエイトのURLを貼るだけで反映されます。
+  // 方針：定番品＝カテゴリ固定リンク（廃番に強い）／一押し品＝個別商品リンク。
+  // 空（""）のままだとリンクは表示されません（ボタンが消えるだけで計算は動きます）。
+  // ============================================================
+  var L = {
+    water:   "", // 【カテゴリ固定推奨】楽天「長期保存水」検索 or 特集ページのアフィリエイトURL
+    rice:    "", // 【カテゴリ固定推奨】楽天「無洗米・保存米」のアフィリエイトURL
+    alpha:   "", // 【一押し個別推奨】おすすめのアルファ化米セットの商品アフィリエイトURL
+    bombe:   "", // 【カテゴリ固定推奨】楽天「カセットボンベ」のアフィリエイトURL
+    toilet:  "", // 【一押し個別推奨】おすすめの簡易トイレ商品のアフィリエイトURL
+    petfood: ""  // 【カテゴリ固定推奨】楽天「ペット 非常食 防災」のアフィリエイトURL
+  };
+  // ▲▲▲ 差し込み箇所ここまで ▲▲▲
+
+  function render(){
+    var s = state, r = calc(s);
+    // リンクが1つも設定されていなければ「準備中」バッジを表示
+    var anyLink = Object.keys(L).some(function(k){ return L[k] && L[k].length>0; });
+    var badge = document.getElementById('aff-placeholder');
+    if(badge){ badge.style.display = anyLink ? 'none' : 'inline'; }
+    var basis = document.getElementById('basis');
+    basis.textContent = '大人' + s.adults + '・小学生' + s.kids + '・乳幼児' + s.infants + '　' + s.days + '日分で計算';
+
+    var el = document.getElementById('result');
+    if(r.people === 0){
+      el.innerHTML = '<p class="empty">人数を入力すると、必要量が表示されます。</p>';
+      return;
+    }
+
+    var wp = waterPacks(r.waterL);
+    var rows = [];
+
+    rows.push(rowHTML(
+      '飲料・調理用の水',
+      fmt(r.waterL)+' L',
+      '2Lペットボトル約'+wp.bottles2L+'本（'+wp.boxes+'箱）',
+      '長期保存水を買う', L.water
+    ));
+
+    rows.push(rowHTML(
+      'お米',
+      fmt(r.riceKg)+' kg',
+      '5kg袋 約'+riceBags(r.riceKg)+'袋（'+r.meals+'食分）',
+      '無洗米・保存米を買う', L.rice
+    ));
+
+    rows.push(rowHTML(
+      '主食・主菜（非常食）',
+      r.meals+' 食',
+      'アルファ化米・レトルト・缶詰を組み合わせて',
+      'アルファ化米を見る', L.alpha
+    ));
+
+    rows.push(rowHTML(
+      'カセットボンベ',
+      r.bombe+' 本',
+      '加熱・調理用（カセットコンロ別途）',
+      'ボンベを買う', L.bombe
+    ));
+
+    rows.push(rowHTML(
+      '簡易トイレ',
+      (r.people * 5 * s.days)+' 回分',
+      '1人1日5回めやす（断水時の必需品）',
+      '簡易トイレを買う', L.toilet
+    ));
+
+    if(s.hasPet){
+      rows.push(rowHTML(
+        'ペット用の水・フード',
+        fmt(r.petWaterL)+' L',
+        '環境省推奨：最低7日分。フードも同日数を別途',
+        'ペット非常食を見る', L.petfood
+      ));
+    }
+
+    if(s.seikatsu){
+      rows.push(rowHTML(
+        '生活用水（トイレ・手洗い）',
+        fmt(r.seikatsuL)+' L',
+        'お風呂の汲み置き（約180L）で大半をまかなえます',
+        '', ''
+      ));
+    }
+
+    var extra = '';
+    if(s.elderly){
+      extra += '<div class="note" style="margin-top:10px"><strong>高齢者の方へ。</strong>かたい乾パンより、おかゆ・やわらかいレトルトが安心です。常備薬は最低1週間分を切らさないように。</div>';
+    }
+
+    el.innerHTML =
+      '<table class="qty"><thead><tr><th>品目</th><th>必要量</th></tr></thead><tbody>'+
+      rows.join('')+'</tbody></table>'+extra;
+  }
+
+  function rowHTML(name, amt, sub, buyLabel, buyHref){
+    // buyHref が空文字（未設定）のときはボタンを表示しない
+    var buy = (buyLabel && buyHref && buyHref.length>0) ? '<a class="buy" href="'+buyHref+'" rel="nofollow sponsored" target="_blank">'+buyLabel+' →</a>' : '';
+    return '<tr><td>'+name+'</td><td class="amt">'+amt+'<span class="sub">'+sub+'</span>'+buy+'</td></tr>';
+  }
+
+  // ---- イベント ----
+  // ステッパー
+  document.querySelectorAll('.stepper').forEach(function(st){
+    var key = st.getAttribute('data-key');
+    var input = st.querySelector('input');
+    st.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var d = parseInt(b.getAttribute('data-d'),10);
+        var v = Math.max(0, Math.min(20, (parseInt(input.value,10)||0)+d));
+        input.value = v; state[key]=v; render();
+      });
+    });
+    input.addEventListener('input', function(){
+      var v = Math.max(0, Math.min(20, parseInt(input.value,10)||0));
+      state[key]=v; render();
+    });
+  });
+
+  // 日数セグメント
+  var daysGroup = document.getElementById('days');
+  daysGroup.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      daysGroup.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      state.days = parseInt(b.getAttribute('data-days'),10);
+      render();
+    });
+  });
+
+  // チェックボックス
+  document.getElementById('elderly').addEventListener('change', function(e){ state.elderly=e.target.checked; render(); });
+  document.getElementById('seikatsu').addEventListener('change', function(e){ state.seikatsu=e.target.checked; render(); });
+  var petRow = document.getElementById('petRow');
+  document.getElementById('hasPet').addEventListener('change', function(e){
+    state.hasPet=e.target.checked;
+    petRow.style.display = e.target.checked ? 'flex' : 'none';
+    render();
+  });
+
+  render();
+})();
+</script>
+</main>
+<footer class="site-footer">
+  <div>
+    <p>楽天で買う前に、価格・レビュー・季節性で候補を絞る</p>
+    <p>商品情報は更新時点の公開データをもとに整理しています。</p>
+  </div>
+  <nav class="footer-links" aria-label="サイト情報">
+    <a href="/disclosure.html">広告掲載について</a>
+    <a href="/privacy.html">プライバシー</a>
+  </nav>
+</footer>
+</body>
+</html>

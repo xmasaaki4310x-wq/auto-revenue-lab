@@ -19,6 +19,7 @@ await rm(outDir, { recursive: true, force: true });
 await mkdir(outDir, { recursive: true });
 await copyFile(path.join(root, "src", "styles.css"), path.join(outDir, "styles.css"));
 await cp(path.join(root, "src", "assets"), path.join(outDir, "assets"), { recursive: true });
+await cp(path.join(root, "bichiku"), path.join(outDir, "bichiku"), { recursive: true });
 
 const keysPresent = hasRakutenKeys(config) && !offline;
 const topicResults = {};
@@ -1408,6 +1409,14 @@ async function writeTopicPage(topic, items, source) {
             .join("")}
         </ul>
       </section>`;
+  const bichikuCta = ["drink-stock", "rice-pantry", "emergency-stock", "daily-essentials"].includes(topic.slug)
+    ? `
+      <div class="bichiku-cta" style="margin:24px 0;padding:16px 18px;border:1px solid #ddd6c7;border-radius:12px;background:#fbf9f4">
+        <p style="margin:0 0 8px;font-weight:700">わが家に必要な量は？</p>
+        <p style="margin:0 0 10px;font-size:.92rem;color:#6b665c">家族の人数を入れるだけで、必要な備蓄量と買い物リストが出ます。</p>
+        <a href="/bichiku/" style="color:#3f6b53;font-weight:700;text-decoration:none">→ 備蓄量をかんたん計算する</a>
+      </div>`
+    : "";
 
   const html = layout({
     title: `${topic.title} - ${config.siteName}`,
@@ -1449,6 +1458,7 @@ async function writeTopicPage(topic, items, source) {
       </section>
       ${comparison}
       ${categoryDescriptionSection}
+      ${bichikuCta}
       <section class="content-with-rail">
         <div id="products" class="product-grid">
           ${cards || "<p>掲載候補がまだありません。</p>"}
@@ -1711,6 +1721,7 @@ async function writeSitemap() {
     "privacy.html",
     "selection-policy.html",
     "seasonal-calendar.html",
+    "bichiku/",
     ...config.topics.map((topic) => `${topic.slug}.html`)
   ];
   const urls = pages.map((page) => {
