@@ -1844,6 +1844,22 @@ function layout({ title, description, body, path = "index.html", structuredData 
       const toKatakana = (value) => value.replace(/[ぁ-ん]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));
       const compact = (value) => value.replace(/[\\s\\-_/・,，.。()（）［］【】\\[\\]]+/g, "");
       const normalize = (value) => compact(toKatakana(String(value || "").normalize("NFKC").toLowerCase()));
+      const buildRakutenSearchUrl = (value) => "https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(String(value || "").trim()) + "/";
+      const buildAffiliateSearchUrl = (value) => {
+        const targetUrl = buildRakutenSearchUrl(value);
+        const templateLink = Array.from(document.querySelectorAll('a[href^="https://hb.afl.rakuten.co.jp/"]'))
+          .map((link) => link.href)
+          .find(Boolean);
+        if (!templateLink) return targetUrl;
+        try {
+          const affiliateUrl = new URL(templateLink);
+          affiliateUrl.searchParams.set("pc", targetUrl);
+          affiliateUrl.searchParams.set("m", targetUrl);
+          return affiliateUrl.toString();
+        } catch {
+          return targetUrl;
+        }
+      };
       const expandTerms = (query) => {
         const rawTerms = String(input.value || "").normalize("NFKC").toLowerCase().split(/[\\s　]+/).map(normalize).filter(Boolean);
         const terms = new Set(rawTerms);
@@ -1870,7 +1886,8 @@ function layout({ title, description, body, path = "index.html", structuredData 
           status.textContent = "商品・カテゴリを検索";
           return;
         }
-        status.innerHTML = visible + "件表示 / 見つからない場合は <a href=\\"https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(input.value.trim()) + "/\\" rel=\\"sponsored nofollow noopener\\" target=\\"_blank\\">楽天で検索</a>";
+        const searchUrl = buildAffiliateSearchUrl(input.value);
+        status.innerHTML = visible + "件表示 / 見つからない場合は <a href=\\"" + searchUrl.replace(/"/g, "%22") + "\\" rel=\\"sponsored nofollow noopener\\" target=\\"_blank\\">楽天で検索</a>";
       };
       input.addEventListener("input", applySearch);
       clearButton.addEventListener("click", () => {
