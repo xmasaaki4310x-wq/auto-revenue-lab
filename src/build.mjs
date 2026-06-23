@@ -565,6 +565,23 @@ function getUpcomingSeasonalEvents(date, limit = 6) {
     .slice(0, limit);
 }
 
+function getSeasonalEventVisual(event) {
+  const text = `${event.title} ${event.description} ${(event.keywords || []).join(" ")}`;
+  if (/お中元|夏ギフト|アイス/.test(text)) return "assets/event-summer-gift.svg";
+  if (/父の日/.test(text)) return "assets/event-fathers-day.svg";
+  if (/防災|備蓄|非常食|新学期/.test(text)) return "assets/event-disaster.svg";
+  if (/海の日|夏休み|炭酸水|冷感/.test(text)) return "assets/event-ocean-summer.svg";
+  if (/土用の丑の日|うなぎ|スタミナ/.test(text)) return "assets/event-eel.svg";
+  if (/お盆|帰省|手土産/.test(text)) return "assets/event-obon.svg";
+  if (/入学|新生活|卒業|送別|成人|受験/.test(text)) return "assets/event-school.svg";
+  if (/母の日|ひな祭り|ホワイトデー|花|こどもの日/.test(text)) return "assets/event-spring.svg";
+  if (/梅雨|花粉|除湿|カビ|加湿|体調/.test(text)) return "assets/event-rainy.svg";
+  if (/敬老の日|秋分|衣替え|七五三|文化の日|ハロウィン|行楽|スポーツ/.test(text)) return "assets/event-autumn.svg";
+  if (/ブラックフライデー|初売り|福袋|セール/.test(text)) return "assets/event-sale.svg";
+  if (/クリスマス|お歳暮|大掃除|冬支度|年末ギフト/.test(text)) return "assets/event-winter.svg";
+  return "assets/season-cycle.svg";
+}
+
 function getEventsByMonth() {
   return Array.from({ length: 12 }, (_, index) => {
     const month = index + 1;
@@ -942,17 +959,8 @@ async function writeHomePage(topicResults, dataMode) {
       </a>`;
   }).join("");
 
-  const seasonVisuals = [
-    "assets/season-hero.svg",
-    "assets/kitchen-storage.svg",
-    "assets/summer-cooling.svg",
-    "assets/emergency-stock.svg",
-    "assets/seasonal-gifts.svg",
-    "assets/bath-sleep.svg",
-    "assets/cleaning-laundry.svg"
-  ];
-  const seasonalFeatureCards = getUpcomingSeasonalEvents(now, 6).map((entry, index) => {
-    const visual = seasonVisuals[index % seasonVisuals.length];
+  const seasonalFeatureCards = getUpcomingSeasonalEvents(now, 6).map((entry) => {
+    const visual = getSeasonalEventVisual(entry);
     const keywords = entry.keywords.slice(0, 4).map((keyword) => `
       <a href="https://search.rakuten.co.jp/search/mall/${encodeURIComponent(keyword)}/" rel="sponsored nofollow noopener" target="_blank" data-affiliate-click="${escapeAttribute(keyword)}" data-click-area="seasonal-card">${escapeHtml(keyword)}</a>
     `).join("");
@@ -1045,7 +1053,7 @@ async function writeHomePage(topicResults, dataMode) {
       </section>
       <section class="season-lane" aria-label="季節の買い物メモ">
         <div class="season-main">
-          <img src="assets/season-hero.svg" alt="" loading="lazy">
+          <img src="assets/season-cycle.svg" alt="" loading="lazy">
           <p class="eyebrow">SEASONAL NOTE</p>
           <h2>今から見たい季節イベント</h2>
           <p>祝日、学校行事、ギフト、天候、セール時期に合わせて、早めに見ておきたい買い物候補をまとめます。</p>
@@ -1574,6 +1582,7 @@ async function writeStaticPages() {
       <div class="event-list">
         ${events.map((event) => `
           <section class="event-card">
+            <img class="event-card-visual" src="${escapeAttribute(getSeasonalEventVisual(event))}" alt="" loading="lazy">
             <small>${escapeHtml(event.dateLabel)}</small>
             <h3>${escapeHtml(event.title)}</h3>
             <p>${escapeHtml(event.description)}</p>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Seasonal shopping calendar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef6f3"/>
+      <stop offset="52%" stop-color="#fff7ea"/>
+      <stop offset="100%" stop-color="#f9fbf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <circle cx="220" cy="166" r="96" fill="#f2cdbd" opacity=".72"/>
+  <circle cx="965" cy="168" r="104" fill="#d7eadf" opacity=".9"/>
+  <circle cx="236" cy="560" r="128" fill="#d9ece6" opacity=".92"/>
+  <circle cx="955" cy="548" r="116" fill="#f1e2b7" opacity=".76"/>
+  <path d="M0 536C156 482 294 498 430 544C568 590 690 622 834 590C978 558 1072 494 1200 474V720H0Z" fill="#f0d5c5" opacity=".72"/>
+  <path d="M0 610C170 548 318 558 464 604C610 650 736 686 902 646C1046 612 1124 570 1200 556V720H0Z" fill="#cfe8df" opacity=".86"/>
+  <g transform="translate(352 138)">
+    <rect x="0" y="22" width="496" height="342" rx="28" fill="#fffdf8" stroke="#d8ded6" stroke-width="3"/>
+    <line x1="0" y1="112" x2="496" y2="112" stroke="#d8ded6" stroke-width="3"/>
+    <line x1="124" y1="112" x2="124" y2="364" stroke="#e3e1d7" stroke-width="3"/>
+    <line x1="248" y1="112" x2="248" y2="364" stroke="#e3e1d7" stroke-width="3"/>
+    <line x1="372" y1="112" x2="372" y2="364" stroke="#e3e1d7" stroke-width="3"/>
+    <rect x="34" y="150" width="58" height="58" rx="18" fill="#f2cdbd"/>
+    <circle cx="186" cy="180" r="34" fill="#d7eadf"/>
+    <path d="M292 212c26-48 84-48 110 0h-110Z" fill="#1a6d65" opacity=".82"/>
+    <rect x="54" y="246" width="116" height="20" rx="10" fill="#1a6d65" opacity=".86"/>
+    <rect x="54" y="282" width="168" height="16" rx="8" fill="#9fcfc5"/>
+    <rect x="282" y="254" width="84" height="84" rx="18" fill="#f3e5b6"/>
+    <path d="M380 288l24-42 24 42Z" fill="#ca5e39" opacity=".78"/>
+  </g>
+</svg>

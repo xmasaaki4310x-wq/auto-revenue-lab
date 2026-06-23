@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Obon homecoming">
+  <rect width="960" height="540" fill="#f7f8f0"/>
+  <circle cx="760" cy="118" r="78" fill="#d7eadf"/>
+  <circle cx="180" cy="442" r="100" fill="#f1dccf"/>
+  <path d="M0 414C140 372 278 382 410 428C542 476 660 514 804 486C880 470 920 432 960 416V540H0Z" fill="#d7ece6"/>
+  <g transform="translate(160 98)">
+    <rect x="0" y="176" width="220" height="142" rx="18" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <path d="M34 176h152l-76-68Z" fill="#1a6d65" opacity=".86"/>
+    <rect x="82" y="232" width="56" height="86" rx="10" fill="#e9c8b5"/>
+    <rect x="296" y="86" width="160" height="232" rx="20" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="326" y="126" width="100" height="16" rx="8" fill="#ca5e39"/>
+    <rect x="326" y="166" width="86" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="326" y="194" width="106" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="512" y="172" width="122" height="146" rx="18" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <path d="M532 224h82M532 254h64" stroke="#1a6d65" stroke-width="14" stroke-linecap="round"/>
+  </g>
+</svg>

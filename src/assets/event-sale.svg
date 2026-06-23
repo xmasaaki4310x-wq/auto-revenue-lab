@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Sale and stock-up">
+  <rect width="960" height="540" fill="#f6faf8"/>
+  <circle cx="770" cy="120" r="78" fill="#f1d69a"/>
+  <path d="M0 418C142 370 280 384 410 430C542 476 660 516 798 488C874 472 920 436 960 420V540H0Z" fill="#d7ece6"/>
+  <g transform="translate(160 108)">
+    <rect x="0" y="120" width="210" height="196" rx="22" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="36" y="158" width="138" height="24" rx="12" fill="#ca5e39"/>
+    <rect x="36" y="210" width="104" height="16" rx="8" fill="#9fcfc5"/>
+    <rect x="36" y="246" width="126" height="16" rx="8" fill="#9fcfc5"/>
+    <path d="M312 82h220l-26 234H338Z" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <path d="M362 142l112 112M474 142L362 254" stroke="#ca5e39" stroke-width="28" stroke-linecap="round"/>
+    <circle cx="362" cy="142" r="34" fill="#f1d69a"/>
+    <circle cx="474" cy="254" r="34" fill="#d7eadf"/>
+  </g>
+</svg>

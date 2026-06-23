@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Father's day gifts">
+  <rect width="960" height="540" fill="#f4f8f5"/>
+  <circle cx="766" cy="116" r="82" fill="#bddfd6"/>
+  <circle cx="170" cy="444" r="104" fill="#f1dccf"/>
+  <path d="M0 408C126 372 248 388 364 430C486 474 612 522 754 492C850 472 902 430 960 412V540H0Z" fill="#d7ece6"/>
+  <g transform="translate(178 104)">
+    <rect x="0" y="156" width="210" height="168" rx="18" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="84" y="156" width="42" height="168" fill="#ca5e39"/>
+    <rect x="0" y="222" width="210" height="38" fill="#ca5e39"/>
+    <circle cx="94" cy="222" r="42" fill="#f2cdbd"/>
+    <circle cx="122" cy="222" r="42" fill="#e9bfae"/>
+    <rect x="284" y="42" width="108" height="282" rx="54" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="316" y="78" width="44" height="150" rx="22" fill="#7b4636"/>
+    <ellipse cx="338" cy="262" rx="36" ry="24" fill="#ead5c6"/>
+    <rect x="446" y="120" width="200" height="204" rx="20" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="474" y="154" width="140" height="18" rx="9" fill="#1a6d65"/>
+    <rect x="474" y="194" width="112" height="14" rx="7" fill="#9fcfc5"/>
+    <rect x="474" y="224" width="132" height="14" rx="7" fill="#9fcfc5"/>
+  </g>
+</svg>

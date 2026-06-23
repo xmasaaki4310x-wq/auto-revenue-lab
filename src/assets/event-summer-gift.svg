@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Summer gift">
+  <rect width="960" height="540" fill="#fff6e8"/>
+  <circle cx="782" cy="128" r="78" fill="#f1d69a"/>
+  <circle cx="166" cy="430" r="96" fill="#d7eadf"/>
+  <path d="M0 414C148 356 284 384 414 430C546 478 662 506 790 476C866 458 914 424 960 406V540H0Z" fill="#f0d5c5"/>
+  <g transform="translate(164 98)">
+    <rect x="0" y="150" width="216" height="176" rx="20" fill="#fffdf8" stroke="#ddd8cf" stroke-width="3"/>
+    <rect x="88" y="150" width="40" height="176" fill="#1a6d65"/>
+    <rect x="0" y="224" width="216" height="38" fill="#1a6d65"/>
+    <path d="M282 90h210l-28 236H310Z" fill="#ffffff" stroke="#ddd8cf" stroke-width="3"/>
+    <path d="M300 134h174" stroke="#ca5e39" stroke-width="20" stroke-linecap="round"/>
+    <path d="M318 178h138" stroke="#f1d69a" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="596" cy="230" r="70" fill="#d7eadf" stroke="#9fcfc5" stroke-width="3"/>
+    <path d="M548 244c34-54 84-54 118 0" fill="none" stroke="#1a6d65" stroke-width="20" stroke-linecap="round"/>
+  </g>
+</svg>

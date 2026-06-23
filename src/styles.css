@@ -2121,12 +2121,23 @@ main {
 }
 
 .event-card {
+  display: grid;
+  gap: 8px;
   padding: 14px;
   border: 1px solid rgba(15, 73, 68, 0.10);
   border-radius: 8px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 243, 0.92)),
     #ffffff;
+}
+
+.event-card-visual {
+  width: 100%;
+  height: 132px;
+  object-fit: cover;
+  border: 1px solid rgba(15, 73, 68, 0.12);
+  border-radius: 8px;
+  background: var(--mint);
 }
 
 .event-card small {
@@ -2649,7 +2660,8 @@ a {
 .ranking-feature img,
 .intent-card img,
 .guide-card img,
-.topic-heading-visual {
+.topic-heading-visual,
+.event-card-visual {
   border-radius: 8px;
 }
 

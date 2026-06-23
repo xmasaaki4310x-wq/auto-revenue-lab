@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Winter gifts and cleaning">
+  <rect width="960" height="540" fill="#f4f8f5"/>
+  <circle cx="760" cy="118" r="80" fill="#d7eadf"/>
+  <circle cx="176" cy="438" r="104" fill="#f1dccf"/>
+  <path d="M0 416C146 370 278 386 408 430C536 474 664 520 808 488C884 470 926 436 960 420V540H0Z" fill="#d7ece6"/>
+  <g transform="translate(160 96)">
+    <rect x="0" y="150" width="190" height="178" rx="20" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="78" y="150" width="34" height="178" fill="#ca5e39"/>
+    <rect x="0" y="218" width="190" height="34" fill="#ca5e39"/>
+    <path d="M280 96h186l-24 232H306Z" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <path d="M318 146h110M318 190h86M318 234h112" stroke="#1a6d65" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="560" cy="250" r="62" fill="#f1d69a"/>
+    <path d="M526 250h68M560 216v68" stroke="#fffdf8" stroke-width="20" stroke-linecap="round"/>
+  </g>
+</svg>

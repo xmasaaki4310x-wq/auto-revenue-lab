@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Autumn event">
+  <rect width="960" height="540" fill="#fbf3e6"/>
+  <circle cx="772" cy="126" r="82" fill="#f1d69a"/>
+  <path d="M0 410C152 366 290 386 420 432C548 476 664 516 802 488C878 472 920 438 960 420V540H0Z" fill="#f0d5c5"/>
+  <g transform="translate(172 100)">
+    <path d="M92 84c72 52 72 148 0 200C20 232 20 136 92 84Z" fill="#ca5e39" opacity=".82"/>
+    <path d="M246 112c66 44 66 132 0 176C180 244 180 156 246 112Z" fill="#f1d69a"/>
+    <rect x="384" y="108" width="182" height="230" rx="24" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="420" y="150" width="112" height="18" rx="9" fill="#1a6d65"/>
+    <rect x="420" y="192" width="90" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="420" y="220" width="116" height="12" rx="6" fill="#e9c8b5"/>
+  </g>
+</svg>

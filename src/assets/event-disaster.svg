@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Disaster stock">
+  <rect width="960" height="540" fill="#eef6f3"/>
+  <circle cx="776" cy="124" r="78" fill="#f1d69a"/>
+  <path d="M0 426C138 378 270 388 400 430C528 474 652 520 786 492C864 476 912 434 960 416V540H0Z" fill="#cfe8df"/>
+  <g transform="translate(168 96)">
+    <rect x="0" y="120" width="176" height="226" rx="22" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="34" y="160" width="108" height="18" rx="9" fill="#1a6d65"/>
+    <rect x="34" y="202" width="82" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="34" y="232" width="104" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="238" y="76" width="126" height="270" rx="32" fill="#ffffff" stroke="#d8ddd5" stroke-width="3"/>
+    <rect x="262" y="112" width="78" height="18" rx="9" fill="#ca5e39"/>
+    <rect x="238" y="318" width="126" height="20" rx="10" fill="#9fcfc5"/>
+    <rect x="430" y="172" width="188" height="174" rx="24" fill="#fffdf8" stroke="#d8ddd5" stroke-width="3"/>
+    <path d="M486 244h76M524 206v76" stroke="#ca5e39" stroke-width="22" stroke-linecap="round"/>
+  </g>
+</svg>

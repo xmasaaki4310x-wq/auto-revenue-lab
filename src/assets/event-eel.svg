@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Eel day">
+  <rect width="960" height="540" fill="#fbf3e6"/>
+  <circle cx="776" cy="120" r="76" fill="#f0d5a0"/>
+  <path d="M0 420C142 374 278 382 404 426C528 468 656 516 790 490C868 474 918 434 960 418V540H0Z" fill="#f1dccf"/>
+  <g transform="translate(166 112)">
+    <rect x="0" y="134" width="260" height="184" rx="26" fill="#fffdf8" stroke="#ddd8cf" stroke-width="3"/>
+    <ellipse cx="130" cy="132" rx="116" ry="44" fill="#ffffff" stroke="#ddd8cf" stroke-width="3"/>
+    <path d="M52 128c48-42 116-42 158 0" fill="none" stroke="#7b4636" stroke-width="34" stroke-linecap="round"/>
+    <path d="M56 152c50 30 104 30 154 0" fill="none" stroke="#ca5e39" stroke-width="14" stroke-linecap="round" opacity=".72"/>
+    <rect x="326" y="66" width="220" height="252" rx="22" fill="#fffdf8" stroke="#ddd8cf" stroke-width="3"/>
+    <rect x="364" y="104" width="146" height="18" rx="9" fill="#1a6d65"/>
+    <rect x="364" y="150" width="118" height="14" rx="7" fill="#9fcfc5"/>
+    <rect x="364" y="184" width="136" height="14" rx="7" fill="#9fcfc5"/>
+    <circle cx="536" cy="272" r="42" fill="#f0d5a0"/>
+  </g>
+</svg>

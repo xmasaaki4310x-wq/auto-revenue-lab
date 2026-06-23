@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Summer vacation and ocean day">
+  <rect width="960" height="540" fill="#edf8f6"/>
+  <circle cx="756" cy="112" r="78" fill="#f3e4aa"/>
+  <path d="M0 342C158 286 276 300 404 344C540 392 668 418 814 382C890 364 928 338 960 324V540H0Z" fill="#c7e3db"/>
+  <path d="M0 430C160 376 292 396 426 434C566 474 698 500 842 464C906 448 936 430 960 416V540H0Z" fill="#9fcfc5"/>
+  <g transform="translate(182 104)">
+    <rect x="0" y="152" width="112" height="198" rx="24" fill="#ffffff" stroke="#d7ddd6" stroke-width="3"/>
+    <rect x="18" y="188" width="76" height="18" rx="9" fill="#1a6d65"/>
+    <rect x="18" y="222" width="64" height="12" rx="6" fill="#9fcfc5"/>
+    <rect x="160" y="124" width="120" height="226" rx="28" fill="#fffdf8" stroke="#d7ddd6" stroke-width="3"/>
+    <rect x="182" y="158" width="76" height="16" rx="8" fill="#ca5e39"/>
+    <path d="M358 258c42-62 126-62 168 0" fill="none" stroke="#1a6d65" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="442" cy="204" r="68" fill="#fffdf8" stroke="#d7ddd6" stroke-width="3"/>
+    <path d="M408 218h70" stroke="#f1d69a" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>
