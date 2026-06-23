@@ -40,6 +40,8 @@ for (const topic of config.topics) {
     .map((raw) => normalizeItem(raw, topic, source))
     .filter((item) => item.name)
     .map((item) => source === "sample" ? { ...item, url: "", directUrl: "" } : item)
+    .filter((item) => isAllowedTopicItem(topic, item))
+    .filter(createNormalizedItemDeduper(topic))
     .map((item) => ({ ...item, score: scoreItem(item) }))
     .sort((a, b) => b.score - a.score);
 
@@ -107,7 +109,7 @@ async function checkRakutenAccess(siteConfig) {
 }
 
 async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
-  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 4);
+  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 5);
   let lastReason = "no-results";
   const collected = [];
   const usedKeywords = [];
@@ -118,14 +120,14 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
   for (const keyword of keywords) {
     for (const relaxed of [false, true]) {
       try {
-        const items = await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 30 });
+        const items = filterRawItemsForTopic(topic, await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 30 }));
         if (items.length) {
           collected.push(...items);
           addKeyword(keyword);
-          if (dedupeRawItems(collected).length >= siteConfig.maxItemsPerTopic) {
+          if (dedupeRawItems(collected, topic).length >= siteConfig.maxItemsPerTopic) {
             return {
               source: "live",
-              items: dedupeRawItems(collected),
+              items: dedupeRawItems(collected, topic),
               keyword: usedKeywords.join(" / "),
               reason: relaxed ? "merged-relaxed-query" : "merged-primary-query"
             };
@@ -140,7 +142,7 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
         lastReason = error.message;
         console.warn(`Rakuten fetch failed for ${keyword}: ${error.message}`);
         if (error.message.includes("HTTP 403") || error.message.includes("HTTP 429")) {
-          const merged = dedupeRawItems(collected);
+          const merged = dedupeRawItems(collected, topic);
           if (merged.length) {
             return {
               source: "live",
@@ -155,7 +157,7 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
     }
   }
 
-  const merged = dedupeRawItems(collected);
+  const merged = dedupeRawItems(collected, topic);
   if (merged.length) {
     return {
       source: "live",
@@ -173,13 +175,30 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
   };
 }
 
-function dedupeRawItems(items) {
+function filterRawItemsForTopic(topic, items) {
+  const excludes = (topic.excludeKeywords || []).map((keyword) => normalizeForMatching(keyword)).filter(Boolean);
+  if (!excludes.length) return items;
+  return items.filter((item) => {
+    const text = normalizeForMatching([
+      item.itemName,
+      item.itemCaption,
+      item.shopName
+    ].filter(Boolean).join(" "));
+    return !excludes.some((keyword) => text.includes(keyword));
+  });
+}
+
+function dedupeRawItems(items, topic = {}) {
   const seen = new Set();
+  const seenSimilar = new Set();
   const result = [];
   for (const item of items) {
     const key = String(item.itemCode || item.itemUrl || item.affiliateUrl || item.itemName || "").trim();
     if (!key || seen.has(key)) continue;
+    const similarKey = createSimilarItemKey(item.itemName, item.shopName, topic.slug);
+    if (similarKey && seenSimilar.has(similarKey)) continue;
     seen.add(key);
+    if (similarKey) seenSimilar.add(similarKey);
     result.push(item);
   }
   return result;
@@ -284,9 +303,10 @@ function normalizeItem(raw, topic, source) {
   const reviewCount = Number(raw.reviewCount || 0);
   const affiliateRate = Number(raw.affiliateRate || 0);
   const price = Number(raw.itemPrice || 0);
+  const name = cleanDisplayText(String(raw.itemName || ""));
 
   return {
-    name: String(raw.itemName || "").trim(),
+    name,
     price,
     url: String(raw.affiliateUrl || raw.itemUrl || "").trim(),
     directUrl: String(raw.itemUrl || "").trim(),
@@ -294,9 +314,10 @@ function normalizeItem(raw, topic, source) {
     reviewAverage,
     reviewCount,
     affiliateRate,
-    caption: stripHtml(String(raw.itemCaption || "")),
+    caption: cleanCaption(raw.itemCaption || ""),
+    shopName: cleanDisplayText(String(raw.shopName || "")),
     reason: makeReason({ reviewAverage, reviewCount, price }),
-    fallbackUrl: buildRakutenSearchUrl(raw.itemName || topic.keyword),
+    fallbackUrl: buildRakutenSearchUrl(name || topic.keyword),
     source
   };
 }
@@ -378,6 +399,60 @@ function isPreferredItem(item) {
 function hasAnyReview(item) {
   if (item.source === "sample") return true;
   return item.price > 0 && item.reviewAverage > 0 && item.reviewCount > 0;
+}
+
+function isAllowedTopicItem(topic, item) {
+  const excludes = (topic.excludeKeywords || []).map((keyword) => normalizeForMatching(keyword)).filter(Boolean);
+  if (!excludes.length) return true;
+  const text = normalizeForMatching([item.name, item.caption, item.shopName].filter(Boolean).join(" "));
+  return !excludes.some((keyword) => text.includes(keyword));
+}
+
+function createNormalizedItemDeduper(topic) {
+  const seenNames = new Set();
+  const seenSimilar = new Set();
+  return (item) => {
+    const nameKey = normalizeForMatching(item.name);
+    if (!nameKey || seenNames.has(nameKey)) return false;
+    const similarKey = createSimilarItemKey(item.name, item.shopName, topic.slug);
+    if (similarKey && seenSimilar.has(similarKey)) return false;
+    seenNames.add(nameKey);
+    if (similarKey) seenSimilar.add(similarKey);
+    return true;
+  };
+}
+
+function cleanDisplayText(value) {
+  return stripHtml(String(value || "").normalize("NFKC"))
+    .replace(/[【\[\(（]?\s*(受付番号|ログインID|閲覧ID|管理番号|商品番号|申込番号)\s*[:：]\s*[A-Za-z0-9_-]+\s*[】\]\)）]?/gi, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function cleanCaption(value) {
+  return cleanDisplayText(value)
+    .replace(/(受付番号|ログインID|閲覧ID|管理番号|商品番号|申込番号)\s*[:：]\s*[A-Za-z0-9_-]+/gi, " ")
+    .replace(/(カタログ管理用|カタログ掲載用)[^。.\n\r]*/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function normalizeForMatching(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[・･\-_/【】［］\[\]（）()「」『』,，、。.!！?？:：]/g, "");
+}
+
+function createSimilarItemKey(name, shopName = "", slug = "") {
+  const normalizedName = normalizeForMatching(cleanDisplayText(name))
+    .replace(/送料無料|送料込み|ポイント\d+倍|ポイント最大\d+倍|クーポン|SALE|セール|よりどり|選べる|訳あり|ランキング|楽天|市場/g, "")
+    .replace(/[0-9０-９]+(個|本|枚|袋|箱|セット|kg|g|ml|l|L|人前|食|切|尾|粒|回|泊|cm|mm)/gi, "");
+  if (!normalizedName) return "";
+  const normalizedShop = normalizeForMatching(shopName).slice(0, 24);
+  const prefixLength = slug === "otoriyose-gourmet" ? 26 : 30;
+  return `${normalizedShop}|${normalizedName.slice(0, prefixLength)}`;
 }
 
 function makeReason(item) {

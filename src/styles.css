@@ -133,18 +133,31 @@ main {
 
 .site-search div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(160px, 1fr) max-content;
   gap: 8px;
+  align-items: center;
+  min-width: 0;
 }
 
 .site-search input {
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 42px;
   padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: 7px;
   color: var(--ink);
   font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.site-search input::-webkit-search-cancel-button,
+.site-search input::-webkit-search-decoration {
+  display: none;
+  -webkit-appearance: none;
 }
 
 .site-search input:focus {
@@ -161,6 +174,7 @@ main {
   color: var(--teal-dark);
   font: inherit;
   font-weight: 850;
+  white-space: nowrap;
   cursor: pointer;
 }
 
