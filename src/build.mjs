@@ -600,6 +600,10 @@ function buildComparisonTable(items) {
 
 function buildTopicJsonLd(topic, items) {
   const page = `${topic.slug}.html`;
+  const products = items
+    .slice(0, 12)
+    .map((item, index) => buildProductJsonLd(topic, item, page, index))
+    .filter(Boolean);
   return [
     {
       "@context": "https://schema.org",
@@ -642,7 +646,50 @@ function buildTopicJsonLd(topic, items) {
         }
       }))
     }
-  ];
+  ].concat(products);
+}
+
+function buildProductJsonLd(topic, item, page, index) {
+  if (!item?.name) return null;
+  const product = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${pageUrl(page)}#product-${index + 1}`,
+    "name": item.name,
+    "url": item.url || item.directUrl || item.fallbackUrl,
+    "category": topic.title
+  };
+
+  if (item.caption) {
+    product.description = truncate(item.caption, 220);
+  }
+
+  if (isHttpUrl(item.imageUrl)) {
+    product.image = [item.imageUrl];
+  }
+
+  if (item.price > 0) {
+    product.offers = {
+      "@type": "Offer",
+      "url": item.url || item.directUrl || item.fallbackUrl,
+      "priceCurrency": "JPY",
+      "price": String(item.price)
+    };
+  }
+
+  if (item.reviewAverage > 0 && item.reviewCount > 0) {
+    product.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": Number(item.reviewAverage.toFixed(1)),
+      "reviewCount": item.reviewCount
+    };
+  }
+
+  return product;
+}
+
+function isHttpUrl(value) {
+  return /^https?:\/\//i.test(String(value || ""));
 }
 
 async function writeHomePage(topicResults, dataMode) {
