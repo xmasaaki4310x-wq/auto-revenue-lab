@@ -1524,14 +1524,15 @@ function utilityBlock() {
 function analyticsScript() {
   const measurementId = String(config.analytics?.measurementId || "").trim();
   if (!measurementId) return "";
-  const measurementLiteral = escapeJsonForHtml(JSON.stringify(measurementId));
+  const measurementLiteral = escapeJsSingleQuotedString(measurementId);
   const gtagSrc = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-  return `<script async src="${escapeAttribute(gtagSrc)}"></script>
+  return `<!-- Google tag (gtag.js) -->
+  <script async src="${escapeAttribute(gtagSrc)}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", ${measurementLiteral});
+    gtag('js', new Date());
+    gtag('config', '${measurementLiteral}');
   </script>`;
 }
 
@@ -1571,8 +1572,8 @@ function layout({ title, description, body, path = "index.html", structuredData 
   <meta property="og:url" content="${escapeAttribute(canonicalUrl)}">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles.css">
-  ${analytics}
   ${jsonLd}
+  ${analytics}
 </head>
 <body>
   <header class="site-header">
@@ -1746,6 +1747,15 @@ function escapeJsonForHtml(value) {
     .replaceAll("<", "\\u003c")
     .replaceAll(">", "\\u003e")
     .replaceAll("&", "\\u0026");
+}
+
+function escapeJsSingleQuotedString(value) {
+  return String(value)
+    .replaceAll("\\", "\\\\")
+    .replaceAll("'", "\\'")
+    .replaceAll("\r", "\\r")
+    .replaceAll("\n", "\\n")
+    .replaceAll("<", "\\x3c");
 }
 
 function escapeAttribute(value) {
