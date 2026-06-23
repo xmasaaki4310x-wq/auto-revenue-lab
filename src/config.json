@@ -5,7 +5,7 @@
   "language": "ja",
   "baseUrl": "https://kurashi-dougu-note.com",
   "currency": "JPY",
-  "maxItemsPerTopic": 12,
+  "maxItemsPerTopic": 15,
   "rakuten": {
     "applicationIdEnv": "RAKUTEN_APPLICATION_ID",
     "accessKeyEnv": "RAKUTEN_ACCESS_KEY",
@@ -28,16 +28,16 @@
     },
     {
       "slug": "rice-pantry",
-      "keyword": "米 10kg 保存食 レトルト 常温保存",
-      "fallbackKeywords": ["米 10kg", "パックごはん 24食", "保存食 セット"],
+      "keyword": "常温保存 食品 レトルト 缶詰",
+      "fallbackKeywords": ["米 10kg", "パックごはん 常温保存", "レトルト食品 詰め合わせ", "缶詰 セット", "乾麺 そうめん うどん", "インスタント食品 詰め合わせ"],
       "title": "米・保存食・常温ストック",
       "angle": "買い置きしやすい主食や保存食を、容量とレビューの多さで比較します。",
       "accent": "stock"
     },
     {
       "slug": "seasonal-gifts",
-      "keyword": "お中元 夏ギフト うなぎ アイス コーヒー",
-      "fallbackKeywords": ["お中元 うなぎ", "夏ギフト アイス", "コーヒーギフト"],
+      "keyword": "季節 ギフト お中元 お歳暮 贈り物",
+      "fallbackKeywords": ["父の日 ギフト", "母の日 ギフト", "敬老の日 ギフト", "お中元 うなぎ アイス", "コーヒーギフト", "スイーツ ギフト"],
       "title": "季節ギフトと手土産候補",
       "angle": "父の日、お中元、敬老の日など、時期に合わせた贈り物候補を整理します。",
       "accent": "season"
@@ -124,8 +124,8 @@
     },
     {
       "slug": "otoriyose-gourmet",
-      "keyword": "冷凍 魚介 切り身 産直",
-      "fallbackKeywords": ["鮭 切り身 冷凍", "ホタテ 冷凍", "干物 セット", "海鮮丼 具材"],
+      "keyword": "海鮮 セット 冷凍 魚介",
+      "fallbackKeywords": ["鮭 切り身 冷凍", "ホタテ 冷凍", "カニ 冷凍", "うなぎ 蒲焼き", "干物 セット", "海鮮丼 具材"],
       "excludeKeywords": ["カタログギフト", "カタログ ギフト", "おいしさのつぼ", "カタログ管理", "ログインID", "受付番号"],
       "title": "産直・お取り寄せグルメ",
       "angle": "海鮮、肉、果物、惣菜など、家庭用にも贈り物にも使いやすいお取り寄せ候補を整理します。",

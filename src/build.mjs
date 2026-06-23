@@ -57,18 +57,24 @@ for (const topic of config.topics) {
     reason: fetchResult.reason
   };
 
+  if (rakutenAuth.ok) {
+    await wait(600);
+  }
+}
+
+removeCrossCategoryDuplicates(topicResults, config.topics);
+
+for (const topic of config.topics) {
+  const result = topicResults[topic.slug] || { items: [], source: "sample", keyword: null, reason: "missing-result" };
   diagnostics.push({
     slug: topic.slug,
-    source,
-    keyword: fetchResult.keyword,
-    reason: fetchResult.reason,
-    count: normalizedItems.length
+    source: result.source,
+    keyword: result.keyword,
+    reason: result.reason,
+    count: result.items.length
   });
 
-  await writeTopicPage(topic, normalizedItems, source);
-  if (rakutenAuth.ok) {
-    await wait(2200);
-  }
+  await writeTopicPage(topic, result.items, result.source);
 }
 
 const dataMode = liveTopicCount === 0 ? "sample" : liveTopicCount === config.topics.length ? "live" : "mixed";
@@ -109,35 +115,29 @@ async function checkRakutenAccess(siteConfig) {
 }
 
 async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
-  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])].slice(0, 5);
+  const keywords = [topic.keyword, ...(topic.fallbackKeywords || [])]
+    .map((keyword) => String(keyword || "").trim())
+    .filter(Boolean)
+    .slice(0, 7);
   let lastReason = "no-results";
   const collected = [];
   const usedKeywords = [];
   const addKeyword = (keyword) => {
     if (!usedKeywords.includes(keyword)) usedKeywords.push(keyword);
   };
+  const targetCount = Math.min(Math.max(siteConfig.maxItemsPerTopic || 12, 10), 15);
 
-  for (const keyword of keywords) {
-    for (const relaxed of [false, true]) {
+  const runSearchPass = async (relaxed) => {
+    for (const keyword of keywords) {
       try {
-        const items = filterRawItemsForTopic(topic, await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 30 }));
+        const items = filterRawItemsForTopic(topic, await fetchRakutenItems(keyword, siteConfig, relaxed, { accessKeyMode, hits: 24 }));
         if (items.length) {
           collected.push(...items);
           addKeyword(keyword);
-          if (dedupeRawItems(collected, topic).length >= siteConfig.maxItemsPerTopic) {
-            return {
-              source: "live",
-              items: dedupeRawItems(collected, topic),
-              keyword: usedKeywords.join(" / "),
-              reason: relaxed ? "merged-relaxed-query" : "merged-primary-query"
-            };
-          }
           lastReason = relaxed ? "merged-relaxed-partial" : "merged-primary-partial";
-          await wait(350);
-          continue;
+          if (relaxed && dedupeRawItems(collected, topic).length >= targetCount) return "enough";
         }
         lastReason = relaxed ? "relaxed-empty" : "primary-empty";
-        await wait(250);
       } catch (error) {
         lastReason = error.message;
         console.warn(`Rakuten fetch failed for ${keyword}: ${error.message}`);
@@ -154,7 +154,17 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
           return { source: "sample", items: [], keyword: null, reason: error.message };
         }
       }
+      await wait(relaxed ? 350 : 250);
     }
+    return null;
+  };
+
+  const strictResult = await runSearchPass(false);
+  if (strictResult?.source) return strictResult;
+
+  if (dedupeRawItems(collected, topic).length < targetCount) {
+    const relaxedResult = await runSearchPass(true);
+    if (relaxedResult?.source) return relaxedResult;
   }
 
   const merged = dedupeRawItems(collected, topic);
@@ -163,7 +173,7 @@ async function fetchTopicItems(topic, siteConfig, accessKeyMode) {
       source: "live",
       items: merged,
       keyword: usedKeywords.join(" / "),
-      reason: lastReason
+      reason: usedKeywords.length > 1 ? "merged-multi-keyword" : lastReason
     };
   }
 
@@ -202,6 +212,77 @@ function dedupeRawItems(items, topic = {}) {
     result.push(item);
   }
   return result;
+}
+
+function removeCrossCategoryDuplicates(topicResults, topics) {
+  const groups = new Map();
+
+  for (const topic of topics) {
+    const result = topicResults[topic.slug];
+    if (!result?.items?.length) continue;
+    result.items.forEach((item, index) => {
+      const key = createGlobalItemKey(item);
+      if (!key) return;
+      const candidates = groups.get(key) || [];
+      candidates.push({
+        topic,
+        item,
+        index,
+        fit: scoreTopicFit(topic, item)
+      });
+      groups.set(key, candidates);
+    });
+  }
+
+  const allowed = new Map(topics.map((topic) => [topic.slug, new Set()]));
+  for (const candidates of groups.values()) {
+    const winner = candidates
+      .sort((a, b) => b.fit - a.fit || b.item.score - a.item.score || a.index - b.index)[0];
+    allowed.get(winner.topic.slug)?.add(winner.item);
+  }
+
+  for (const topic of topics) {
+    const result = topicResults[topic.slug];
+    if (!result?.items?.length) continue;
+    const keep = allowed.get(topic.slug);
+    result.items = result.items
+      .filter((item) => keep?.has(item))
+      .slice(0, config.maxItemsPerTopic);
+    result.reason = result.reason ? `${result.reason}; cross-category-deduped` : "cross-category-deduped";
+  }
+}
+
+function createGlobalItemKey(item) {
+  const stableUrl = String(item.directUrl || item.url || "").replace(/\?.*$/, "");
+  if (stableUrl) return `url:${stableUrl}`;
+  const normalizedName = normalizeForMatching(cleanDisplayText(item.name))
+    .replace(/送料無料|送料込み|ポイント\d+倍|ポイント最大\d+倍|クーポン|SALE|セール|よりどり|選べる|訳あり|ランキング|楽天|市場/g, "")
+    .replace(/[0-9０-９]+(個|本|枚|袋|箱|セット|kg|g|ml|l|L|人前|食|切|尾|粒|回|泊|cm|mm)/gi, "");
+  return normalizedName ? `name:${normalizedName.slice(0, 34)}` : "";
+}
+
+function scoreTopicFit(topic, item) {
+  const itemText = normalizeForMatching([item.name, item.caption].filter(Boolean).join(" "));
+  const tokens = [
+    topic.title,
+    topic.keyword,
+    ...(topic.fallbackKeywords || [])
+  ]
+    .flatMap((value) => String(value || "").split(/[\s　・,、]+/))
+    .map(normalizeForMatching)
+    .filter((token) => token.length >= 2);
+
+  let score = 0;
+  for (const token of new Set(tokens)) {
+    if (itemText.includes(token)) score += token.length >= 4 ? 3 : 1.5;
+  }
+
+  if (topic.slug === "cleaning-laundry" && /(洗濯|洗剤|掃除|カビ|除湿|アタック|漂白)/.test(item.name)) score += 5;
+  if (topic.slug === "daily-essentials" && /(トイレット|ティッシュ|紙|日用品|消耗品)/.test(item.name)) score += 4;
+  if (topic.slug === "rice-pantry" && /(米|ごはん|レトルト|缶詰|乾麺|常温|保存食|インスタント)/.test(item.name)) score += 4;
+  if (topic.slug === "otoriyose-gourmet" && /(鮭|ホタテ|蟹|カニ|うなぎ|干物|海鮮|魚介|切り身|冷凍)/.test(item.name)) score += 5;
+
+  return score;
 }
 
 async function fetchRakutenItems(keyword, siteConfig, relaxed = false, options = {}) {
