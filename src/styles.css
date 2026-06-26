@@ -216,6 +216,32 @@ main {
   margin: 0;
 }
 
+.bichiku-home-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin: 0 0 30px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(63, 107, 83, 0.1), rgba(255, 255, 255, 0.92)),
+    #fbf9f4;
+}
+
+.bichiku-home-cta h2 {
+  margin: 4px 0 8px;
+  font-size: clamp(24px, 3.5vw, 34px);
+  line-height: 1.22;
+}
+
+.bichiku-home-cta p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+}
+
 .is-hidden {
   display: none !important;
 }
@@ -2266,6 +2292,15 @@ main {
   .home-utility {
     grid-template-columns: 1fr;
     margin-bottom: 24px;
+  }
+
+  .bichiku-home-cta {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .bichiku-home-cta .primary-action {
+    width: 100%;
   }
 
   .hero-info-row {

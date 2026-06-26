@@ -1043,6 +1043,14 @@ async function writeHomePage(topicResults, dataMode) {
       <div class="home-utility">
         ${utilityBlock()}
       </div>
+      <section class="bichiku-home-cta" aria-label="備蓄量計算ツール">
+        <div>
+          <p class="eyebrow">STOCK CALCULATOR</p>
+          <h2>家族の備蓄量をかんたん計算</h2>
+          <p>人数と日数を入れるだけで、水・食品・カセットボンベ・簡易トイレの目安を確認できます。防災用品を買う前のメモとして使えます。</p>
+        </div>
+        <a class="primary-action" href="/bichiku/">備蓄量を計算する</a>
+      </section>
       <section id="today-pickup" class="section-heading">
         <div>
           <p class="eyebrow">TODAY'S PICKUP</p>
