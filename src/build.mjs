@@ -13,6 +13,15 @@ const samples = JSON.parse(await readFile(path.join(root, "src", "sample-product
 const now = new Date();
 const season = getSeason(now);
 const diagnostics = [];
+const articles = [
+  {
+    slug: "baby-bousai-bichiku",
+    file: "baby-bousai-bichiku.md",
+    category: "防災・育児",
+    datePublished: "2026-06-29",
+    fallbackDescription: "1歳の子どもがいる家庭の防災備蓄を、実際に揃えた経験からまとめました。"
+  }
+];
 let lastRakutenRequestAt = 0;
 
 await rm(outDir, { recursive: true, force: true });
@@ -84,6 +93,7 @@ await writeHomePage(topicResults, dataMode);
 await writeRankingPage(topicResults, dataMode);
 await writeIntentPage(topicResults, dataMode);
 await writeGuidesPage(topicResults, dataMode);
+await writeArticlePages();
 await writeStaticPages();
 await writeJsonFeed(topicResults, dataMode);
 await writeBuildReport(dataMode);
@@ -1357,6 +1367,255 @@ async function writeGuidesPage(topicResults, dataMode) {
   await writeFile(path.join(outDir, "guides.html"), html);
 }
 
+async function writeArticlePages() {
+  const articleDir = path.join(outDir, "articles");
+  await mkdir(articleDir, { recursive: true });
+
+  const loadedArticles = [];
+  for (const entry of articles) {
+    const article = await loadArticle(entry);
+    loadedArticles.push(article);
+    const html = layout({
+      title: `${article.title} - ${config.siteName}`,
+      description: article.description,
+      path: `articles/${article.slug}.html`,
+      structuredData: [buildArticleJsonLd(article)],
+      body: `
+        <nav class="breadcrumb"><a href="../index.html">トップ</a> / <a href="index.html">記事</a> / ${escapeHtml(article.title)}</nav>
+        <article class="article-page" data-search="${escapeAttribute(buildSearchText(article.title, article.description, article.rawText))}">
+          <header class="article-hero">
+            <p class="eyebrow">${escapeHtml(article.category)}</p>
+            <h1>${escapeHtml(article.title)}</h1>
+            <p>${escapeHtml(article.description)}</p>
+            <div class="article-meta">
+              <span>公開日 ${escapeHtml(article.datePublished.replaceAll("-", "/"))}</span>
+              <span>内部リンクで比較ページへ移動できます</span>
+            </div>
+          </header>
+          <div class="article-layout">
+            <div class="article-body">
+              ${article.html}
+            </div>
+            <aside class="article-rail">
+              <strong>あわせて使う</strong>
+              <a href="/bichiku/" rel="noopener">備蓄量を計算する</a>
+              <a href="/emergency-stock.html" rel="noopener">防災・備蓄用品を見る</a>
+              <a href="/baby-care.html" rel="noopener">ベビー用品を見る</a>
+            </aside>
+          </div>
+        </article>`
+    });
+    await writeFile(path.join(articleDir, `${article.slug}.html`), html);
+  }
+
+  const listItems = loadedArticles.map((article) => `
+    <article class="article-list-card" data-search="${escapeAttribute(buildSearchText(article.title, article.description, article.category))}">
+      <span>${escapeHtml(article.category)}</span>
+      <h2><a href="${escapeAttribute(`${article.slug}.html`)}">${escapeHtml(article.title)}</a></h2>
+      <p>${escapeHtml(article.description)}</p>
+      <small>公開日 ${escapeHtml(article.datePublished.replaceAll("-", "/"))}</small>
+    </article>
+  `).join("");
+
+  await writeFile(path.join(articleDir, "index.html"), layout({
+    title: `記事 - ${config.siteName}`,
+    description: "くらし道具ノートの記事一覧。買う前の考え方、備え方、選び方を読み物として整理します。",
+    path: "articles/",
+    body: `
+      <section class="page-heading">
+        <p class="eyebrow">ARTICLES</p>
+        <h1>記事</h1>
+        <p>買う前に知っておきたい備え方や選び方を、商品比較ページとは別に読み物としてまとめます。</p>
+      </section>
+      <section class="article-list">
+        ${listItems}
+      </section>`
+  }));
+}
+
+async function loadArticle(entry) {
+  const rawText = await readFile(path.join(root, "src", "articles", entry.file), "utf8");
+  const lines = rawText.split(/\r?\n/);
+  const title = lines.find((line) => line.startsWith("# "))?.replace(/^#\s+/, "").trim() || entry.slug;
+  const description = extractArticleDescription(lines) || entry.fallbackDescription;
+  const bodyLines = stripArticleMeta(lines);
+  return {
+    ...entry,
+    title,
+    description,
+    rawText,
+    html: renderArticleMarkdown(bodyLines)
+  };
+}
+
+function extractArticleDescription(lines) {
+  const index = lines.findIndex((line) => line.includes("メタディスクリプション案"));
+  if (index === -1) return "";
+  for (let i = index + 1; i < Math.min(lines.length, index + 5); i += 1) {
+    const line = lines[i].replace(/^>\s?/, "").trim();
+    if (line) return line;
+  }
+  return "";
+}
+
+function stripArticleMeta(lines) {
+  const result = [];
+  let skippingMeta = false;
+  for (const line of lines) {
+    if (line.startsWith("# ")) continue;
+    if (line.includes("メタディスクリプション案")) {
+      skippingMeta = true;
+      continue;
+    }
+    if (skippingMeta && line.startsWith(">")) continue;
+    if (skippingMeta && line.trim() === "") {
+      skippingMeta = false;
+      continue;
+    }
+    result.push(line);
+  }
+  return result;
+}
+
+function renderArticleMarkdown(lines) {
+  const html = [];
+  let paragraph = [];
+  let table = [];
+  let quote = [];
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    html.push(`<p>${formatArticleInline(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  };
+  const flushTable = () => {
+    if (!table.length) return;
+    const rows = table
+      .map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim()))
+      .filter((cells) => !cells.every((cell) => /^-+$/.test(cell.replace(/\s/g, ""))));
+    if (rows.length) {
+      const [head, ...body] = rows;
+      html.push(`
+        <div class="article-table-wrap">
+          <table>
+            <thead><tr>${head.map((cell) => `<th>${formatArticleInline(cell)}</th>`).join("")}</tr></thead>
+            <tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${formatArticleInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+          </table>
+        </div>`);
+    }
+    table = [];
+  };
+  const flushQuote = () => {
+    if (!quote.length) return;
+    const text = quote.map((line) => line.replace(/^>\s?/, "").trim()).join(" ");
+    const linkBlock = renderArticleInternalLinks(text);
+    html.push(linkBlock || `<blockquote>${formatArticleInline(text)}</blockquote>`);
+    quote = [];
+  };
+  const flushAll = () => {
+    flushParagraph();
+    flushTable();
+    flushQuote();
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed === "---") {
+      flushAll();
+      continue;
+    }
+    if (trimmed.startsWith(">")) {
+      flushParagraph();
+      flushTable();
+      quote.push(trimmed);
+      continue;
+    }
+    if (trimmed.startsWith("|")) {
+      flushParagraph();
+      flushQuote();
+      table.push(trimmed);
+      continue;
+    }
+    if (trimmed.startsWith("## ")) {
+      flushAll();
+      html.push(`<h2>${formatArticleInline(trimmed.replace(/^##\s+/, ""))}</h2>`);
+      continue;
+    }
+    paragraph.push(trimmed);
+  }
+  flushAll();
+  return html.join("\n");
+}
+
+function renderArticleInternalLinks(text) {
+  if (!text.includes("★")) return "";
+  if (text.includes("各行の品目")) {
+    return articleLinkBox("備蓄リストから比較する", [
+      ["防災・備蓄用品", "/emergency-stock.html"],
+      ["水・炭酸水・お茶", "/drink-stock.html"],
+      ["ベビー用品・育児ストック", "/baby-care.html"],
+      ["米・保存食・常温ストック", "/rice-pantry.html"],
+      ["備蓄量を計算する", "/bichiku/"]
+    ]);
+  }
+  if (text.includes("お菓子") || text.includes("おしりふき")) {
+    return articleLinkBox("役立った物を探す", [
+      ["ベビー用品・育児ストック", "/baby-care.html"],
+      ["防災・備蓄用品", "/emergency-stock.html"],
+      ["米・保存食・常温ストック", "/rice-pantry.html"],
+      ["夏の暑さ対策", "/summer-cooling.html"]
+    ]);
+  }
+  if (text.includes("2つ目")) {
+    return articleLinkBox("必要量を確認する", [
+      ["備蓄量を計算する", "/bichiku/"]
+    ]);
+  }
+  if (text.includes("記事末尾")) {
+    return articleLinkBox("次に見るページ", [
+      ["防災・備蓄用品", "/emergency-stock.html"],
+      ["ベビー用品・育児ストック", "/baby-care.html"],
+      ["備蓄量を計算する", "/bichiku/"]
+    ]);
+  }
+  return "";
+}
+
+function articleLinkBox(title, links) {
+  return `
+    <aside class="article-link-box">
+      <strong>${escapeHtml(title)}</strong>
+      <div>
+        ${links.map(([label, href]) => `<a href="${escapeAttribute(href)}" rel="noopener">${escapeHtml(label)}</a>`).join("")}
+      </div>
+    </aside>`;
+}
+
+function formatArticleInline(value) {
+  return escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function buildArticleJsonLd(article) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": article.title,
+    "description": article.description,
+    "datePublished": article.datePublished,
+    "dateModified": article.datePublished,
+    "author": {
+      "@type": "Organization",
+      "name": config.operator.name
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": config.siteName,
+      "url": pageUrl("index.html")
+    },
+    "mainEntityOfPage": pageUrl(`articles/${article.slug}.html`)
+  };
+}
+
 async function writeTopicPage(topic, items, source) {
   const topItem = items[0];
   const railLink = topItem?.url || topItem?.fallbackUrl || "";
@@ -1730,6 +1989,8 @@ async function writeSitemap() {
     "selection-policy.html",
     "seasonal-calendar.html",
     "bichiku/",
+    "articles/",
+    ...articles.map((article) => `articles/${article.slug}.html`),
     ...config.topics.map((topic) => `${topic.slug}.html`)
   ];
   const urls = pages.map((page) => {
@@ -1770,6 +2031,8 @@ function analyticsScript() {
 
 function layout({ title, description, body, path = "index.html", structuredData = [], showUtility = true }) {
   const canonicalUrl = pageUrl(path);
+  const prefix = path.includes("/") ? "../" : "";
+  const localHref = (target) => `${prefix}${target}`;
   const baseStructuredData = [
     {
       "@context": "https://schema.org",
@@ -1803,21 +2066,22 @@ function layout({ title, description, body, path = "index.html", structuredData 
   <meta property="og:description" content="${escapeAttribute(description)}">
   <meta property="og:url" content="${escapeAttribute(canonicalUrl)}">
   <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="${escapeAttribute(localHref("styles.css"))}">
   ${jsonLd}
   ${analytics}
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html">${escapeHtml(config.siteName)}</a>
+    <a class="brand" href="${escapeAttribute(localHref("index.html"))}">${escapeHtml(config.siteName)}</a>
     <nav>
-      <a href="ranking.html">ランキング</a>
-      <a href="shopping-intents.html">目的別</a>
-      <a href="guides.html">選び方</a>
-      <a href="index.html">買い物テーマ</a>
-      <a href="selection-policy.html">比較方針</a>
-      <a href="seasonal-calendar.html">季節</a>
-      <a href="privacy.html">プライバシー</a>
+      <a href="${escapeAttribute(localHref("ranking.html"))}">ランキング</a>
+      <a href="${escapeAttribute(localHref("shopping-intents.html"))}">目的別</a>
+      <a href="${escapeAttribute(localHref("guides.html"))}">選び方</a>
+      <a href="${escapeAttribute(localHref("index.html"))}">買い物テーマ</a>
+      <a href="${escapeAttribute(localHref("articles/index.html"))}">記事</a>
+      <a href="${escapeAttribute(localHref("selection-policy.html"))}">比較方針</a>
+      <a href="${escapeAttribute(localHref("seasonal-calendar.html"))}">季節</a>
+      <a href="${escapeAttribute(localHref("privacy.html"))}">プライバシー</a>
     </nav>
   </header>
   <main>
@@ -1830,8 +2094,8 @@ function layout({ title, description, body, path = "index.html", structuredData 
       <p>商品情報は更新時点の公開データをもとに整理しています。</p>
     </div>
     <nav class="footer-links" aria-label="サイト情報">
-      <a href="disclosure.html">広告掲載について</a>
-      <a href="privacy.html">プライバシー</a>
+      <a href="${escapeAttribute(localHref("disclosure.html"))}">広告掲載について</a>
+      <a href="${escapeAttribute(localHref("privacy.html"))}">プライバシー</a>
     </nav>
   </footer>
   <script>
